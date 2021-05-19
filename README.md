@@ -1,24 +1,22 @@
-# README
+# Square snippet demo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+```
+bin/setup
+```
 
-Things you may want to cover:
+## TODO
 
-* Ruby version
+- [ ] Square OAuth
+- [ ] Square API site list
+- [ ] Square add/update/fetch/delete snippet to site
+- [ ] demo float on top and expand widget
+- [ ] widget as injectable code
+- [ ] track unsubscribe
+- [ ] size of various frameworks
+  - svelte
+  - preact
+  - react
+  - miligram
+  - tailwind
+  - bootstrap
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...

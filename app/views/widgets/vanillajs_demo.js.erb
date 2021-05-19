@@ -1,0 +1,23 @@
+// probably use a proper JS compression lib here
+// TODO: this does not get executed in the innerHTML below
+var WidgetContent = (function(my){
+  my.init = () => {
+    console.log("init")
+  }
+  my.toggle = () => {
+    const widgetContnetWrapper = document.querySelector(".widget-content-wrapper");
+    widgetContnetWrapper["hidden"] = !widgetContnetWrapper["hidden"];
+  } 
+  return(my)
+})(WidgetContent || {});
+
+document.onload = WidgetContent.init();
+
+document
+  .getElementById("demo")
+  .innerHTML = `<%=
+    File
+      .read(
+          File.join(File.dirname(__FILE__), 'vanillajs_demo.html.erb')
+      ).html_safe
+  %>`;

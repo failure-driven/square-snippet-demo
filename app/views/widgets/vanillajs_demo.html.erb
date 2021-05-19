@@ -1,0 +1,52 @@
+<style>
+.widget-content-wrapper {
+  background-color: pink;
+  position: relative;
+  width: 60vw;
+  height: 60vh;
+  left: -60vw;
+  top: -60vh;
+}
+.widget-content {
+  padding: 20px;
+}
+.widget-start {
+  background-color: green;
+  position: absolute;
+  bottom: 10vh;
+  right: 10vh;
+  width: 50px;
+  height: 50px;
+  border-radius: 25px;
+  color: white;
+  z-index: 10000;
+}
+.widget-start-text {
+  padding: 10px;
+  padding-top: 15px;
+}
+</style>
+<script type="text/javascript" deferred>
+var WidgetContent = (function(my){
+  my.init = () => {
+    console.log("init")
+  }
+  my.toggle = () => {
+    const widgetContnetWrapper = document.querySelector(".widget-content-wrapper");
+    widgetContnetWrapper["hidden"] = !widgetContnetWrapper["hidden"];
+  } 
+  return(my)
+})(WidgetContent || {});
+
+document.onload = WidgetContent.init();
+</script>
+<div class="widget-start">
+  <div class="widget-start-text" onClick="javascipt:WidgetContent.toggle()">
+    start
+  </div>
+  <div class="widget-content-wrapper" hidden>
+    <div class="widget-content">
+      all the content
+    </div>
+  </div>
+</div>
