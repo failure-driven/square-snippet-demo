@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :widgets do
     collection do
       get :vanillajs_demo
+      get :bootstrap_demo
     end
   end
 end
