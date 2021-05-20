@@ -1,25 +1,18 @@
 <script>
-  export let name;
-
-  let count = 0;
-
-  function handleClick() {
-    count += 1;
-  }
-
   import { quintOut } from "svelte/easing";
   import { fade, draw, fly } from "svelte/transition";
   import { expand } from "./demo/custom-transitions.js";
   import { inner, outer } from "./demo/shape.js";
+  import Launcher from "./launcher/Launcher.svelte";
 
   let visible = false;
-  let toggleVisible = () => {
-    visible = !visible;
+  const handleMessage = (event) => {
+    visible = event.detail.visible;
   };
 </script>
 
-<div class="container">
-  {#if visible}
+{#if visible}
+  <div class="container">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103 124">
       <g out:fade={{ duration: 200 }} opacity="0.2">
         <path
@@ -40,17 +33,10 @@
         <span in:fade={{ delay: 1000 + i * 150, duration: 800 }}>{char}</span>
       {/each}
     </div>
+  </div>
+{/if}
 
-    <h1>Hello {name}!</h1>
-
-    <button on:click={handleClick}>
-      Clicked {count}
-      {count === 1 ? "time" : "times"}
-    </button>
-  {/if}
-</div>
-
-<div on:click={toggleVisible}>show</div>
+<Launcher on:message={handleMessage} />
 
 <link
   href="https://fonts.googleapis.com/css?family=Overpass:100,400"
@@ -58,14 +44,21 @@
 />
 
 <style>
-  h1 {
-    color: #ff3e00;
-  }
-
   .container {
-    width: 300px;
-    height: 200px;
-    position: relative;
+    background-color: pink;
+    z-index: 2147483600;
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    height: calc(100% - 120px);
+    width: 376px;
+    min-height: 250px;
+    max-height: 704px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 5px 40px;
+    opacity: 1;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: width 350ms ease 0s, height ease 0s, max-height ease 0s;
   }
   svg {
     width: 100%;
