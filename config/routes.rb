@@ -5,6 +5,7 @@ Rails.application.routes.draw do
     collection do
       get :vanillajs_demo
       get :bootstrap_demo
+      get :react_demo
     end
   end
 end
