@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get :bootstrap_demo
       get :react_demo
       get :svelte_demo
+      get :svelte_widget
     end
   end
 

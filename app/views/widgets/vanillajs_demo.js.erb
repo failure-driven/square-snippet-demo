@@ -13,8 +13,13 @@ var WidgetContent = (function(my){
 
 document.onload = WidgetContent.init();
 
-document
-  .getElementById("demo")
+let element = document.querySelector('[data-widget=demo-widget]');
+if(!element) {
+  element = document.createElement("div");
+  element.setAttribute("data-widget", "demo-widget");
+  document.body.appendChild(element);
+}
+element
   .innerHTML = `<%=
     File
       .read(

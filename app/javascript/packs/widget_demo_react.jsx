@@ -5,11 +5,14 @@ import React from "react";
 import ReactDOM from "react-dom";
 import WidgetDemoReact from "../src/WidgetDemoReact/WidgetDemoReact";
 
-const elements = document.querySelectorAll('[data-widget=demo-widget]');
+let element = document.querySelector('[data-widget=demo-widget]');
+if(!element) {
+  element = document.createElement("div");
+  element.setAttribute("data-widget", "demo-widget");
+  document.body.appendChild(element);
+}
 
-elements.forEach((element) => {
-  ReactDOM.render(
-    <WidgetDemoReact />,
-    element
-  );
-});
+ReactDOM.render(
+  <WidgetDemoReact />,
+  element
+);
