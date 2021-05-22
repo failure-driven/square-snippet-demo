@@ -4,14 +4,16 @@
       <%
         fa_icon = case provider
         when :facebook
-          "fa-#{provider}-official"
+          "fa fa-#{provider}-official"
         when :linkedin
-          "fa-#{provider}-square"
+          "fa fa-#{provider}-square"
+        when :square
+          "fb fb-square"
         else
-          "fa-#{provider}"
+          "fa fa-#{provider}"
         end
       %>
-      <i class="fa <%= fa_icon %>"></i> <%= OmniAuth::Utils.camelize(provider) %>
+      <i class="<%= fa_icon %>"></i> <%= OmniAuth::Utils.camelize(provider) %>
     <% end %>
   <% end %>
 <% end %>

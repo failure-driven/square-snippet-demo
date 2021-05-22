@@ -1,3 +1,10 @@
+$fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
+@import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
+@import "~@fortawesome/fontawesome-free/scss/v4-shims";
+@import "~@fortawesome/fontawesome-free/scss/brands";
+
 @import "~bootstrap/scss/bootstrap";
 
 .divider-text {
@@ -31,4 +38,18 @@
 #error_explanation {
   @extend .invalid-feedback;
   display: block;
+}
+
+.fb {
+  // font-family: "Font Bachmanity";
+  display: inline-block;
+  font-style: normal;
+  &.fb-square:before {
+    content: " ";
+    background-image: url("data:image/svg+xml,%3Csvg width='512' height='512' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Ctitle%3ELayer 1%3C/title%3E%3Crect rx='75' stroke='%23000' id='svg_5' height='422' width='422' y='46' x='46' fill='%23000000'/%3E%3Crect rx='22' stroke='%23000' id='svg_4' height='275' width='275' y='122' x='122' fill='%23ffffff'/%3E%3Crect id='svg_3' height='121' width='121' y='200' x='200' stroke='%23000' fill='%23000000'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 23px 23px;
+    width: 23px !important;
+    height: 23px !important;
+    display: inline-block;
+  }
 }
