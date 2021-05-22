@@ -7,14 +7,16 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application-bootstrap' %>
   </head>
 
   <body>
+    <%= render partial: 'layouts/navbar' %>
     <%= flash_messages %>
     <main class="container-fluid">
-      <%= yield %>
+      <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
+    <%= render partial: 'layouts/footer' %>
   </body>
 </html>

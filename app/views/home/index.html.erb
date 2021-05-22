@@ -1,11 +1,4 @@
-<div class="container">
-  <div class="row">
-    <div class="col">
-      <% if current_user %>
-        <%= link_to 'Sign out', destroy_user_session_path, method: :delete %>
-      <% end %>
-    </div>
-  </div>
+<div class="container mt-3">
   <% @sites.map do |site_id, site| %>
     <ul class="list-group">
       <li class="list-group-item">

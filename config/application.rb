@@ -38,5 +38,10 @@ module SquareSnippetDemo
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
+
+    config.to_prepare do
+      DeviseController.layout "application_devise"
+    end
+
   end
 end

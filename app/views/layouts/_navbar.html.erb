@@ -1,0 +1,23 @@
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light px-3">
+  <a class="navbar-brand" href="/">Swif</a>
+
+  <div class="collapse navbar-collapse" id="navbarContent">
+    <% if signed_in? && current_user %>
+      <ul class="navbar-nav">
+      </ul>
+    <% end %>
+  </div>
+
+  <ul class="navbar-nav ml-auto" style="flex-direction: row;">
+    <% if signed_in? %>
+      <span class="nav-link mr-3">
+        <%= current_user.identities.first.uid %>
+      </span>
+      <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+    <% else %>
+      <li class="nav-link">
+        <%= link_to 'Log in', new_user_session_path, class: "btn" %>
+      </li>
+    <% end %>
+  </ul>
+</nav>

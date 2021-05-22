@@ -7,6 +7,16 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 
 @import "~bootstrap/scss/bootstrap";
 
+body {
+  font-family: "Montserrat", sans-serif;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  .container-fluid {
+    flex: 1;
+  }
+}
+
 .divider-text {
   position: relative;
   text-align: center;
@@ -51,5 +61,115 @@ $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
     width: 23px !important;
     height: 23px !important;
     display: inline-block;
+  }
+}
+
+.devise-form {
+  form {
+    margin-bottom: 1.25em;
+  }
+  .field {
+    @extend .mb-3;
+  }
+  input {
+    &[type="email"],
+    &[type="password"] {
+      @extend .form-control;
+    }
+    &[type="checkbox"] {
+      // @extend .form-check-input;
+    }
+    &[type="submit"] {
+      @extend .btn;
+      @extend .btn-primary;
+    }
+  }
+}
+#error_explanation {
+  @extend .invalid-feedback;
+  display: inherit;
+  @extend .alert;
+  @extend .alert-danger;
+}
+
+@keyframes cf4FadeInOut {
+  0% {
+    opacity: 1;
+  }
+  17% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  92% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.pre-container {
+  .jumbotron {
+    border-radius: 0;
+    height: 580px; /* You must set a specified height */
+    padding: 0; // not really a jumbotron
+    .images {
+      position: relative;
+    }
+    .image {
+      position: absolute;
+      height: 580px; /* You must set a specified height */
+      width: 100%; // 100% + 4 rem to counter padding 4rem 2rem on jumbotron
+      background-position: center; /* Center the image */
+      background-repeat: no-repeat; /* Do not repeat the image */
+      background-size: cover;
+      animation-name: cf4FadeInOut;
+      animation-timing-function: ease-in-out;
+      animation-iteration-count: infinite;
+      animation-duration: 6s;
+    }
+    .image_1 {
+      background-image: url("https://trello-attachments.s3.amazonaws.com/5beb6a95a434e903fe3ce55a/6000b10d8c35784249118b23/3af9cd861b38537e51d0c9f14d8a4057/pexels-kyle-roxas-2122294.jpg");
+    }
+    .image_2 {
+      background-image: url("https://trello-attachments.s3.amazonaws.com/5beb6a95a434e903fe3ce55a/6000b10d8c35784249118b23/6d136f776ec7f3b03205546f32aac058/pexels-carlo-fuentelsaz-3821692.jpg");
+    }
+    .image_3 {
+      background-image: url("https://trello-attachments.s3.amazonaws.com/5beb6a95a434e903fe3ce55a/6000b10d8c35784249118b23/8c2c7c54d3a47b54a5075d7f8a448794/pexels-pixabay-45202.jpg");
+    }
+  }
+}
+
+#cf4a .image:nth-of-type(1) {
+  animation-delay: 4s;
+}
+#cf4a .image:nth-of-type(2) {
+  animation-delay: 2s;
+}
+#cf4a .image:nth-of-type(3) {
+  animation-delay: 0;
+}
+
+#cf4a .image {
+  position: absolute;
+  left: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.display-text {
+  font-size: 20px;
+  line-height: 1.25;
+  &.stronger {
+    font-weight: 700;
+    font-size: 52px;
+  }
+}
+
+.footer {
+  background-color: rgb(250, 251, 252);
+  font-size: 12px;
+  a {
+    @extend .text-secondary;
   }
 }
