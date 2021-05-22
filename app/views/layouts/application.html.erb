@@ -8,9 +8,13 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application-bootstrap' %>
   </head>
 
   <body>
-    <%= yield %>
+    <%= flash_messages %>
+    <main class="container-fluid">
+      <%= yield %>
+    </main>
   </body>
 </html>

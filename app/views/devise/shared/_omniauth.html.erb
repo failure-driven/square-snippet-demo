@@ -1,0 +1,17 @@
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <%= link_to(omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-lg btn-#{provider}", method: :post) do %>
+      <%
+        fa_icon = case provider
+        when :facebook
+          "fa-#{provider}-official"
+        when :linkedin
+          "fa-#{provider}-square"
+        else
+          "fa-#{provider}"
+        end
+      %>
+      <i class="fa <%= fa_icon %>"></i> <%= OmniAuth::Utils.camelize(provider) %>
+    <% end %>
+  <% end %>
+<% end %>

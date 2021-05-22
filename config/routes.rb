@@ -1,5 +1,12 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  devise_for :users,
+             class_name: 'FormUser',
+             controllers: {
+               omniauth_callbacks: 'omniauth_callbacks',
+               registrations: 'registrations'
+             }
 
   resources :widgets do
     collection do
@@ -9,4 +16,6 @@ Rails.application.routes.draw do
       get :svelte_demo
     end
   end
+
+  root to: 'home#index'
 end

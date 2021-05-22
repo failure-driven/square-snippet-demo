@@ -1,1 +1,34 @@
 @import "~bootstrap/scss/bootstrap";
+
+.divider-text {
+  position: relative;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;
+    z-index: 2;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+  }
+}
+
+.btn-square {
+  background-color: #bac0c5;
+  color: #fff;
+}
+
+// devise alert to extend bootstrap colours
+#error_explanation {
+  @extend .invalid-feedback;
+  display: block;
+}
