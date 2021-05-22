@@ -70,11 +70,6 @@
     opacity: 1;
   }
 
-  label {
-    top: 1em;
-    left: 1em;
-  }
-
   .centered {
     font-size: 60px;
     position: absolute;
