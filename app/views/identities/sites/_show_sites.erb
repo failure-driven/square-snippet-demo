@@ -2,79 +2,84 @@
   <% @sites.map do |site_id, site| %>
     <li class="list-group-item">
       <div class="row">
-        <div class="col-2">
+        <div class="col-lg-2 d-none d-lg-block">
           <strong>site title</strong>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4 d-none d-lg-block">
           <strong>domain</strong>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 d-none d-lg-block">
           <strong>live</strong>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 d-none d-lg-block">
           <strong>created at</strong>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2 d-none d-lg-block">
           <strong>updated at</strong>
         </div>
       </div>
       <div class="row">
-        <div class="col-2">
+        <div class="col-lg-2">
+          <strong class="d-lg-none">site title</strong>
           <%= site[:site][:site_title] %>
         </div>
-        <div class="col-4">
+        <div class="col-lg-4">
+          <strong class="d-lg-none">domain</strong>
           <%= link_to site[:site][:domain], "http://#{site[:site][:domain]}" %>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2">
+          <strong class="d-lg-none">live</strong>
           <%= site[:site][:is_published] %>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2">
+          <strong class="d-lg-none">created at</strong>
           <%= site[:site][:created_at] %>
         </div>
-        <div class="col-2">
+        <div class="col-lg-2">
+          <strong class="d-lg-none">updated at</strong>
           <%= site[:site][:updated_at] %>
         </div>
       </div>
       <% if site.key?(:snippet) %>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-2">
           </div>
-          <div class="col-6">
+          <div class="col-lg-6">
             <strong>content</strong>
           </div>
-          <div class="col-2">
+          <div class="col-lg-2">
             <strong>created at</strong>
           </div>
-          <div class="col-2">
+          <div class="col-lg-2">
             <strong>updated at</strong>
           </div>
         </div>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-2">
           </div>
-          <div class="col-6">
+          <div class="col-lg-6">
             <pre><%= site[:snippet][:content] %></pre>
           </div>
-          <div class="col-2">
+          <div class="col-lg-2">
             <%= site[:snippet][:created_at] %>
           </div>
-          <div class="col-2">
+          <div class="col-lg-2">
             <%= site[:snippet][:updated_at] %>
           </div>
         </div>
       <% end %>
       <% if site.key?(:errors) %>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-2">
           </div>
-          <div class="col-10">
+          <div class="col-lg-10">
             <strong>errors</strong>
           </div>
         </div>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-2">
           </div>
-          <div class="col-10">
+          <div class="col-lg-10">
             <pre><%= site[:errors] %></pre>
           </div>
         </div>
