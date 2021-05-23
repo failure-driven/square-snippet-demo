@@ -50,6 +50,9 @@ body {
   @extend .invalid-feedback;
   display: block;
 }
+.messages {
+  height: 60px !important;
+}
 
 .fb {
   // font-family: "Font Bachmanity";

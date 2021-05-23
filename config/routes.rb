@@ -18,10 +18,21 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :identities do
+  resources :identities, only: %i[index show] do
     member do
       get :show_sites
     end
+    scope module: "identities" do
+      resources :sites, only: %i[show] do
+        member do
+          get :show_site
+        end
+      end
+    end
+  end
+
+  authenticated :user do
+    get "/", to: redirect("/identities")
   end
 
   root to: 'home#index'

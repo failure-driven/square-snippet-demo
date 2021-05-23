@@ -1,6 +1,22 @@
 class IdentitiesController < ApplicationController
   before_action :authenticate_user!
 
+  def index
+    @identity = current_user.identities.first
+    if @identity
+      redirect_to identity_path(@identity.uid)
+    else
+      render plain: "404 Not Found", status: 404
+    end
+  end
+
+  def show
+    @identity = current_user.identities.find_by(uid: params[:id])
+    unless @identity
+      render plain: "404 Not Found", status: 404
+    end
+  end
+
   def show_sites
     @identity = current_user.identities.find_by(uid: params[:id])
     if @identity
@@ -14,16 +30,6 @@ class IdentitiesController < ApplicationController
           @sites = result.data.sites.map { |site| [site[:id], { site: site }] }.to_h
         elsif result.error?
           flash[:errors] = result.errors
-        end
-
-        @sites.each do |site_id, _values|
-          snippets_api = client.snippets
-          result = snippets_api.retrieve_snippet(site_id: site_id)
-          if result.success?
-            @sites[site_id][:snippet] = result.data.snippet
-          elsif result.error?
-            @sites[site_id][:errors] = result.errors
-          end
         end
       end
       render partial: "show_sites"

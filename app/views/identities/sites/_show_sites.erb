@@ -1,0 +1,84 @@
+<ul class="list-group">
+  <% @sites.map do |site_id, site| %>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-2">
+          <strong>site title</strong>
+        </div>
+        <div class="col-4">
+          <strong>domain</strong>
+        </div>
+        <div class="col-2">
+          <strong>live</strong>
+        </div>
+        <div class="col-2">
+          <strong>created at</strong>
+        </div>
+        <div class="col-2">
+          <strong>updated at</strong>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-2">
+          <%= site[:site][:site_title] %>
+        </div>
+        <div class="col-4">
+          <%= link_to site[:site][:domain], "http://#{site[:site][:domain]}" %>
+        </div>
+        <div class="col-2">
+          <%= site[:site][:is_published] %>
+        </div>
+        <div class="col-2">
+          <%= site[:site][:created_at] %>
+        </div>
+        <div class="col-2">
+          <%= site[:site][:updated_at] %>
+        </div>
+      </div>
+      <% if site.key?(:snippet) %>
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-6">
+            <strong>content</strong>
+          </div>
+          <div class="col-2">
+            <strong>created at</strong>
+          </div>
+          <div class="col-2">
+            <strong>updated at</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-6">
+            <pre><%= site[:snippet][:content] %></pre>
+          </div>
+          <div class="col-2">
+            <%= site[:snippet][:created_at] %>
+          </div>
+          <div class="col-2">
+            <%= site[:snippet][:updated_at] %>
+          </div>
+        </div>
+      <% end %>
+      <% if site.key?(:errors) %>
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-10">
+            <strong>errors</strong>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-2">
+          </div>
+          <div class="col-10">
+            <pre><%= site[:errors] %></pre>
+          </div>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

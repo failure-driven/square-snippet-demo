@@ -13,7 +13,10 @@
 
   <body>
     <%= render partial: 'layouts/navbar' %>
-    <%= flash_messages %>
+    <div class="messages">
+      <%= flash_messages %>
+      <%= yield :messages %>
+    </div>
     <main class="container-fluid">
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
