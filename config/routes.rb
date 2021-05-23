@@ -18,5 +18,11 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :identities do
+    member do
+      get :show_sites
+    end
+  end
+
   root to: 'home#index'
 end
