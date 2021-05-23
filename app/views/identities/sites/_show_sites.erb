@@ -67,6 +67,27 @@
             <%= site[:snippet][:updated_at] %>
           </div>
         </div>
+        <div class="row">
+          <div class="col-lg-2">
+          </div>
+          <div class="col-lg-10">
+            <%= link_to(
+              "Remove widget",
+              remove_widget_identity_site_path,
+              class: "btn btn-outline-danger",
+              data: {
+                method: :post,
+                confirm: "Are you sure?"
+              }
+            ) %>
+            <%= link_to(
+              "Upsert widget",
+              add_widget_identity_site_path,
+              class: "btn btn-primary",
+              data: { method: :post }
+            ) %>
+          </div>
+        </div>
       <% end %>
       <% if site.key?(:errors) %>
         <div class="row">
@@ -81,6 +102,18 @@
           </div>
           <div class="col-lg-10">
             <pre><%= site[:errors] %></pre>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-2">
+          </div>
+          <div class="col-lg-10">
+            <%= link_to(
+              "Add widget",
+              add_widget_identity_site_path,
+              class: "btn btn-primary",
+              data: { method: :post }
+            ) %>
           </div>
         </div>
       <% end %>

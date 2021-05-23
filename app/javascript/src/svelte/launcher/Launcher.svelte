@@ -8,7 +8,7 @@
   };
 </script>
 
-<div on:click={toggleVisible}><span>show</span></div>
+<div on:click={toggleVisible}><span>SWIF</span></div>
 
 <style>
   div {
