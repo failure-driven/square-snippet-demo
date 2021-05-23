@@ -1,7 +1,11 @@
 <%- if devise_mapping.omniauthable? %>
   <%- resource_class.omniauth_providers.each do |provider| %>
-  <div class="d-grid gap-2">
-    <%= link_to(omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-lg btn-#{provider}", method: :post) do %>
+  <div class="d-flex justify-content-center">
+    <%= link_to(
+        omniauth_authorize_path(resource_name, provider),
+        class: "d-flex btn btn-block btn-lg btn-#{provider}",
+        method: :post
+      ) do %>
       <%
         fa_icon = case provider
         when :facebook
@@ -14,7 +18,8 @@
           "fa fa-#{provider}"
         end
       %>
-      <i class="<%= fa_icon %>"></i> <%= OmniAuth::Utils.camelize(provider) %>
+      <i class="<%= fa_icon %>"></i>
+      <span class="align-self-center"><%= OmniAuth::Utils.camelize(provider) %></span>
     <% end %>
     </div>
   <% end %>

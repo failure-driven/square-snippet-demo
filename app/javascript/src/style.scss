@@ -41,7 +41,8 @@ body {
 
 .btn-square {
   background-color: #bac0c5;
-  color: #fff;
+  color: rgba(0, 0, 0, 1);
+  line-height: 1;
 }
 
 // devise alert to extend bootstrap colours
@@ -54,12 +55,13 @@ body {
   // font-family: "Font Bachmanity";
   display: inline-block;
   font-style: normal;
+  padding-right: 5px;
   &.fb-square:before {
     content: " ";
-    background-image: url("data:image/svg+xml,%3Csvg width='512' height='512' xmlns='http://www.w3.org/2000/svg'%3E%3Cg%3E%3Ctitle%3ELayer 1%3C/title%3E%3Crect rx='75' stroke='%23000' id='svg_5' height='422' width='422' y='46' x='46' fill='%23000000'/%3E%3Crect rx='22' stroke='%23000' id='svg_4' height='275' width='275' y='122' x='122' fill='%23ffffff'/%3E%3Crect id='svg_3' height='121' width='121' y='200' x='200' stroke='%23000' fill='%23000000'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 23px 23px;
-    width: 23px !important;
-    height: 23px !important;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44' role='img'%3E%3Cpath role='presentation' d='M36.65 0h-29.296c-4.061 0-7.354 3.292-7.354 7.354v29.296c0 4.062 3.293 7.354 7.354 7.354h29.296c4.062 0 7.354-3.292 7.354-7.354v-29.296c.001-4.062-3.291-7.354-7.354-7.354zm-.646 33.685c0 1.282-1.039 2.32-2.32 2.32h-23.359c-1.282 0-2.321-1.038-2.321-2.32v-23.36c0-1.282 1.039-2.321 2.321-2.321h23.359c1.281 0 2.32 1.039 2.32 2.321v23.36z'%3E%3C/path%3E%3Cpath role='presentation' d='M17.333 28.003c-.736 0-1.332-.6-1.332-1.339v-9.324c0-.739.596-1.339 1.332-1.339h9.338c.738 0 1.332.6 1.332 1.339v9.324c0 .739-.594 1.339-1.332 1.339h-9.338z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 27px 27px;
+    width: 27px !important;
+    height: 27px !important;
     display: inline-block;
   }
 }
