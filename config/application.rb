@@ -42,6 +42,5 @@ module SquareSnippetDemo
     config.to_prepare do
       DeviseController.layout "application_devise"
     end
-
   end
 end

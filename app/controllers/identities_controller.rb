@@ -12,9 +12,7 @@ class IdentitiesController < ApplicationController
 
   def show
     @identity = current_user.identities.find_by(uid: params[:id])
-    unless @identity
-      render plain: "404 Not Found", status: 404
-    end
+    render plain: "404 Not Found", status: 404 unless @identity
   end
 
   def show_sites

@@ -4,9 +4,7 @@ module Identities
 
     def show
       @identity = current_user.identities.find_by(uid: params[:identity_id])
-      unless @identity
-        render plain: "404 Not Found", status: 404
-      end
+      render plain: "404 Not Found", status: 404 unless @identity
     end
 
     def show_site
@@ -20,8 +18,8 @@ module Identities
 
           if result.success?
             @sites = result.data.sites
-              .filter{|site| site[:id] == params[:id] }
-              .map { |site| [site[:id], { site: site }] }.to_h
+                           .filter { |site| site[:id] == params[:id] }
+                           .map { |site| [site[:id], { site: site }] }.to_h
           elsif result.error?
             flash[:errors] = result.errors
           end
