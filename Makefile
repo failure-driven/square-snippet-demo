@@ -16,3 +16,10 @@ deploy:
 		HOST=stg-swif.herokuapp.com \
 		PORT=80 \
 		bin/makefile/heroku-create
+
+d.PHONY: production_deploy
+production_deploy:
+	RAILS_MASTER_KEY=`cat config/master.key` \
+		HEROKU_APP_NAME=prd-swif \
+		HEROKU_DOMAIN=swif.club \
+		bin/makefile/heroku-create
