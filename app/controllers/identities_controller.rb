@@ -38,7 +38,7 @@ class IdentitiesController < ApplicationController
               site
                 .update!(
                   site_result
-                    .slice(*%i[site_title domain is_publised created_at updated_at])
+                    .slice(*%i[site_title domain is_published created_at updated_at])
                     .map{|key,value| %w[created_at updated_at].include?(key) ? ["site_#{key}", value] : [key, value]}
                     .to_h
                     .merge(

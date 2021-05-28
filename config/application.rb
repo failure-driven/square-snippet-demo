@@ -42,5 +42,8 @@ module SquareSnippetDemo
     config.to_prepare do
       DeviseController.layout "application_devise"
     end
+
+    # to allow custom database types etc.
+    config.active_record.schema_format = :sql
   end
 end
