@@ -47,6 +47,8 @@ class IdentitiesController < ApplicationController
                     )
                 )
             end
+            deleted_sites = @identity.sites.where.not(reference_id: result.data.sites.map{|site_result| site_result[:id]})
+            deleted_sites.update_all(status: 'deleted')
         elsif result.error?
           flash[:errors] = result.errors
         end
