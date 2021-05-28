@@ -11,7 +11,8 @@
     <% end %>
     <% if controller_name.to_sym == :sites %>
       <li class="breadcrumb-item active">
-        <%= params[:id] %>
+        <% @site = { site: @identity.sites.where(reference_id: params[:id]).first } %>
+        <%= @site[:site]&.site_title %>
       </li>
     <% end %>
   </ol>

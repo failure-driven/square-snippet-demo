@@ -2,13 +2,16 @@
   <% @sites.map do |site_id, site| %>
     <%= link_to identity_site_path(@identity.uid, site_id), class: "list-group-item list-group-item-action" do %>
       <div class="row">
-        <div class="col-lg-3">
-          <%= site_id %>
-        </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <%= site[:site][:site_title] %>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-2">
+          <%= site_id %>
+        </div>
+        <div class="col-lg-2">
+          <strong>status:</strong><%= site[:site].status %>
+        </div>
+        <div class="col-lg-4">
           <%= site[:site][:domain] %>
         </div>
       </div>

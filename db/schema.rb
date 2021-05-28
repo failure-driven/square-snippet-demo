@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_22_113009) do
+ActiveRecord::Schema.define(version: 2021_05_28_020947) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
@@ -32,6 +32,9 @@ ActiveRecord::Schema.define(version: 2021_05_22_113009) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_identities_on_user_id"
   end
+
+# Could not dump table "sites" because of following StandardError
+#   Unknown type 'site_status' for column 'status'
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -60,4 +63,5 @@ ActiveRecord::Schema.define(version: 2021_05_22_113009) do
   end
 
   add_foreign_key "identities", "users"
+  add_foreign_key "sites", "identities"
 end
