@@ -1,4 +1,5 @@
 import App from '../src/svelte/app.svelte'
+import '../src/svelte/global.css'
 
 let element = document.querySelector('[data-widget=demo-widget]');
 if(!element) {

@@ -1,6 +1,5 @@
 <script>
   import VisitorCount from "./app/VisitorCount.svelte";
-  import "./global.css"
   import Widget from "./widget/Widget.svelte";
 </script>
 
