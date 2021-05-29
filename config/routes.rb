@@ -29,6 +29,8 @@ Rails.application.routes.draw do
           post :add_widget
           post :remove_widget
           get :widget
+          get :config
+          get :stats
         end
       end
     end

@@ -1,0 +1,26 @@
+<ul class="nav nav-tabs mb-3">
+  <li class="nav-item">
+    <%= link_to(
+        "Status",
+        identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+        aria: { current: :page },
+        class: "nav-link #{action_name.to_sym == :show ? "active" : ""}"
+    ) %>
+  </li>
+  <li class="nav-item">
+    <%= link_to(
+        "Config",
+        config_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+        aria: { current: :page },
+        class: "nav-link #{action_name.to_sym == :config ? "active" : ""}"
+    ) %>
+  </li>
+  <li class="nav-item">
+    <%= link_to(
+        "Stats",
+        stats_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+        aria: { current: :page },
+        class: "nav-link #{action_name.to_sym == :stats ? "active" : ""}"
+    ) %>
+  </li>
+</ul>
