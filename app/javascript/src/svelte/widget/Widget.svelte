@@ -49,9 +49,6 @@
   let height = 400;
   let width = 400;
 
-  let positionAbove = true;
-  let positionToLeft = true;
-
   let main;
   let windowClasses = ["main", "animated-gradient", "top", "left"];
 

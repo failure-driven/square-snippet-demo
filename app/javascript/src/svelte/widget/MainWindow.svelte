@@ -1,11 +1,7 @@
-<svelte:options accessors />
-
 <script>
   import InnerWindow from "./InnerWindow.svelte";
   export let showMain;
   export let windowClasses;
-
-  let windowOrder = windowClasses.includes("bottom") ? "default" : "reverse";
 </script>
 
 <div id="swf-main-window" class={windowClasses.join(" ") + " " + showMain}>

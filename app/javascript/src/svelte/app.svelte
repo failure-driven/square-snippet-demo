@@ -1,4 +1,3 @@
-<link rel='stylesheet'>
 <script>
   import "./global.css"
   import Widget from "./widget/Widget.svelte";

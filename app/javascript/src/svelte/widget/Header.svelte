@@ -1,9 +1,8 @@
 <script>
-  export let showMain;
   export let spacerOrder;
 </script>
 
-<div class="bubble-header {showMain} {spacerOrder}">
+<div class="bubble-header {spacerOrder}">
   <div class="header-wrapper">
     <slot name="header">
     </slot>

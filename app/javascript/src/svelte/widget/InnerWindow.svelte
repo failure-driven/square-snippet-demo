@@ -7,7 +7,7 @@ export let showMain;
 </script>
 
 <div class="inner {showMain} {windowOrder}">
-  <Header {showMain} {spacerOrder}>
+  <Header {spacerOrder}>
     <div slot="header">
       <slot name="header">
       </slot>
