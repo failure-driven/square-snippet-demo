@@ -5,12 +5,15 @@
 </script>
 
 <div id="swf-main-window" class={windowClasses.join(" ") + " " + showMain}>
-  <InnerWindow {showMain}
-  windowOrder={windowClasses.includes("bottom") ? "default" : "reverse"}
-  spacerOrder={windowClasses.includes("left") ? "spacer-default" : "spacer-reverse"}
+  <InnerWindow
+    {showMain}
+    windowOrder={windowClasses.includes("bottom") ? "default" : "reverse"}
+    spacerOrder={windowClasses.includes("left")
+      ? "spacer-default"
+      : "spacer-reverse"}
   >
-    <div slot="header"><slot name="header"></slot></div>
-    <div slot="content"><slot name="content"></slot></div>
+    <slot name="header" slot="header" />
+    <slot name="content" slot="content" />
   </InnerWindow>
 </div>
 

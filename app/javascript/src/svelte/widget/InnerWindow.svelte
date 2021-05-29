@@ -1,23 +1,17 @@
 <script>
-import Header from "./Header.svelte";
-import WindowContent from "./WindowContent.svelte";
-export let windowOrder = "";
-export let spacerOrder = "";
-export let showMain;
+  import Header from "./Header.svelte";
+  import WindowContent from "./WindowContent.svelte";
+  export let windowOrder = "";
+  export let spacerOrder = "";
+  export let showMain;
 </script>
 
 <div class="inner {showMain} {windowOrder}">
   <Header {spacerOrder}>
-    <div slot="header">
-      <slot name="header">
-      </slot>
-    </div>
+    <slot name="header" />
   </Header>
   <WindowContent>
-    <div slot="content">
-      <slot name="content">
-      </slot>
-    </div>
+    <slot name="content" />
   </WindowContent>
 </div>
 

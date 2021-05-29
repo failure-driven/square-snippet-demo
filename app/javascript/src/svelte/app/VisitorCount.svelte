@@ -29,7 +29,17 @@
   }
 </script>
 
-<div>
+<div class="visit-count">
   <h1>This site has been visited {visitCount} times!</h1>
-  <button on:click={addVisit}>Add a visit</button>
+  <button on:click={addVisit} class="btn-primary">Add a visit</button>
 </div>
+
+<style>
+  .visit-count {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+  }
+</style>

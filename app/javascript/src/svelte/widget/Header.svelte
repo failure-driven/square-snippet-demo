@@ -4,10 +4,9 @@
 
 <div class="bubble-header {spacerOrder}">
   <div class="header-wrapper">
-    <slot name="header">
-    </slot>
+    <slot />
   </div>
-  <div class="spacer"></div>
+  <div class="spacer" />
 </div>
 
 <style>
