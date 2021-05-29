@@ -39,4 +39,13 @@ Rails.application.routes.draw do
   end
 
   root to: 'home#index'
+
+  namespace :api, defaults: { format: :json } do
+    namespace :v1 do
+      namespace :sites do
+         get '/:domain', to: 'sites#visit_count'
+         patch '/:domain', to: 'sites#update_visit_count'
+      end
+    end
+  end
 end
