@@ -5,8 +5,9 @@
   let visitCount;
 
   onMount(async () => {
+    const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
     axios
-      .get("https://swif.club/api/v1/sites/visit_count", {
+      .get(`${apiHostUrl}/api/v1/sites/visit_count`, {
         params: {
           domain: window.location.hostname,
         },
@@ -17,8 +18,9 @@
   });
 
   async function addVisit() {
+    const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
     axios
-      .patch("https://swif.club/api/v1/sites/visit_count", {
+      .patch(`${apiHostUrl}/api/v1/sites/visit_count`, {
         domain: window.location.hostname,
       })
       .then((response) => {
