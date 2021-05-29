@@ -43,8 +43,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       namespace :sites do
-         get '/:domain', to: 'sites#visit_count'
-         patch '/:domain', to: 'sites#update_visit_count'
+         get '/visit_count', to: 'sites#visit_count'
+         patch '/visit_count', to: 'sites#update_visit_count'
       end
     end
   end
