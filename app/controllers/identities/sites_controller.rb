@@ -1,7 +1,7 @@
 module Identities
   class SitesController < ApplicationController
     before_action :authenticate_user!, except: %i[widget]
-    before_action :set_identity
+    before_action :set_identity, except: %i[widget]
 
     def show
       @site = { site: @identity.sites.where(reference_id: params[:id]).first }
@@ -29,6 +29,7 @@ module Identities
 
     def add_widget
       if @identity
+        @site = @identity.sites.find_by(reference_id: params[:id])
         client = @identity.user.square_client
         if defined? client
           snippets_api = client.snippets
@@ -40,6 +41,14 @@ module Identities
           # body[:snippet][:id] = 'snippet_'
           body[:snippet][:site_id] = params[:id]
           body[:snippet][:content] = <<~EO_SNIPPET_CONTENT
+          <script>
+            var SwifWidgetConfig = (function(my){
+              my.data = () => {
+                return #{@site.widget_config.to_json}
+              } 
+              return(my)
+            })(SwifWidgetConfig || {})
+          </script>
           <script defer src="#{widget_identity_site_url}"></script>
           EO_SNIPPET_CONTENT
 
@@ -80,6 +89,11 @@ module Identities
         flash.now[:error] = "Not Found"
         render plain: "404 Not Found", status: 404
       end
+    end
+
+    def site_config
+      @site = @identity.sites.find_by(reference_id: params[:id])
+      @config = @site.widget_config
     end
 
     def widget

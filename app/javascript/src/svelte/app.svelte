@@ -2,10 +2,12 @@
   import FacebookSignup from "./app/FacebookSignup.svelte";
   import VisitorCount from "./app/VisitorCount.svelte";
   import Widget from "./widget/Widget.svelte";
+
+  let header = SwifWidgetConfig.data().title;
 </script>
 
 <Widget>
-  <div slot="header">Header</div>
+  <div slot="header">{header}</div>
   <div slot="content">
     <div>
       <VisitorCount />

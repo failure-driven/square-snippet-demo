@@ -96,7 +96,8 @@ CREATE TABLE public.sites (
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
     status public.site_status NOT NULL,
-    visit_count integer DEFAULT 0 NOT NULL
+    visit_count integer DEFAULT 0 NOT NULL,
+    widget_config_overrides jsonb
 );
 
 
@@ -254,6 +255,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210527141935'),
 ('20210528020947'),
 ('20210529021428'),
-('20210529030018');
+('20210529030018'),
+('20210529121413');
 
 

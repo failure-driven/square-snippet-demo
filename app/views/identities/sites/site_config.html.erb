@@ -1,0 +1,18 @@
+<div class="container mt-3">
+  <%= render partial: "identities/breadcrumbs" %>
+  <%= render partial: "site_tabs" %>
+  ability to configure coming soon ...
+  <form>
+    <% @config.map do |key, value| %>
+      <div class="row g-3 align-items-center mb-3">
+        <div class="col-auto">
+          <input type="text" class="form-control" value="<%= key %>" disabled>
+        </div>
+        <div class="col-auto">
+          <input type="text" class="form-control" value="<%= value %>" disabled>
+        </div>
+      </div>
+    <% end %>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</ul>
