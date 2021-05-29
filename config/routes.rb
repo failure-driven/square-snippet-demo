@@ -38,6 +38,9 @@ Rails.application.routes.draw do
     get "/", to: redirect("/identities")
   end
 
+  get "/terms-of-service", to: "home#terms"
+  get "/privacy-policy", to: "home#privacy"
+
   root to: 'home#index'
 
   namespace :api, defaults: { format: :json } do
