@@ -19,7 +19,7 @@
   async function addVisit() {
     axios
       .patch("https://swif.club/api/v1/sites/visit_count", {
-        params: { domain: window.location.hostname },
+        domain: window.location.hostname,
       })
       .then((response) => {
         visitCount = response.data.visit_count;
