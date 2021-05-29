@@ -1,7 +1,7 @@
 <script>
   import Launcher from "./Launcher.svelte";
   import MainWindow from "./MainWindow.svelte";
-	import { onMount } from 'svelte';
+  import { onMount } from "svelte";
 
   let showMain = false;
 
@@ -47,22 +47,26 @@
   }
 
   let height = 400;
-  let width = 400;
+  let width = Math.min(window.innerWidth * 0.82, 400);
 
   let main;
   let windowClasses = ["main", "animated-gradient", "top", "left"];
 
   function alignWindow() {
     windowClasses = ["main", "animated-gradient"];
-    if (main.getBoundingClientRect().left + 24 < width) {
-      windowClasses.push("right");
+    if (window.innerWidth < 425) {
+      windowClasses.push("top", "left");
     } else {
-      windowClasses.push("left");
-    }
-    if (main.getBoundingClientRect().top + 24 < height) {
-      windowClasses.push("bottom");
-    } else {
-      windowClasses.push("top");
+      if (main.getBoundingClientRect().left + 35 < width) {
+        windowClasses.push("right");
+      } else {
+        windowClasses.push("left");
+      }
+      if (main.getBoundingClientRect().top + 24 < height) {
+        windowClasses.push("bottom");
+      } else {
+        windowClasses.push("top");
+      }
     }
   }
 </script>
@@ -72,10 +76,10 @@
   style="left: {right}px; top: {bottom}px;"
   bind:this={main}
 >
-  <Launcher {showMain} on:toggleMain={toggleMain} bind:moving/>
+  <Launcher {showMain} on:toggleMain={toggleMain} bind:moving />
   <MainWindow {showMain} bind:windowClasses>
-    <div slot="header"><slot name="header"></slot></div>
-    <div slot="content"><slot name="content"></slot></div>
+    <div slot="header"><slot name="header" /></div>
+    <div slot="content"><slot name="content" /></div>
   </MainWindow>
 </div>
 <svelte:window on:mouseup={onMouseUp} on:mousemove={onMouseMove} />
