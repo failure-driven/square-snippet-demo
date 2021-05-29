@@ -54,7 +54,7 @@ CREATE TABLE public.ar_internal_metadata (
 --
 
 CREATE TABLE public.identities (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     user_id uuid NOT NULL,
     provider character varying,
     accesstoken character varying,
@@ -85,7 +85,7 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.sites (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     reference_id character varying NOT NULL,
     site_title character varying NOT NULL,
     domain character varying,
@@ -105,7 +105,7 @@ CREATE TABLE public.sites (
 --
 
 CREATE TABLE public.users (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
     reset_password_token character varying,
@@ -124,7 +124,8 @@ CREATE TABLE public.users (
     unlock_token character varying,
     locked_at timestamp without time zone,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    user_actions jsonb
 );
 
 
@@ -252,6 +253,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210522113009'),
 ('20210527141935'),
 ('20210528020947'),
-('20210529021428');
+('20210529021428'),
+('20210529030018');
 
 

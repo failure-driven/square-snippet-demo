@@ -19,4 +19,8 @@ class User < ApplicationRecord
   def square_client
     @square_client ||= Square::Client.new(access_token: square.accesstoken)
   end
+
+  def identity_scope
+    user_actions&.dig("admin", "can_administer") ? Identity : identities
+  end
 end

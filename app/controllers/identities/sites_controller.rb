@@ -3,13 +3,13 @@ module Identities
     before_action :authenticate_user!, except: %i[widget]
 
     def show
-      @identity = current_user.identities.find_by(uid: params[:identity_id])
+      @identity = current_user.identity_scope.find_by(uid: params[:identity_id])
       @site = { site: @identity.sites.where(reference_id: params[:id]).first }
       render plain: "404 Not Found", status: 404 unless @identity
     end
 
     def show_site
-      @identity = current_user.identities.find_by(uid: params[:identity_id])
+      @identity = current_user.identity_scope.find_by(uid: params[:identity_id])
       if @identity
         @site = { site: @identity.sites.where(reference_id: params[:id]).first }
 
@@ -29,7 +29,7 @@ module Identities
     end
 
     def add_widget
-      @identity = current_user.identities.find_by(uid: params[:identity_id])
+      @identity = current_user.identity_scope.find_by(uid: params[:identity_id])
       if @identity
         client = @identity.user.square_client
         if defined? client
@@ -62,7 +62,7 @@ module Identities
     end
 
     def remove_widget
-      @identity = current_user.identities.find_by(uid: params[:identity_id])
+      @identity = current_user.identity_scope.find_by(uid: params[:identity_id])
       if @identity
         client = @identity.user.square_client
         if defined? client

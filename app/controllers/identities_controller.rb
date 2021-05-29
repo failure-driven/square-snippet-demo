@@ -6,12 +6,16 @@ class IdentitiesController < ApplicationController
     if @identity
       redirect_to identity_path(@identity.uid)
     else
-      render plain: "404 Not Found", status: 404
+      if current_user.user_actions&.dig("admin", "can_administer")
+        @identities = Identity.all
+      else
+        render plain: "404 Not Found", status: 404
+      end
     end
   end
 
   def show
-    @identity = current_user.identities.find_by(uid: params[:id])
+    @identity = current_user.identity_scope.find_by(uid: params[:id])
     @sites = @identity
       .sites
       .map{|site| [site.reference_id, {site: site}]}
@@ -20,7 +24,7 @@ class IdentitiesController < ApplicationController
   end
 
   def show_sites
-    @identity = current_user.identities.find_by(uid: params[:id])
+    @identity = current_user.identity_scope.find_by(uid: params[:id])
     if @identity
       client = @identity.user.square_client
       @sites = {}
