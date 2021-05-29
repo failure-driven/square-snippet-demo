@@ -178,3 +178,8 @@ body {
     @extend .text-secondary;
   }
 }
+
+pre.word-wrap {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
