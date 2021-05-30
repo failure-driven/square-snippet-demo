@@ -1,7 +1,7 @@
 module Identities
   class SitesController < ApplicationController
-    before_action :authenticate_user!, except: %i[widget]
-    before_action :set_identity, except: %i[widget]
+    before_action :authenticate_user!, except: %i[widget messenger]
+    before_action :set_identity, except: %i[widget messenger]
 
     def show
       @site = { site: @identity.sites.where(reference_id: params[:id]).first }
@@ -94,6 +94,10 @@ module Identities
     def site_config
       @site = @identity.sites.find_by(reference_id: params[:id])
       @config = @site.widget_config
+    end
+
+    def messenger
+      render :layout => false
     end
 
     def widget

@@ -1,0 +1,10 @@
+<%= content_tag(
+  :div,
+  "",
+  data: {
+    app: "messenger-app",
+    identity: params[:identity_id],
+    site: params[:id],
+  }
+)%>
+<%= javascript_pack_tag "messenger_app" %>

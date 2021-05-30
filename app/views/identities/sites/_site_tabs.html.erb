@@ -23,4 +23,12 @@
         class: "nav-link #{action_name.to_sym == :stats ? "active" : ""}"
     ) %>
   </li>
+  <li class="nav-item">
+    <%= link_to(
+        "Messenger",
+        messenger_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+        aria: { current: :page },
+        class: "nav-link #{action_name.to_sym == :smessenger ? "active" : ""}"
+    ) %>
+  </li>
 </ul>

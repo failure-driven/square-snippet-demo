@@ -31,6 +31,7 @@ Rails.application.routes.draw do
           get :widget
           get :site_config
           get :stats
+          get :messenger
         end
       end
     end
