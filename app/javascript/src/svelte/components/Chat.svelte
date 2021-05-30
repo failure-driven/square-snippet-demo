@@ -49,7 +49,7 @@
 {:else if currentUser}
   <p>Chatroom</p>
   <br />
-  <div style="margin: 0 auto; width: 60%; height: 100%; overflow-y: auto;">
+  <div style="margin: 0 auto; width: 100vw; height: 50vh; overflow-y: auto;">
     <br />
     {#if messages.length > 0}
       {#each messages as m}

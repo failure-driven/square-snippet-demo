@@ -2,6 +2,7 @@ module Identities
   class SitesController < ApplicationController
     before_action :authenticate_user!, except: %i[widget messenger]
     before_action :set_identity, except: %i[widget messenger]
+    after_action :allow_iframe, only: %i[messenger]
 
     def show
       @site = { site: @identity.sites.where(reference_id: params[:id]).first }
@@ -108,6 +109,12 @@ module Identities
 
     def set_identity
       @identity = current_user.identity_scope.find_by(uid: params[:identity_id])
+    end
+
+    def allow_iframe
+      site = Site.find_by(reference_id: params[:id])
+      response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://#{site.domain} https://#{site.domain}"
+      # response.headers.delete "X-Frame-Options" # this would allow everyone
     end
   end
 end
