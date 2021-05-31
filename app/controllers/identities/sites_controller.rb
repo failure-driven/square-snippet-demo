@@ -9,7 +9,7 @@ module Identities
       render plain: "404 Not Found", status: 404 unless @identity
     end
 
-    def show_site
+    def show_site # rubocop:disable Metrics/AbcSize
       if @identity
         @site = { site: @identity.sites.where(reference_id: params[:id]).first }
 
@@ -28,7 +28,7 @@ module Identities
       end
     end
 
-    def add_widget
+    def add_widget # rubocop:disable Metrics/AbcSize.
       if @identity
         @site = @identity.sites.find_by(reference_id: params[:id])
         client = @identity.user.square_client
@@ -42,15 +42,15 @@ module Identities
           # body[:snippet][:id] = 'snippet_'
           body[:snippet][:site_id] = params[:id]
           body[:snippet][:content] = <<~EO_SNIPPET_CONTENT
-          <script>
-            var SwifWidgetConfig = (function(my){
-              my.data = () => {
-                return #{@site.widget_config.to_json}
-              } 
-              return(my)
-            })(SwifWidgetConfig || {})
-          </script>
-          <script defer src="#{widget_identity_site_url}"></script>
+            <script>
+              var SwifWidgetConfig = (function(my){
+                my.data = () => {
+                  return #{@site.widget_config.to_json}
+                }#{' '}
+                return(my)
+              })(SwifWidgetConfig || {})
+            </script>
+            <script defer src="#{widget_identity_site_url}"></script>
           EO_SNIPPET_CONTENT
 
           result = snippets_api.upsert_snippet(site_id: site_id, body: body)
@@ -69,7 +69,7 @@ module Identities
       end
     end
 
-    def remove_widget
+    def remove_widget # rubocop:disable Metrics/AbcSize.
       if @identity
         client = @identity.user.square_client
         if defined? client
@@ -98,11 +98,11 @@ module Identities
     end
 
     def messenger
-      render :layout => false
+      render layout: false
     end
 
     def widget
-      redirect_to Webpacker.manifest.lookup!('widget_demo_svelte.js')
+      redirect_to Webpacker.manifest.lookup!("widget_demo_svelte.js")
     end
 
     private

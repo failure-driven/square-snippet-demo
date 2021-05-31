@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class FormUser < User
   attr_accessor :current_password
 

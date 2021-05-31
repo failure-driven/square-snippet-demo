@@ -1,18 +1,16 @@
-# frozen_string_literal: true
-
 class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def square
-    generic_callback('square')
+    generic_callback("square")
   end
 
-  def generic_callback(provider)
-    @identity = Identity.find_for_oauth request.env['omniauth.auth']
+  def generic_callback(provider) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    @identity = Identity.find_for_oauth request.env["omniauth.auth"]
 
     @user = @identity.user || current_user
     if @user.nil?
       @user = User.new(
         email: @identity.email || @identity.email_placeholder,
-        password: Devise.friendly_token[0, 20]
+        password: Devise.friendly_token[0, 20],
       )
       @user.skip_confirmation!
       @user.save!
@@ -29,7 +27,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       sign_in_and_redirect @user, event: :authentication
       set_flash_message(:notice, :success, kind: provider.capitalize) if is_navigational_format?
     else
-      session["devise.#{provider}_data"] = request.env['omniauth.auth']
+      session["devise.#{provider}_data"] = request.env["omniauth.auth"]
       redirect_to new_user_registration_url
     end
   end

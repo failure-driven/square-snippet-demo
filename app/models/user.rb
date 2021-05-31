@@ -1,6 +1,4 @@
-# frozen_string_literal: true
-
-require 'square'
+require "square"
 
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -13,7 +11,7 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
 
   def square
-    identities.where(provider: 'square').first
+    identities.where(provider: "square").first
   end
 
   def square_client

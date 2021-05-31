@@ -1,11 +1,9 @@
-# frozen_string_literal: true
-
 Rails.application.routes.draw do
   devise_for :users,
-             class_name: 'FormUser',
+             class_name: "FormUser",
              controllers: {
-               omniauth_callbacks: 'omniauth_callbacks',
-               registrations: 'registrations'
+               omniauth_callbacks: "omniauth_callbacks",
+               registrations: "registrations",
              }
 
   resources :widgets do
@@ -44,13 +42,13 @@ Rails.application.routes.draw do
   get "/terms-of-service", to: "home#terms"
   get "/privacy-policy", to: "home#privacy"
 
-  root to: 'home#index'
+  root to: "home#index"
 
   namespace :api, defaults: { format: :json } do
     namespace :v1 do
       namespace :sites do
-         get '/visit_count', to: 'sites#visit_count'
-         patch '/visit_count', to: 'sites#update_visit_count'
+        get "/visit_count", to: "sites#visit_count"
+        patch "/visit_count", to: "sites#update_visit_count"
       end
     end
   end

@@ -1,0 +1,17 @@
+#!/usr/bin/env ruby
+
+require_relative "changes"
+
+changes = Changes.all.filter do |file|
+  return false if file == "db/schema.rb"
+
+  file.end_with?(".rb") || file.end_with?(".rake")
+end
+
+if changes.empty?
+  puts "There are no modified .rb files"
+else
+  all_changes = changes.join(" ")
+  puts "Fixing: #{all_changes}"
+  system "bundle exec rubocop -A #{all_changes}"
+end

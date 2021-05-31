@@ -4,6 +4,10 @@ default: usage
 usage:
 	bin/makefile/usage
 
+prettier:
+	bin/makefile/prettier-ruby
+	bin/makefile/prettier-js
+
 .PHONY: build
 build:
 	bin/makefile/full-build

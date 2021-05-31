@@ -1,5 +1,3 @@
-# frozen_string_literal: true
-
 class SiteStatus
   STATUSES = %w[active deleted].freeze
 
