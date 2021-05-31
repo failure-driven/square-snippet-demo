@@ -11,12 +11,12 @@
 <Widget>
   <div slot="header">{header}</div>
   <div slot="content">
-    {#if "SwifWidgetConfig" in window && SwifWidgetConfig.data().iframe}
+    {#if "SwifWidgetConfig" in window && window["SwifWidgetConfig"].data().iframe}
       <iframe
         frameBorder="0"
         style="height: 400px; width: 100%;"
         title="chatbot"
-        src={SwifWidgetConfig.data().iframe}></iframe>
+        src={window["SwifWidgetConfig"].data().iframe}></iframe>
     {/if}
     <AuthenticatedView />
   </div>

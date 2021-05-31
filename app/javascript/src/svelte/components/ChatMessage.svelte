@@ -16,7 +16,7 @@
     'flex-direction: row-reverse; '}align-items: center;"
 >
   <img
-    src={`https://www.gravatar.com/avatar/${md5(email)}?d=mp&s=32&r=g`}
+    src={`${photoURL} || https://www.gravatar.com/avatar/${md5(email)}?d=mp&s=32&r=g`}
     style="width: 32px; height: 32px;"
     alt="avatar"
   />
