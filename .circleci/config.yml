@@ -65,7 +65,7 @@ jobs:
       # Setup the database
       - run:
           name: Database Setup
-          command: bundle exec rake db:drop db:create db:migrate
+          command: bundle exec rake db:drop db:create db:schema:load
 
       # Pre test
 
