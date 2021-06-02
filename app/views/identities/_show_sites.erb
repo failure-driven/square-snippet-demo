@@ -1,4 +1,4 @@
-<ul class="list-group">
+<ul class="list-group" data-testid="site-list">
   <% @sites.map do |site_id, site| %>
     <%= link_to identity_site_path(@identity.uid, site_id), class: "list-group-item list-group-item-action" do %>
       <div class="row">

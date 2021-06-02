@@ -54,7 +54,7 @@ CREATE TABLE public.ar_internal_metadata (
 --
 
 CREATE TABLE public.identities (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     user_id uuid NOT NULL,
     provider character varying,
     accesstoken character varying,
@@ -85,7 +85,7 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.sites (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     reference_id character varying NOT NULL,
     site_title character varying NOT NULL,
     domain character varying,
@@ -106,7 +106,7 @@ CREATE TABLE public.sites (
 --
 
 CREATE TABLE public.users (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
     reset_password_token character varying,

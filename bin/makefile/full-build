@@ -8,4 +8,4 @@ yarn
 #yarn lint
 bundle exec rubocop
 
-#bundle exec rspec
+bundle exec rspec

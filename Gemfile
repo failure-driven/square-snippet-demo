@@ -42,7 +42,27 @@ gem "rack-cors"
 # rollbar for production error logging
 gem "rollbar"
 
+group :test do
+  gem "rspec-example_steps"
+  gem "rspec-rails"
+
+  gem "capybara"
+  gem "capybara-inline-screenshot"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+
+  gem "pry"
+  gem "pry-rails"
+  gem "pry-stack_explorer"
+end
+
 group :development, :test do
+  # call as my_complex_hash for awesome pretty print
+  gem "awesome_print"
+
+  # dev and test to be able to call binding.pry in specs
+  gem "pry-byebug"
+
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i[mri mingw x64_mingw]
 end
@@ -59,6 +79,7 @@ group :development do
 
   gem "rubocop"
   gem "rubocop-rails"
+  gem "rubocop-rspec"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
