@@ -61,7 +61,10 @@ jobs:
 
       # Add the Postgres 12.3 binaries to the path as psql is requred for db:migrate
       # - run: echo 'export PATH=/usr/lib/postgresql/12.3/bin/:$PATH' >> $BASH_ENV
-      - run: sudo apt-get install postgresql-client-12.3
+      - run:
+          name: Installing Dependencies
+          command: |
+            sudo apt-get install postgresql-client
 
       # Setup the database
       - run:
