@@ -75,4 +75,4 @@ jobs:
 
       # - run: bundle exec rspec spec/{controllers,api_acceptance}/
 
-      # - run: bundle exec rspec spec --format documentation
+      - run: bundle exec rspec spec --format documentation
