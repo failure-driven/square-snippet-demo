@@ -59,15 +59,13 @@ jobs:
       # Wait for DB
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
 
-      # Add the Postgres 12.3 binaries to the path.
+      # Add the Postgres 12.3 binaries to the path as psql is requred for db:migrate
       - run: echo 'export PATH=/usr/lib/postgresql/12.3/bin/:$PATH' >> $BASH_ENV
 
       # Setup the database
       - run:
           name: Database Setup
-          command: |
-            bundle exec rake db:create
-            bundle exec rake db:structure:load
+          command: bundle exec rake db:drop db:create db:migrate
 
       # Pre test
 
