@@ -1,3 +1,9 @@
+require:
+  - rubocop-rails
+  - rubocop-rspec
+  - rubocop-performance
+  - rubocop-rake
+
 AllCops:
   Exclude:
     - node_modules/**/*
@@ -10,14 +16,24 @@ AllCops:
     - bin/rails
     - bin/bundle
     - db/seeds.rb
-    - db/migrate/*
   NewCops: enable
 
 Layout/LineLength:
   Exclude:
     - config/**/*
     - spec/**/*
-
+RSpec/DescribeClass:
+  Exclude:
+    - spec/features/**/*
+RSpec/ExampleLength:
+  Exclude:
+    - spec/**/*
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/features/**/*
+Metrics/AbcSize:
+  Exclude:
+    - db/**/*
 Metrics/MethodLength:
   Enabled: false
 

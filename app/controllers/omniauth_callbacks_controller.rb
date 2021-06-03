@@ -14,13 +14,13 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
       )
       @user.skip_confirmation!
       @user.save!
-      @identity.update_attribute(:user_id, @user.id)
+      @identity.update(user_id: @user.id)
     end
 
-    @user.update_attribute(:email, @identity.email) if @user.email.blank? && @identity.email
+    @user.update(email: @identity.email) if @user.email.blank? && @identity.email
 
     if @user.persisted?
-      @identity.update_attribute(:user_id, @user.id)
+      @identity.update(user_id: @user.id)
       # This is because we've created the user manually, and Device expects a
       # FormUser class (with the validations)
       @user = FormUser.find @user.id

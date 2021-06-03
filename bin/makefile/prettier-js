@@ -3,7 +3,7 @@
 require_relative "changes"
 
 changes = Changes.all.filter do |file|
-  file.end_with?(".js") || file.end_with?(".jsx") || file.end_with?(".svelte")
+  file.end_with?(".js", ".jsx", ".svelte")
 end
 
 if changes.empty?

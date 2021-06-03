@@ -1,5 +1,6 @@
 class IdentitiesController < ApplicationController
   before_action :authenticate_user!
+  SITE_TIMESTAMP_FIELDS = %w[created_at updated_at].freeze
 
   def index
     @identity = current_user.identities.first
@@ -8,7 +9,7 @@ class IdentitiesController < ApplicationController
     elsif current_user.user_actions&.dig("admin", "can_administer")
       @identities = Identity.all
     else
-      render plain: "404 Not Found", status: 404
+      render plain: "404 Not Found", status: :not_found
     end
   end
 
@@ -18,7 +19,7 @@ class IdentitiesController < ApplicationController
              .sites
              .map { |site| [site.reference_id, { site: site }] }
              .to_h
-    render plain: "404 Not Found", status: 404 unless @identity
+    render plain: "404 Not Found", status: :not_found unless @identity
   end
 
   def show_sites # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -43,8 +44,8 @@ class IdentitiesController < ApplicationController
                     .slice(*%i[site_title domain is_published created_at updated_at])
                     .map do |key, value|
                     # rubocop:disable Metrics/BlockNesting
-                    if %w[created_at
-                          updated_at].include?(key)
+                    if SITE_TIMESTAMP_FIELDS
+                    .include?(key)
                       ["site_#{key}", value]
                     else
                       [key, value]
@@ -58,10 +59,8 @@ class IdentitiesController < ApplicationController
                     ),
                 )
             end
-          deleted_sites = @identity.sites.where.not(reference_id: result.data.sites.map do |site_result|
-                                                                    site_result[:id]
-                                                                  end)
-          deleted_sites.update_all(status: "deleted")
+          deleted_sites = @identity.sites.where.not(reference_id: result.data.sites.pluck(:id))
+          deleted_sites.update(status: "deleted")
         elsif result.error?
           flash[:errors] = result.errors
         end
@@ -72,7 +71,7 @@ class IdentitiesController < ApplicationController
       end
       render partial: "show_sites"
     else
-      render plain: "404 Not Found", status: 404
+      render plain: "404 Not Found", status: :not_found
     end
   end
 end

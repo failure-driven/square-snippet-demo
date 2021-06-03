@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :identities, dependent: :destroy
 
   def square
-    identities.where(provider: "square").first
+    identities.find_by(provider: "square")
   end
 
   def square_client

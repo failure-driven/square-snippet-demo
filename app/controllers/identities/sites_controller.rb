@@ -6,7 +6,7 @@ module Identities
 
     def show
       @site = { site: @identity.sites.where(reference_id: params[:id]).first }
-      render plain: "404 Not Found", status: 404 unless @identity
+      render plain: "404 Not Found", status: :not_found unless @identity
     end
 
     def show_site # rubocop:disable Metrics/AbcSize
@@ -24,7 +24,7 @@ module Identities
         render partial: "show_sites"
       else
         flash.now[:error] = "Not Found"
-        render plain: "404 Not Found", status: 404
+        render plain: "404 Not Found", status: :not_found
       end
     end
 
@@ -65,7 +65,7 @@ module Identities
         redirect_to action: :show
       else
         flash.now[:error] = "Not Found"
-        render plain: "404 Not Found", status: 404
+        render plain: "404 Not Found", status: :not_found
       end
     end
 
@@ -88,7 +88,7 @@ module Identities
         redirect_to action: :show
       else
         flash.now[:error] = "Not Found"
-        render plain: "404 Not Found", status: 404
+        render plain: "404 Not Found", status: :not_found
       end
     end
 

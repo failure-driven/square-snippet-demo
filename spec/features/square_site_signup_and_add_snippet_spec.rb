@@ -1,6 +1,6 @@
 require "rails_helper"
 
-feature "Square site signs up and adds a snippet to thier site", js: true do
+describe "Square site signs up and adds a snippet to thier site", js: true do
   before do
     OmniAuth.config.test_mode = true
     OmniAuth.config.mock_auth[:square] = OmniAuth::AuthHash.new(
@@ -34,7 +34,7 @@ feature "Square site signs up and adds a snippet to thier site", js: true do
     )
   end
 
-  scenario "Square OAuth signup and load snippet with default configuration" do
+  it "Square OAuth signup and load snippet with default configuration" do
     Given "the landing page" do
       visit root_path
       # TODO: describe the landing page

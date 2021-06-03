@@ -1,4 +1,4 @@
-class Site < ActiveRecord::Base
+class Site < ApplicationRecord
   belongs_to :identity
   include ArrayToEnumHash
   # enum status: array_to_enum_hash(SiteStatus::STATUSES), _suffix: true
@@ -8,7 +8,7 @@ class Site < ActiveRecord::Base
   }.freeze
 
   def status
-    @status ||= SiteStatus.new(read_attribute(:status))
+    @status ||= SiteStatus.new(self[:status])
   end
 
   def widget_config
