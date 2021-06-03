@@ -42,6 +42,14 @@ gem "rack-cors"
 # rollbar for production error logging
 gem "rollbar"
 
+# Feature flipping
+# Flipper
+gem "flipper"
+# UI
+gem "flipper-ui"
+# Adapter
+gem "flipper-active_record"
+
 group :test do
   gem "rspec-example_steps"
   gem "rspec-rails"

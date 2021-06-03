@@ -6,6 +6,10 @@ Rails.application.routes.draw do
                registrations: "registrations",
              }
 
+  constraints CanAccessFlipperUI do
+    mount Flipper::UI.app(Flipper) => "/flipper"
+  end
+
   resources :widgets do
     collection do
       get :vanillajs_demo

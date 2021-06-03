@@ -12,5 +12,9 @@ bin/setup
 
 # add yourself an admin user and login with reset password link
 bin/rails 'admin:make_admin_user[m@m.m]'
+
+# enable|disable features
+bin/rails 'admin:flipper[messenger,enable]' IDENTITIES=MLWS55T9N0BQ9,MLKR1MSQCYV7Y
+bin/rails 'admin:flipper[messenger,disable]' IDENTITIES=MLWS55T9N0BQ9
 ```
 
