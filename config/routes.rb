@@ -33,11 +33,12 @@ Rails.application.routes.draw do
           get :widget
           get :site_config
           get :stats
-          get :messenger
+          get :portal
         end
       end
     end
   end
+  get "/identities/:identity_id/sites/:id/portal/*all" => "identities/sites#portal"
 
   authenticated :user do
     get "/", to: redirect("/identities")

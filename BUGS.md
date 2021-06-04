@@ -1,5 +1,6 @@
 # BUGS
 
+- sort out images in chat
 - error if user has no sites at all
 - error first time user uses the app as there are no sites to load
 - resizing the window makes the SWiF launch button disappear

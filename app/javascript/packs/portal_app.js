@@ -1,8 +1,8 @@
-import MessengerApp from "../src/svelte/MessengerApp.svelte";
+import PortalApp from "../src/svelte/PortalApp.svelte";
 
-let element = document.querySelector("[data-app=messenger-app]");
+let element = document.querySelector("[data-app=portal-app]");
 document.addEventListener("DOMContentLoaded", () => {
-  const app = new MessengerApp({
+  const app = new PortalApp({
     target: element,
     props: {
       dataset: {

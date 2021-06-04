@@ -20,11 +20,12 @@
 - [ ] allow admins to log in
 - [ ] allow for non square users to embed widget
 - [ ] feature toggle administration of users
-- [ ] svelte router
 - [ ] make build and ci build run same script
+- [ ] add audio chat via webrtc
 
 # Done
 
+- [x] svelte router
 - [x] svelte linting
 - [x] Square add/update/fetch/delete snippet to site
 - [x] store sites and snippet data in db

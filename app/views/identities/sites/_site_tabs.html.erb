@@ -23,13 +23,13 @@
         class: "nav-link #{action_name.to_sym == :stats ? "active" : ""}"
     ) %>
   </li>
-  <% if Flipper[:messenger].enabled?(current_user) %>
+  <% if Flipper[:portal].enabled?(current_user) %>
     <li class="nav-item">
       <%= link_to(
-          "Messenger",
-          messenger_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+          "Portal",
+          portal_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
           aria: { current: :page },
-          class: "nav-link #{action_name.to_sym == :messenger ? "active" : ""}"
+          class: "nav-link #{action_name.to_sym == :portal ? "active" : ""}"
       ) %>
     </li>
   <% end %>

@@ -1,8 +1,8 @@
 module Identities
   class SitesController < ApplicationController
-    before_action :authenticate_user!, except: %i[widget messenger]
-    before_action :set_identity, except: %i[widget messenger]
-    after_action :allow_iframe, only: %i[messenger]
+    before_action :authenticate_user!, except: %i[widget portal]
+    before_action :set_identity, except: %i[widget portal]
+    after_action :allow_iframe, only: %i[portal]
 
     def show
       @site = { site: @identity.sites.where(reference_id: params[:id]).first }
@@ -97,7 +97,7 @@ module Identities
       @config = @site.widget_config
     end
 
-    def messenger
+    def portal
       render layout: false
     end
 

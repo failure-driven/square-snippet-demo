@@ -14,7 +14,7 @@ bin/setup
 bin/rails 'admin:make_admin_user[m@m.m]'
 
 # enable|disable features
-bin/rails 'admin:flipper[messenger,enable]' IDENTITIES=MLWS55T9N0BQ9,MLKR1MSQCYV7Y
-bin/rails 'admin:flipper[messenger,disable]' IDENTITIES=MLWS55T9N0BQ9
+bin/rails 'admin:flipper[portal,enable]' IDENTITIES=MLWS55T9N0BQ9,MLKR1MSQCYV7Y
+bin/rails 'admin:flipper[portal,disable]' IDENTITIES=MLWS55T9N0BQ9
 ```
 
