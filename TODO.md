@@ -20,11 +20,12 @@
 - [ ] allow admins to log in
 - [ ] allow for non square users to embed widget
 - [ ] feature toggle administration of users
-- [ ] svelte linting
 - [ ] svelte router
 - [ ] make build and ci build run same script
+
 # Done
 
+- [x] svelte linting
 - [x] Square add/update/fetch/delete snippet to site
 - [x] store sites and snippet data in db
 - [x] Square API site list

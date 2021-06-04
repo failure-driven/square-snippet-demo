@@ -5,7 +5,11 @@ module.exports = {
         "jest": true,
         "node": true,
     },
-    "extends": ["eslint:recommended", "plugin:import/recommended"],
+    "extends": [
+      "eslint:recommended",
+      "plugin:import/recommended",
+      "prettier"
+    ],
     "overrides": [
       {
         "files": "**/*.svelte",
@@ -13,7 +17,7 @@ module.exports = {
       }
     ],
     "parserOptions": {
-      "ecmaVersion": 12, // 2019, // 12
+      "ecmaVersion": 12,
       "sourceType": "module",
     },
     "rules": {

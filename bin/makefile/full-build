@@ -3,9 +3,10 @@
 set -e
 
 bundle install
+
 yarn
-
 yarn lint
-bundle exec rubocop
+yarn check-format
 
+bundle exec rubocop
 bundle exec rspec
