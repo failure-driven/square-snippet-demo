@@ -1,5 +1,5 @@
 <script>
-  import { firebase, facebookSignUp, logOut } from "../firebase";
+  import {firebase, facebookSignUp, logOut} from "../firebase";
   import VisitorCount from "./VisitorCount.svelte";
 
   let currentUser = null;

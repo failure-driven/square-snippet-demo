@@ -29,7 +29,7 @@ function facebookSignUp() {
     .auth()
     .signInWithPopup(provider)
     .then(() => {
-    // .then((result) => {
+      // .then((result) => {
       // currentUser = result.user;
       // var credential = result.credential;
       // The signed-in user info.
@@ -38,7 +38,7 @@ function facebookSignUp() {
       // var accessToken = credential.accessToken;
     })
     .catch(() => {
-    // .catch((error) => {
+      // .catch((error) => {
       // Handle Errors here.
       // var errorCode = error.code;
       // var errorMessage = error.message;
@@ -57,9 +57,9 @@ function logOut() {
       // currentUser = null;
     })
     .catch(() => {
-    // .catch((error) => {
+      // .catch((error) => {
       // An error happened.
     });
 }
 
-export { firebase, facebookSignUp, logOut };
+export {firebase, facebookSignUp, logOut};

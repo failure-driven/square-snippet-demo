@@ -1,22 +1,22 @@
 <script>
-  import { auth, db } from "../services/firebase";
-  import { onDestroy } from "svelte";
+  import {auth, db} from "../services/firebase";
+  import {onDestroy} from "svelte";
   import ChatMessage from "../components/ChatMessage.svelte";
   let currentUser;
   let messages = [];
   let cooldown = false;
 
-  auth.onAuthStateChanged((user) => (currentUser = user));
+  auth.onAuthStateChanged(user => (currentUser = user));
 
-  const unsubscribe = db.collection("messages").onSnapshot((snapshot) => {
-    snapshot.docChanges().forEach((change) => {
+  const unsubscribe = db.collection("messages").onSnapshot(snapshot => {
+    snapshot.docChanges().forEach(change => {
       if (change.type === "added") {
         messages = [...messages, change.doc.data()];
         setTimeout(() => {
           if (document.getElementById("scroll-to"))
             document
               .getElementById("scroll-to")
-              .scrollIntoView({ behavior: "smooth" });
+              .scrollIntoView({behavior: "smooth"});
         }, 500);
       }
     });

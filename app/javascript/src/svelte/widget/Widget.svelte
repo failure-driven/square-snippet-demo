@@ -1,7 +1,7 @@
 <script>
   import Launcher from "./Launcher.svelte";
   import MainWindow from "./MainWindow.svelte";
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
 
   let showMain = false;
 

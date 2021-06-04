@@ -1,6 +1,6 @@
 <script>
-  import { auth, facebookSignUp, facebookLogOut } from "../services/firebase";
-  import { createEventDispatcher } from "svelte";
+  import {auth, facebookSignUp, facebookLogOut} from "../services/firebase";
+  import {createEventDispatcher} from "svelte";
 
   const dispatch = createEventDispatcher();
 

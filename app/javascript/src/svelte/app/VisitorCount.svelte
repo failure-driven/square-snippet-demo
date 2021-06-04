@@ -1,6 +1,6 @@
 <script>
   import axios from "axios";
-  import { onMount } from "svelte";
+  import {onMount} from "svelte";
 
   let visitCount;
 
@@ -12,7 +12,7 @@
           domain: window.location.hostname,
         },
       })
-      .then((response) => {
+      .then(response => {
         visitCount = response.data.visit_count;
       });
   });
@@ -23,7 +23,7 @@
       .patch(`${apiHostUrl}/api/v1/sites/visit_count`, {
         domain: window.location.hostname,
       })
-      .then((response) => {
+      .then(response => {
         visitCount = response.data.visit_count;
       });
   }

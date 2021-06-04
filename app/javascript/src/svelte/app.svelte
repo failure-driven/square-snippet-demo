@@ -16,7 +16,8 @@
         frameBorder="0"
         style="height: 400px; width: 100%;"
         title="chatbot"
-        src={window["SwifWidgetConfig"].data().iframe}></iframe>
+        src={window["SwifWidgetConfig"].data().iframe}
+      />
     {/if}
     <AuthenticatedView />
   </div>
