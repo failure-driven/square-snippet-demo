@@ -6,4 +6,8 @@
 - there is quite a lag when dragging the SWiF launch button around the screen,
   is this on puropse?
 - identiy site list has text over text in different page sizes
-- name and sign out button are too close together in less than medium breakpoint
+
+## DONE
+
+- [x] alert color lost
+- [x] name and sign out button are too close together in less than medium breakpoint

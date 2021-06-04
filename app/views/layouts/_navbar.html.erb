@@ -16,8 +16,10 @@
 
   <ul class="navbar-nav ml-auto" style="flex-direction: row;">
     <% if signed_in? %>
-      <span class="nav-link mr-3" data-testid="signin-name">
-        <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
+      <span class="nav-link" data-testid="signin-name">
+        <div class="mx-1">
+          <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
+        </div>
       </span>
       <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
     <% else %>
