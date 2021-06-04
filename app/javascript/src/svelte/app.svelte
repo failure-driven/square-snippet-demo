@@ -4,7 +4,7 @@
 
   let header = "Shopping With Friends Placeholder";
   if ("SwifWidgetConfig" in window) {
-    SwifWidgetConfig.data().title;
+    window["SwifWidgetConfig"].data().title;
   }
 </script>
 

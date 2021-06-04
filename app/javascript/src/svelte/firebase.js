@@ -28,7 +28,8 @@ function facebookSignUp() {
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then((result) => {
+    .then(() => {
+    // .then((result) => {
       // currentUser = result.user;
       // var credential = result.credential;
       // The signed-in user info.
@@ -36,7 +37,8 @@ function facebookSignUp() {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       // var accessToken = credential.accessToken;
     })
-    .catch((error) => {
+    .catch(() => {
+    // .catch((error) => {
       // Handle Errors here.
       // var errorCode = error.code;
       // var errorMessage = error.message;
@@ -54,7 +56,8 @@ function logOut() {
     .then(() => {
       // currentUser = null;
     })
-    .catch((error) => {
+    .catch(() => {
+    // .catch((error) => {
       // An error happened.
     });
 }

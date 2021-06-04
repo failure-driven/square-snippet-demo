@@ -14,7 +14,15 @@
 - [ ] write terms of service https://swif.club/terms-of-service
 - [ ] write privacy policy https://swif.club/privacy-policy
 - [ ] setup fb page https://www.facebook.com/Swif-club-102726552029329 - assuming we go down that path
-
+- [ ] fetch config from server
+- [ ] allow a user to set configuration
+- [ ] inintial widget render to be embedded in snippet code uploaded
+- [ ] allow admins to log in
+- [ ] allow for non square users to embed widget
+- [ ] feature toggle administration of users
+- [ ] svelte linting
+- [ ] svelte router
+- [ ] make build and ci build run same script
 # Done
 
 - [x] Square add/update/fetch/delete snippet to site

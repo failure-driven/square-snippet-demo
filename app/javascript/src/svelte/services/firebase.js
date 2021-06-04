@@ -23,7 +23,7 @@ export const facebookSignUp = () => {
   firebase
     .auth()
     .signInWithPopup(provider)
-    .then((result) => {
+    .then(() => {
       // currentUser = result.user;
       // var credential = result.credential;
       // The signed-in user info.
@@ -31,7 +31,7 @@ export const facebookSignUp = () => {
       // This gives you a Facebook Access Token. You can use it to access the Facebook API.
       // var accessToken = credential.accessToken;
     })
-    .catch((error) => {
+    .catch(() => {
       // Handle Errors here.
       // var errorCode = error.code;
       // var errorMessage = error.message;
@@ -49,7 +49,7 @@ export const facebookLogOut = () => {
     .then(() => {
       // currentUser = null;
     })
-    .catch((error) => {
+    .catch(() => {
       // An error happened.
     });
 };
