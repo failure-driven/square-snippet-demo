@@ -1,24 +1,20 @@
 <script>
   import AuthenticatedView from "./app/AuthenticatedView.svelte";
+  import Content from "./components/Content.svelte";
   import Widget from "./widget/Widget.svelte";
 
-  let header = "Shopping With Friends Placeholder";
-  if ("SwifWidgetConfig" in window) {
-    window["SwifWidgetConfig"].data().title;
+  let site, identity;
+  if ("SwifStaticConfig" in window) {
+    site = window["SwifStaticConfig"].data().site;
+    identity = window["SwifStaticConfig"].data().identity;
   }
+  let header = "Shopping With Friends Placeholder";
 </script>
 
 <Widget>
   <div slot="header">{header}</div>
   <div slot="content">
-    {#if "SwifWidgetConfig" in window && window["SwifWidgetConfig"].data().iframe}
-      <iframe
-        frameBorder="0"
-        style="height: 400px; width: 100%;"
-        title="chatbot"
-        src={window["SwifWidgetConfig"].data().iframe}
-      />
-    {/if}
+    <Content />
     <AuthenticatedView />
   </div>
 </Widget>

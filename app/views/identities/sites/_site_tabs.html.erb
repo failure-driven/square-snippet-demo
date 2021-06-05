@@ -10,9 +10,9 @@
   <li class="nav-item">
     <%= link_to(
         "Config",
-        site_config_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+        configure_site_config_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
         aria: { current: :page },
-        class: "nav-link #{action_name.to_sym == :site_config ? "active" : ""}"
+        class: "nav-link #{action_name.to_sym == :configure_site_config ? "active" : ""}"
     ) %>
   </li>
   <li class="nav-item">

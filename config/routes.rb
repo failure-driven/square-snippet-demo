@@ -31,6 +31,7 @@ Rails.application.routes.draw do
           post :add_widget
           post :remove_widget
           get :widget
+          get :configure_site_config
           get :site_config
           get :stats
           get :portal

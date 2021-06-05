@@ -1,7 +1,7 @@
 module Identities
-  class SitesController < ApplicationController
-    before_action :authenticate_user!, except: %i[widget portal]
-    before_action :set_identity, except: %i[widget portal]
+  class SitesController < ApplicationController # rubocop:disable Metrics/ClassLength
+    before_action :authenticate_user!, except: %i[widget site_config portal]
+    before_action :set_identity, except: %i[widget site_config portal]
     after_action :allow_iframe, only: %i[portal]
 
     def show
@@ -43,12 +43,15 @@ module Identities
           body[:snippet][:site_id] = params[:id]
           body[:snippet][:content] = <<~EO_SNIPPET_CONTENT
             <script>
-              var SwifWidgetConfig = (function(my){
+              var SwifStaticConfig = (function(my){
                 my.data = () => {
-                  return #{@site.widget_config.to_json}
+                  return #{ {
+                    site: @site.reference_id,
+                    identity: @identity.uid,
+                  }.to_json}
                 }#{' '}
                 return(my)
-              })(SwifWidgetConfig || {})
+              })(SwifStaticConfig || {})
             </script>
             <script defer src="#{widget_identity_site_url}"></script>
           EO_SNIPPET_CONTENT
@@ -92,8 +95,16 @@ module Identities
       end
     end
 
-    def site_config
+    def configure_site_config
       @site = @identity.sites.find_by(reference_id: params[:id])
+      @config = @site.widget_config
+    end
+
+    def site_config
+      @site = Site
+              .where(identities: { uid: params[:identity_id] }, reference_id: params[:id])
+              .joins(:identity)
+              .first
       @config = @site.widget_config
     end
 
