@@ -9,7 +9,7 @@ class HomeController < ApplicationController
     company_details
     @update_date_tnc = "June 08, 2021"
   end
-  
+
   def privacy
     company_details
     @update_date_privacy = "June 07, 2021"
