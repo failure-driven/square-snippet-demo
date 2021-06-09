@@ -26,7 +26,7 @@
 </script>
 
 <svelte:head>
-  <link rel="stylesheet" href="/assets/min.source.css" />
+  <link rel="stylesheet" href="/min.css" />
 </svelte:head>
 
 <div class="swif">
