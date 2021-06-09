@@ -1,5 +1,5 @@
-# SWIF - Social Shopping app powered by Square Unboxed - API snippet [![CircleCI](https://circleci.com/gh/failure-driven/square-snippet-demo.svg?style=svg)](https://circleci.com/gh/failure-driven/square-snippet-demo)
-## Enables your Square powered app to add powerful "Interactive Social Shopping Feature" in 60 seconds
+# SWIF - API snippet for Shopping with your friends [![CircleCI](https://circleci.com/gh/failure-driven/square-snippet-demo.svg?style=svg)](https://circleci.com/gh/failure-driven/square-snippet-demo)
+## Enables your Square powered app to add powerful "Interactive Social Shopping Feature" in 60 seconds 🎉
 
 [![Square Unboxed - API snippet for Rails Template Walkthrough](https://i.ibb.co/6X4wXtw/Screen-Shot-2021-06-08-at-2-28-36-pm.png)](https://www.youtube.com/watch?v=JbytzNibk54)
 
@@ -7,34 +7,32 @@
 
 You'll need the following installed to run the template successfully:
 
-* Ruby 3.0.1 or higher
-* bundler - `gem install bundler`
-* rails - `gem install rails`
-* Yarn - `brew install yarn` or [Install Yarn](https://yarnpkg.com/en/docs/install)
+* **Ruby 3.0.1 or higher**
+* bundler - included in Ruby now, no need to install
+* rails - will be installed via bundler
+* Yarn - `npm install --global yarn` or [Install Yarn](https://yarnpkg.com/en/docs/install)
 
-Other:
-* Svelte Compiler/ JS framework (Provided out of the box) - lightweight and fast alternative to React/Vue/Angular
-* Database (MySQL Provided out of the box)
+Other noticable features (provided out of the box):
+* Svelte Compiler / JS framework
+* Postgres Database
 
 # Commands to run / Setting up
-## Set credentials key
+## Add development.key config/credentials/development.key / Check you have it correctly
 ```zsh
-touch config/credentials/development.key
-echo '/config/credentials/development.key' >> .gitignore
-git status # '/config/credentials/development.key' should not be there, we don't want to push it to Github.
+cat config/credentials/development.key
+# d6.............9a
+git status # '/config/credentials/development.key' should not be there.
 ```
 paste your key in the above file and make sure it stays private
-## Ruby Gems
+
+## Setup app
 ```zsh
-bundle install
-```
-## Yarn
-```zsh
-yarn install
+make
+bin/setup
 ```
 ## Running the app
 ```zsh
-rails c
+rails s
 ```
 ## Go to "http://localhost:3000/" and login 
 ![login](https://i.ibb.co/qMX9tM0/Screen-Shot-2021-06-08-at-3-09-32-pm.png)
@@ -43,9 +41,6 @@ rails c
 # That's it! 🚀
 ## Misc
 ```bash
-make
-bin/setup
-
 # add yourself an admin user and login with reset password link
 bin/rails 'admin:make_admin_user[m@m.m]'
 
