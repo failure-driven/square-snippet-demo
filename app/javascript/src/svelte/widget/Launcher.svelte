@@ -11,7 +11,7 @@
 </script>
 
 <button
-  class="launcher animated-gradient {showMain} moving-{moving}"
+  class="swif launcher animated-gradient {showMain} moving-{moving}"
   on:click={handleClick}
 >
   SWiF

@@ -57,7 +57,7 @@
   onDestroy(unsubscribe);
 </script>
 
-<button on:click={leaveRoom}>leave chat</button>
+<button class="btn btn-c btn-sm smooth" on:click={leaveRoom}>leave chat</button>
 <p>Chatroom id: {roomId}</p>
 <br />
 <div style="margin: 0 auto; width: 100vw; height: 50vh; overflow-y: auto;">

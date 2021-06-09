@@ -12,12 +12,14 @@
 </script>
 
 {#if !currentUser}
-  <button on:click={facebookSignUp} class="btn-primary">
+  <button on:click={facebookSignUp} class="btn btn-a btn-sm smooth">
     Sign in with Facebook
   </button>
 {:else}
   <div>
     {currentUser.displayName}
-    <button on:click={facebookLogOut} class="btn-danger">Log out</button>
+    <button on:click={facebookLogOut} class="btn btn-c btn-sm smooth"
+      >Log out</button
+    >
   </div>
 {/if}
