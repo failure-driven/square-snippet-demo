@@ -1,4 +1,4 @@
-# SWIF - API snippet for Shopping with your friends [![CircleCI](https://circleci.com/gh/failure-driven/square-snippet-demo.svg?style=svg)](https://circleci.com/gh/failure-driven/square-snippet-demo)
+# SWIF Club - Shop with your friends on any website [![CircleCI](https://circleci.com/gh/failure-driven/square-snippet-demo.svg?style=svg)](https://circleci.com/gh/failure-driven/square-snippet-demo)
 ## Enables your Square powered app to add powerful "Interactive Social Shopping Feature" in 60 seconds 🎉
 
 [![Square Unboxed - API snippet for Rails Template Walkthrough](https://i.ibb.co/6X4wXtw/Screen-Shot-2021-06-08-at-2-28-36-pm.png)](https://www.youtube.com/watch?v=JbytzNibk54)
@@ -7,7 +7,7 @@
 
 You'll need the following installed to run the template successfully:
 
-* **Ruby 3.0.1 or higher**
+* **Ruby 3.0.1**
 * bundler - included in Ruby now, no need to install
 * rails - will be installed via bundler
 * Yarn - `npm install --global yarn` or [Install Yarn](https://yarnpkg.com/en/docs/install)
@@ -28,6 +28,7 @@ paste your key in the above file and make sure it stays private
 ## Setup app
 ```zsh
 make
+make build
 bin/setup
 ```
 ## Running the app
