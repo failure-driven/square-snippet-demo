@@ -16,44 +16,48 @@
     ? 'neighboringSelf'
     : 'endChain'}"
 >
+  <span class="msg-body">{message}</span>
   <img
     src={`https://www.gravatar.com/avatar/${md5(email)}?d=mp&s=32&r=g`}
     alt="avatar"
   />
-  <span class="msg-body">{message}</span>
 </div>
 
 <style>
   .neighboringSelf img {
-    opacity: 0;
-  }
-
-  .endChain {
-    margin-bottom: 20px !important;
+    display: none;
   }
 
   .message {
     margin: 5px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .message.true {
-    flex-direction: row-reverse;
+    align-items: flex-end;
   }
 
   .message img {
     position: relative;
-    bottom: -10;
+    top: -10;
+    right: 5;
     border-radius: 50%;
     padding: 0px 5px;
   }
 
+  .message.true img {
+    right: -5;
+  }
+
   .msg-body {
+    margin: 0px 10px;
     padding: 10px 15px;
     background-color: #e7e7e7;
     border-radius: 20px;
     font-family: sans-serif;
+    overflow-wrap: anywhere;
   }
 
   .true > .msg-body {

@@ -90,7 +90,6 @@
 
 <style>
   .chatRoom {
-    padding: 0px 10px;
     overflow-y: auto;
     height: 60vh;
   }
