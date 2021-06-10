@@ -57,14 +57,21 @@
   onDestroy(unsubscribe);
 </script>
 
-<button class="btn btn-c btn-sm smooth" on:click={leaveRoom}>leave chat</button>
-<p>Chatroom id: {roomId}</p>
-<br />
-<div style="margin: 0 auto; width: 100vw; height: 50vh; overflow-y: auto;">
-  <br />
+<button
+  class="btn btn-c btn-sm smooth"
+  style="display:inline; margin-bottom: 10px"
+  on:click={leaveRoom}>leave chat</button
+>
+<p style="display:inline;">{roomId}</p>
+<div class="chatRoom">
   {#if messages.length > 0}
-    {#each messages as m}
-      <ChatMessage {...m} self={currentUser.uid === m.uid} />
+    {#each messages as m, i}
+      <ChatMessage
+        {...m}
+        self={currentUser.uid === m.uid}
+        neighbouringSelf={messages[i + 1] !== undefined &&
+          messages[i + 1].email === m.email}
+      />
     {/each}
   {:else}
     <p>Looks like nobody's sent a message. Be the first!</p>
@@ -80,4 +87,11 @@
   class="w3-input w3-border w3-border-gray {cooldown && 'w3-pale-red'}"
   id="message-input"
 />
-<br />
+
+<style>
+  .chatRoom {
+    padding: 0px 10px;
+    overflow-y: auto;
+    height: 60vh;
+  }
+</style>

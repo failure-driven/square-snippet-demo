@@ -31,7 +31,7 @@
 
 <div class="swif">
   <Auth />
-  <nav>
+  <nav style="display:inline">
     <a
       href={`/identities/${identity}/sites/${site}/portal/chat`}
       class:active={component == Chat}

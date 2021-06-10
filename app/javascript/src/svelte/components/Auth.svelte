@@ -16,7 +16,7 @@
     Sign in with Facebook
   </button>
 {:else}
-  <div>
+  <div style="display: inline">
     {currentUser.displayName}
     <button on:click={facebookLogOut} class="btn btn-c btn-sm smooth"
       >Log out</button

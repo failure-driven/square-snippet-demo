@@ -1,5 +1,4 @@
 <script>
-  import AuthenticatedView from "./app/AuthenticatedView.svelte";
   import Content from "./components/Content.svelte";
   import Widget from "./widget/Widget.svelte";
 
@@ -15,7 +14,6 @@
   <div slot="header">{header}</div>
   <div slot="content">
     <Content />
-    <AuthenticatedView />
   </div>
 </Widget>
 

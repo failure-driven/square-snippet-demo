@@ -20,7 +20,7 @@
 {#if siteConfig && siteConfig.config && siteConfig.config.iframe}
   <iframe
     frameBorder="0"
-    style="height: 400px; width: 100%;"
+    style="height: 350px; width: 100%"
     title="chatbot"
     src={siteConfig.config.iframe}
   />
