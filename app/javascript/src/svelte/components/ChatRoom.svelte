@@ -54,43 +54,75 @@
     });
   }
 
+  let copyBtn;
+
+  async function copyID() {
+    navigator.clipboard.writeText(roomId);
+    copyBtn.innerHTML = "Copied!";
+    await new Promise(r => setTimeout(r, 2000));
+    copyBtn.innerHTML = "Copy Room ID";
+  }
+
   onDestroy(unsubscribe);
 </script>
 
-<button
-  class="btn btn-c btn-sm smooth"
-  style="display:inline; margin-bottom: 10px"
-  on:click={leaveRoom}>leave chat</button
->
-<p style="display:inline;">{roomId}</p>
-<div class="chatRoom">
-  {#if messages.length > 0}
-    {#each messages as m, i}
-      <ChatMessage
-        {...m}
-        self={currentUser.uid === m.uid}
-        neighbouringSelf={messages[i + 1] !== undefined &&
-          messages[i + 1].email === m.email}
-      />
-    {/each}
-  {:else}
-    <p>Looks like nobody's sent a message. Be the first!</p>
-  {/if}
-  <!-- Dummy element used to scroll chat -->
-  <br id="scroll-to" />
+<div class="chat-room-wrapper">
+  <div class="controls">
+    <button class="btn btn-c btn-sm smooth w-50" on:click={leaveRoom}
+      >Leave Chat</button
+    >
+    <button
+      bind:this={copyBtn}
+      class="btn btn-b btn-sm smooth w-50"
+      on:click={copyID}>Copy Room ID</button
+    >
+  </div>
+  <div class="chatRoom">
+    {#if messages.length > 0}
+      {#each messages as m, i}
+        <ChatMessage
+          {...m}
+          self={currentUser.uid === m.uid}
+          neighbouringSelf={messages[i + 1] !== undefined &&
+            messages[i + 1].email === m.email}
+        />
+      {/each}
+    {:else}
+      <p>Looks like nobody's sent a message. Be the first!</p>
+    {/if}
+    <!-- Dummy element used to scroll chat -->
+    <br id="scroll-to" />
+  </div>
+  <input
+    on:keydown={messageSubmit}
+    type="text"
+    style="margin: 0 auto; width: 60%; margin-top: -1px"
+    placeholder={cooldown
+      ? "3 second cooldown"
+      : "Enter message and press enter"}
+    class="w3-input w3-border w3-border-gray {cooldown && 'w3-pale-red'}"
+    id="message-input"
+  />
 </div>
-<input
-  on:keydown={messageSubmit}
-  type="text"
-  style="margin: 0 auto; width: 60%; margin-top: -1px"
-  placeholder={cooldown ? "3 second cooldown" : "Enter message and press enter"}
-  class="w3-input w3-border w3-border-gray {cooldown && 'w3-pale-red'}"
-  id="message-input"
-/>
 
 <style>
+  .chat-room-wrapper {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
   .chatRoom {
     overflow-y: auto;
-    height: 60vh;
+  }
+
+  .controls {
+    height: 36px;
+    display: flex;
+  }
+
+  .btn {
+    margin: 0px 10px;
+    width: 50%;
   }
 </style>

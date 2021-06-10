@@ -23,3 +23,9 @@
     >
   </div>
 {/if}
+
+<style>
+  .btn {
+    padding: 7px !important;
+  }
+</style>

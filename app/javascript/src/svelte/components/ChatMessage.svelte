@@ -41,14 +41,14 @@
 
   .message img {
     position: relative;
-    top: -10;
-    right: 5;
+    margin-top: -10;
+    margin-right: 5;
     border-radius: 50%;
     padding: 0px 5px;
   }
 
   .message.true img {
-    right: -5;
+    margin-right: -5;
   }
 
   .msg-body {
