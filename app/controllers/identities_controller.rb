@@ -22,6 +22,17 @@ class IdentitiesController < ApplicationController
     render plain: "404 Not Found", status: :not_found unless @identity
   end
 
+  def toggle_portal
+    identity = current_user.identity_scope.find_by(uid: params[:id])
+    user = identity.user.becomes(FormUser)
+    portal = Flipper[params[:portal].to_sym]
+    if portal.enabled?(user)
+      portal.disable(user)
+    else
+      portal.enable(user)
+    end
+  end
+
   def show_sites # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     @identity = current_user.identity_scope.find_by(uid: params[:id])
     if @identity

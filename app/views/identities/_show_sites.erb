@@ -2,10 +2,10 @@
   <% @sites.map do |site_id, site| %>
     <%= link_to identity_site_path(@identity.uid, site_id), class: "list-group-item list-group-item-action" do %>
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
           <%= site[:site][:site_title] %>
         </div>
-        <div class="col-lg-2">
+        <div class="col-lg-3">
           <%= site_id %>
         </div>
         <div class="col-lg-2">
@@ -18,3 +18,5 @@
     <% end %>
   <% end %>
 </ul>
+<br>
+  <%= link_to "Enable/Disable Portal", toggle_portal_identity_path(@identity.uid, portal: "portal"), class: "btn btn-primary", method: :post if current_user.user_actions&.dig("admin", "can_administer") %>

@@ -1,10 +1,10 @@
 <div class="container mt-3">
-  <%= render partial: "identities/breadcrumbs" %>
+  <%= render "identities/breadcrumbs" %>
   <div
     data-controller="content-loader"
     data-content-loader-url-value="<%= show_sites_identity_path(@identity.uid) %>"
   >
-    <%= render partial: "show_sites" %>
+    <%= render "show_sites" %>
     <div class="text-center mt-3">
       <div class="spinner-border" role="status">
         <span class="visually-hidden">Loading...</span>
