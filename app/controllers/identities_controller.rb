@@ -17,8 +17,6 @@ class IdentitiesController < ApplicationController
     @identity = current_user.identity_scope.find_by(uid: params[:id])
     @sites = @identity
              .sites
-             .map { |site| [site.reference_id, { site: site }] }
-             .to_h
     render plain: "404 Not Found", status: :not_found unless @identity
   end
 
@@ -26,7 +24,6 @@ class IdentitiesController < ApplicationController
     @identity = current_user.identity_scope.find_by(uid: params[:id])
     if @identity
       client = @identity.user.square_client
-      @sites = {}
       if defined? client
         sites_api = client.sites
         result = sites_api.list_sites
@@ -66,8 +63,6 @@ class IdentitiesController < ApplicationController
         end
         @sites = @identity
                  .sites
-                 .map { |site| [site.reference_id, { site: site }] }
-                 .to_h
       end
       render partial: "show_sites"
     else

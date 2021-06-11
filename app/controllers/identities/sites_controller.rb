@@ -2,24 +2,25 @@ module Identities
   class SitesController < ApplicationController # rubocop:disable Metrics/ClassLength
     before_action :authenticate_user!, except: %i[widget site_config portal]
     before_action :set_identity, except: %i[widget site_config portal]
+    before_action :set_site, only: %i[show site_config stats configure_site_config]
     after_action :allow_iframe, only: %i[portal]
 
     def show
-      @site = { site: @identity.sites.where(reference_id: params[:id]).first }
+      @site = @identity.sites.where(reference_id: params[:id]).first
       render plain: "404 Not Found", status: :not_found unless @identity
     end
 
     def show_site # rubocop:disable Metrics/AbcSize
       if @identity
-        @site = { site: @identity.sites.where(reference_id: params[:id]).first }
+        @site = @identity.sites.where(reference_id: params[:id]).first
 
         client = @identity.user.square_client
         snippets_api = client.snippets
-        result = snippets_api.retrieve_snippet(site_id: @site[:site].reference_id)
+        result = snippets_api.retrieve_snippet(site_id: @site.reference_id)
         if result.success?
-          @site[:snippet] = result.data.snippet
+          @snippet = result.data.snippet
         elsif result.error?
-          @site[:errors] = result.errors
+          @errors = result.errors
         end
         render partial: "show_sites"
       else
@@ -96,17 +97,14 @@ module Identities
     end
 
     def configure_site_config
-      @site = @identity.sites.find_by(reference_id: params[:id])
       @config = @site.widget_config
     end
 
     def site_config
-      @site = Site
-              .where(identities: { uid: params[:identity_id] }, reference_id: params[:id])
-              .joins(:identity)
-              .first
       @config = @site.widget_config
     end
+
+    def stats; end
 
     def portal
       render layout: false
@@ -120,6 +118,13 @@ module Identities
 
     def set_identity
       @identity = current_user.identity_scope.find_by(uid: params[:identity_id])
+    end
+
+    def set_site
+      @site = Site
+              .where(identities: { uid: params[:identity_id] }, reference_id: params[:id])
+              .joins(:identity)
+              .first
     end
 
     def allow_iframe
