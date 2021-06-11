@@ -1,4 +1,5 @@
 module Identities
+  # rubcop:disable Metrics/AbcSize
   class SitesController < ApplicationController # rubocop:disable Metrics/ClassLength
     before_action :authenticate_user!, except: %i[widget site_config portal]
     before_action :set_identity, except: %i[widget site_config portal]
@@ -96,6 +97,14 @@ module Identities
       end
     end
 
+    def update
+      @site = @identity.sites.where(reference_id: params[:id]).first
+      widget_config_overrides = widget_config_overrides_permitted_params.to_h.transform_values do |v|
+        %w[true false].include?(v.downcase) ? eval(v.downcase) : v # rubocop:disable Security/Eval
+      end
+      @site.update!(widget_config_overrides: widget_config_overrides)
+    end
+
     def configure_site_config
       @config = @site.widget_config
     end
@@ -131,6 +140,14 @@ module Identities
       site = Site.find_by(reference_id: params[:id])
       response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://#{site.domain} https://#{site.domain}"
       # response.headers.delete "X-Frame-Options" # this would allow everyone
+    end
+
+    def widget_config_overrides_permitted_params
+      params
+        .require(:identity)
+        .require(:site)
+        .require(:widget_config_overrides)
+        .permit!
     end
   end
 end

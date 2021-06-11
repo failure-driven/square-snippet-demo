@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       get :show_sites
     end
     scope module: "identities" do
-      resources :sites, only: %i[show] do
+      resources :sites, only: %i[show update] do
         member do
           get :show_site
           post :add_widget

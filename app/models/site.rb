@@ -5,6 +5,12 @@ class Site < ApplicationRecord
 
   DEFAULT_WIDGET_CONFIG = {
     "title" => "Shop with Friends",
+    "visible" => true,
+    "chat" => true,
+    "call" => true,
+    "background_color" => "#ffffff",
+    "counter" => true,
+    "iframe" => true,
   }.freeze
 
   def status
