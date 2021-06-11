@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :identities, only: %i[index show] do
     member do
       get :show_sites
+      post :toggle_portal
     end
     scope module: "identities" do
       resources :sites, only: %i[show update] do
