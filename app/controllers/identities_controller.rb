@@ -28,7 +28,7 @@ class IdentitiesController < ApplicationController
         sites_api = client.sites
         result = sites_api.list_sites
 
-        if result.success?
+        if result.success? && !result.data.nil?
           result
             .data
             .sites
