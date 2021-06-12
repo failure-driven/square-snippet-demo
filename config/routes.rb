@@ -10,16 +10,6 @@ Rails.application.routes.draw do
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
 
-  resources :widgets do
-    collection do
-      get :vanillajs_demo
-      get :bootstrap_demo
-      get :react_demo
-      get :svelte_demo
-      get :svelte_widget
-    end
-  end
-
   resources :identities, only: %i[index show] do
     member do
       get :show_sites
