@@ -8,6 +8,10 @@ class HomeController < ApplicationController
 
   private
 
+  def terms; end
+
+  def privacy; end
+
   def set_company_details
     @website_address = "https://swif.club"
     @company_name = "Swif"
