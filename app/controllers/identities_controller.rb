@@ -19,13 +19,17 @@ class IdentitiesController < ApplicationController
   end
 
   def toggle_portal
+    return redirect_to root_path unless current_user.user_actions&.dig("admin", "can_administer")
+
     identity = current_user.identity_scope.find_by(uid: params[:id])
     user = identity.user.becomes(FormUser)
-    portal = Flipper[params[:portal].to_sym]
+    portal = Flipper[flipper_params]
     if portal.enabled?(user)
       portal.disable(user)
+      flash[:error] = "Portal successfully disabled"
     else
       portal.enable(user)
+      flash[:notice] = "Portal successfully enabled"
     end
   end
 
@@ -48,5 +52,11 @@ class IdentitiesController < ApplicationController
     else
       render plain: "404 Not Found", status: :not_found
     end
+  end
+
+  private
+
+  def flipper_params
+    params.require(:portal).to_sym
   end
 end
