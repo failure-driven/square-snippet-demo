@@ -8,16 +8,27 @@
     identity = window["SwifStaticConfig"].data().identity;
   }
   let header = "Shopping With Friends Placeholder";
+  let cssVarStyles = {};
+  const processSiteConfig = event => {
+    const siteConfig = event.detail.config;
+    if (siteConfig.title) {
+      header = siteConfig.title;
+    }
+    cssVarStyles = `--swif-background-color:${siteConfig["background-color"]};`;
+  };
 </script>
 
 <Widget>
   <div slot="header">{header}</div>
-  <div slot="content">
-    <Content />
+  <div slot="content" class="main" style={cssVarStyles}>
+    <Content on:siteConfig={processSiteConfig} />
   </div>
 </Widget>
 
 <style>
+  .main {
+    background-color: var(--swif-background-color, white);
+  }
   :global(div[slot="content"]) {
     height: 100%;
   }

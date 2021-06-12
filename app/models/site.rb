@@ -8,9 +8,10 @@ class Site < ApplicationRecord
     "visible" => true,
     "chat" => true,
     "call" => true,
-    "background_color" => "#ffffff",
+    "background-color" => "#ffffff",
     "counter" => true,
     "iframe" => true,
+    "portal" => true,
   }.freeze
 
   def status
