@@ -10,7 +10,7 @@
 - resizing the window makes the SWiF launch button disappear
 - there is quite a lag when dragging the SWiF launch button around the screen,
   is this on puropse?
-- [] identiy site list has text over text in different page sizes (fixed as part of `portal_toggle` feature branch)
+- [ ] identiy site list has text over text in different page sizes (fixed as part of `portal_toggle` feature branch)
 
 ## DONE
 
