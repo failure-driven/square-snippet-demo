@@ -13,4 +13,4 @@
   <% end %>
 </ul>
 <br>
-  <%= link_to "Enable/Disable Portal", toggle_portal_identity_path(@identity.uid, portal: "portal"), class: "btn btn-primary", method: :post if current_user.user_actions&.dig("admin", "can_administer") %>
+<%= link_to "Enable/Disable Portal", toggle_portal_identity_path(@identity.uid, portal: "portal"), class: "btn btn-primary", method: :post if current_user.user_actions&.dig("admin", "can_administer") %>
