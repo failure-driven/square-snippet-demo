@@ -31,6 +31,7 @@
     frameBorder="0"
     style="height: 350px; width: 100%"
     title="chatbot"
+    allow="camera;microphone"
     src={portalUrl({site, identity})}
   />
 {/if}
