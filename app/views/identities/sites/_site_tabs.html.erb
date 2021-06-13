@@ -23,7 +23,7 @@
         class: "nav-link #{action_name.to_sym == :stats ? "active" : ""}"
     ) %>
   </li>
-  <% if Flipper[:portal].enabled?(current_user) %>
+  <% if Flipper[:portal].enabled?(FormUser.find(@identity.user_id))%>
     <li class="nav-item">
       <%= link_to(
           "Portal",
