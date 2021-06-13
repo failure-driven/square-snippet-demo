@@ -21,15 +21,12 @@ class IdentitiesController < ApplicationController
   def toggle_portal
     return redirect_to root_path unless admin?
 
-    form_user_privilaged
+    form_user
     portal = Flipper[flipper_params]
-    if portal.enabled?(form_user_privilaged)
-      portal.disable(form_user_privilaged)
-      flash[:error] = "Portal successfully disabled"
-    else
-      portal.enable(form_user_privilaged)
-      flash[:notice] = "Portal successfully enabled"
-    end
+
+    switch_portal(portal, form_user)
+
+    redirect_to action: :show
   end
 
   def show_sites # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
@@ -59,12 +56,22 @@ class IdentitiesController < ApplicationController
     params.require(:portal).to_sym
   end
 
-  def form_user_privilaged
+  def form_user
     identity = current_user.identity_scope.find_by(uid: params[:id])
     identity.user.becomes(FormUser)
   end
 
   def admin?
     current_user.user_actions&.dig("admin", "can_administer")
+  end
+
+  def switch_portal(portal, form_user)
+    if portal.enabled?(form_user)
+      portal.disable(form_user)
+      flash[:error] = "Portal successfully disabled"
+    else
+      portal.enable(form_user)
+      flash[:notice] = "Portal successfully enabled"
+    end
   end
 end
