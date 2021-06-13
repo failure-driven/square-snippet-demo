@@ -73,4 +73,13 @@ class IdentitiesController < ApplicationController
     identity = current_user.identity_scope.find_by(uid: params[:id])
     identity.user.becomes(FormUser)
   end
+
+  def form_user_privilaged
+    identity = current_user.identity_scope.find_by(uid: params[:id])
+    identity.user.becomes(FormUser)
+  end
+
+  def admin?
+    current_user.user_actions&.dig("admin", "can_administer")
+  end
 end
