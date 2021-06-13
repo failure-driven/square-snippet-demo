@@ -23,16 +23,15 @@ class IdentitiesController < ApplicationController
   end
 
   def toggle_portal
-    return redirect_to root_path unless current_user.user_actions&.dig("admin", "can_administer")
+    return redirect_to root_path unless admin?
 
-    identity = current_user.identity_scope.find_by(uid: params[:id])
-    user = identity.user.becomes(FormUser)
+    form_user_privilaged
     portal = Flipper[flipper_params]
-    if portal.enabled?(user)
-      portal.disable(user)
+    if portal.enabled?(form_user_privilaged)
+      portal.disable(form_user_privilaged)
       flash[:error] = "Portal successfully disabled"
     else
-      portal.enable(user)
+      portal.enable(form_user_privilaged)
       flash[:notice] = "Portal successfully enabled"
     end
   end
@@ -94,5 +93,14 @@ class IdentitiesController < ApplicationController
 
   def flipper_params
     params.require(:portal).to_sym
+  end
+
+  def form_user_privilaged
+    identity = current_user.identity_scope.find_by(uid: params[:id])
+    identity.user.becomes(FormUser)
+  end
+
+  def admin?
+    current_user.user_actions&.dig("admin", "can_administer")
   end
 end
