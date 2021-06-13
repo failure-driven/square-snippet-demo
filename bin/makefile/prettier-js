@@ -11,5 +11,6 @@ if changes.empty?
 else
   all_changes = changes.join(" ")
   puts "Fixing: #{all_changes}"
+  system "yarn format"
   system "npx eslint --fix #{all_changes}"
 end

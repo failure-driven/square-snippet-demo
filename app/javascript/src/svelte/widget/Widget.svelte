@@ -50,10 +50,10 @@
   let width = Math.min(window.innerWidth * 0.82, 400);
 
   let main;
-  let windowClasses = ["main", "animated-gradient", "top", "left"];
+  let windowClasses = ["swif", "main", "animated-gradient", "top", "left"];
 
   function alignWindow() {
-    windowClasses = ["main", "animated-gradient"];
+    windowClasses = ["swif", "main", "animated-gradient"];
     if (window.innerWidth < 425) {
       windowClasses.push("top", "left");
     } else {

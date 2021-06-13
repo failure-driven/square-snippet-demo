@@ -1,18 +1,18 @@
 <ul class="list-group" data-testid="site-list">
-  <% @sites.map do |site_id, site| %>
-    <%= link_to identity_site_path(@identity.uid, site_id), class: "list-group-item list-group-item-action" do %>
+  <% @sites.map do |site| %>
+    <%= link_to identity_site_path(@identity.uid, site.reference_id), class: "list-group-item list-group-item-action" do %>
       <div class="row">
         <div class="col-lg-3">
-          <%= site[:site][:site_title] %>
+          <%= site.site_title %>
         </div>
         <div class="col-lg-3">
-          <%= site_id %>
+          <%= site.reference_id %>
         </div>
         <div class="col-lg-2">
-          <strong>status:</strong><%= site[:site].status %>
+          <strong>status:</strong><%= site.status %>
         </div>
         <div class="col-lg-4">
-          <%= site[:site][:domain] %>
+          <%= site.domain %>
         </div>
       </div>
     <% end %>

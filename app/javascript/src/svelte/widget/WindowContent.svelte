@@ -5,6 +5,5 @@
 <style>
   .content {
     height: 90%;
-    margin: 10px;
   }
 </style>

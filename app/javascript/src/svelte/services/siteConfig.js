@@ -3,6 +3,9 @@ const SERVER_URL = process.env.API_HOST_URL || "http://localhost:3000";
 const getSiteConfigUrl = ({identity, site}) => {
   return `${SERVER_URL}/identities/${identity}/sites/${site}/site_config.json`;
 };
+const portalUrl = ({identity, site}) => {
+  return `${SERVER_URL}/identities/${identity}/sites/${site}/portal`;
+};
 
 export default async function getSiteConfig({identity, site}) {
   const headers = {
@@ -15,3 +18,5 @@ export default async function getSiteConfig({identity, site}) {
   if (!response.ok) throw new Error(await response.text());
   return response.json();
 }
+
+export {portalUrl};

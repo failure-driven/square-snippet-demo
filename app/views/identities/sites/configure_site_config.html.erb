@@ -1,18 +1,24 @@
 <div class="container mt-3">
   <%= render partial: "identities/breadcrumbs" %>
   <%= render partial: "site_tabs" %>
-  ability to configure coming soon ...
-  <form>
+  <%= form_for([:identity, @site], url: identity_site_path(identity_id: @identity.uid, id: @site.reference_id)) do |f| %>
+
     <% @config.map do |key, value| %>
       <div class="row g-3 align-items-center mb-3">
-        <div class="col-auto">
-          <input type="text" class="form-control" value="<%= key %>" disabled>
-        </div>
-        <div class="col-auto">
-          <input type="text" class="form-control" value="<%= value %>" disabled>
+        <div class="col">
+          <div class="form-group">
+            <label for="<%= key %>"><%= key %></label>
+            <input
+              type="text"
+              class="form-control"
+              value="<%= value %>"
+              name="identity[site][widget_config_overrides][<%= key %>]"
+              id="identity_site_widget_config_overrides_<%= key %>"
+            />
+          </div>
         </div>
       </div>
     <% end %>
     <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+  <% end %>
 </ul>

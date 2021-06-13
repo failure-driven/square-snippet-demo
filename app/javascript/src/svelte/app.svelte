@@ -1,5 +1,4 @@
 <script>
-  import AuthenticatedView from "./app/AuthenticatedView.svelte";
   import Content from "./components/Content.svelte";
   import Widget from "./widget/Widget.svelte";
 
@@ -9,57 +8,31 @@
     identity = window["SwifStaticConfig"].data().identity;
   }
   let header = "Shopping With Friends Placeholder";
+  let cssVarStyles = {};
+  const processSiteConfig = event => {
+    const siteConfig = event.detail.config;
+    if (siteConfig.title) {
+      header = siteConfig.title;
+    }
+    cssVarStyles = `--swif-background-color:${siteConfig["background-color"]};`;
+  };
 </script>
 
 <Widget>
   <div slot="header">{header}</div>
-  <div slot="content">
-    <Content />
-    <AuthenticatedView />
+  <div slot="content" class="main" style={cssVarStyles}>
+    <Content on:siteConfig={processSiteConfig} />
   </div>
 </Widget>
 
 <style>
+  .main {
+    background-color: var(--swif-background-color, white);
+  }
   :global(div[slot="content"]) {
     height: 100%;
   }
-  :global(button, input[type="submit"], input[type="reset"]) {
-    background: none;
-    color: inherit;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-    outline: inherit;
-  }
 
-  :global(button) {
-    transition: background-color 0.2s;
-    padding: 0.25rem 0.75rem;
-    border-radius: 10px;
-  }
-
-  :global(.btn-success) {
-    background-color: #42b26d;
-    color: white;
-  }
-  :global(.btn-success:hover) {
-    background-color: #24c004;
-  }
-  :global(.btn-primary) {
-    background-color: #4267b2;
-    color: white;
-  }
-  :global(.btn-primary:hover) {
-    background-color: #1877f2;
-    color: white;
-  }
-  :global(.btn-danger) {
-    background-color: rgb(134, 49, 49);
-  }
-  :global(.btn-danger:hover) {
-    background-color: rgb(192, 33, 33);
-  }
   :global(.animated-gradient) {
     background: linear-gradient(
       213deg,

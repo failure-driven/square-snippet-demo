@@ -2,7 +2,7 @@
   <li class="nav-item">
     <%= link_to(
         "Status",
-        identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+        identity_site_path(identity_id: @identity.uid, id: @site.reference_id),
         aria: { current: :page },
         class: "nav-link #{action_name.to_sym == :show ? "active" : ""}"
     ) %>
@@ -10,7 +10,7 @@
   <li class="nav-item">
     <%= link_to(
         "Config",
-        configure_site_config_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+        configure_site_config_identity_site_path(identity_id: @identity.uid, id: @site.reference_id),
         aria: { current: :page },
         class: "nav-link #{action_name.to_sym == :configure_site_config ? "active" : ""}"
     ) %>
@@ -18,7 +18,7 @@
   <li class="nav-item">
     <%= link_to(
         "Stats",
-        stats_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+        stats_identity_site_path(identity_id: @identity.uid, id: @site.reference_id),
         aria: { current: :page },
         class: "nav-link #{action_name.to_sym == :stats ? "active" : ""}"
     ) %>
@@ -27,7 +27,7 @@
     <li class="nav-item">
       <%= link_to(
           "Portal",
-          portal_identity_site_path(identity_id: @identity.uid, id: @site[:site].reference_id),
+          portal_identity_site_path(identity_id: @identity.uid, id: @site.reference_id),
           aria: { current: :page },
           class: "nav-link #{action_name.to_sym == :portal ? "active" : ""}"
       ) %>

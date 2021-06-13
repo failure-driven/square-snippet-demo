@@ -25,21 +25,45 @@
   page.start();
 </script>
 
-<Auth />
-<nav>
-  <a
-    href={`/identities/${identity}/sites/${site}/portal/chat`}
-    class:active={component == Chat}
-  >
-    Chat</a
-  >
-  <a
-    href={`/identities/${identity}/sites/${site}/portal/call`}
-    class:active={component == Call}
-  >
-    Call</a
-  >
-</nav>
-<main>
-  <svelte:component this={component} />
-</main>
+<svelte:head>
+  <link rel="stylesheet" href="/min.css" />
+</svelte:head>
+
+<div class="swif">
+  <nav>
+    <Auth />
+    <div style="display:inline">
+      <a
+        href={`/identities/${identity}/sites/${site}/portal/chat`}
+        class:active={component == Chat}
+      >
+        Chat</a
+      >
+      <a
+        href={`/identities/${identity}/sites/${site}/portal/call`}
+        class:active={component == Call}
+      >
+        Call</a
+      >
+    </div>
+  </nav>
+  <main>
+    <svelte:component this={component} />
+  </main>
+</div>
+
+<style>
+  .swif {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  nav {
+    height: 10%;
+  }
+
+  main {
+    height: 90%;
+  }
+</style>

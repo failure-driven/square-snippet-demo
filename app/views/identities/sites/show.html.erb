@@ -20,27 +20,27 @@
           <strong>updated at</strong>
         </div>
       </div>
-      <% if @site[:site] %>
+      <% if @site %>
       <div class="row">
         <div class="col-lg-2">
           <strong class="d-lg-none">site title</strong>
-          <%= @site[:site][:site_title] %>
+          <%= @site.site_title %>
         </div>
         <div class="col-lg-4">
           <strong class="d-lg-none">domain</strong>
-          <%= link_to @site[:site][:domain], "http://#{@site[:site][:domain]}" %>
+          <%= link_to "http://#{@site.domain}", "http://#{@site.domain}" %>
         </div>
         <div class="col-lg-2">
           <strong class="d-lg-none">live</strong>
-          <%= @site[:site][:is_published] %>
+          <%= @site.is_published %>
         </div>
         <div class="col-lg-2">
           <strong class="d-lg-none">created at</strong>
-          <%= @site[:site][:created_at] %>
+          <%= @site.created_at %>
         </div>
         <div class="col-lg-2">
           <strong class="d-lg-none">updated at</strong>
-          <%= @site[:site][:updated_at] %>
+          <%= @site.updated_at %>
         </div>
       </div>
       <div
