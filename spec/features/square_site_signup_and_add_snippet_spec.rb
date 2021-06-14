@@ -41,7 +41,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     Then "they are informed they need to signup" do
-      expect(find(".messages .alert").text).to eq "You need to sign in or sign up before continuing."
+      expect(focus_on(:messages).success).to eq "You need to sign in or sign up before continuing."
     end
 
     And "the only way to do that is with square" do
@@ -53,7 +53,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     Then "They are successfully signed up" do
-      expect(find(".messages .alert").text).to eq "Successfully authenticated from Square account."
+      expect(focus_on(:messages).success).to eq "Successfully authenticated from Square account."
       expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
       expect(find_all(".breadcrumb .breadcrumb-item").map(&:text)).to eq(%w[Home square-name])
     end
