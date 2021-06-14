@@ -15,7 +15,7 @@
 <br>
 <% if current_user.user_actions&.dig("admin", "can_administer") %>
   <%= link_to toggle_portal_identity_path(@identity.uid, portal: "portal"), method: :post do %>
-    <% if Flipper[:portal].enabled?(FormUser.find(@identity.user_id)) %>
+    <% if !Flipper[:portal].enabled?(FormUser.find(@identity.user_id)) %>
       <div class="btn btn-primary">
         Enable Portal
       </div>
