@@ -1,4 +1,4 @@
-# SWIF Club - Shop with your friends on any website [![CircleCI](https://circleci.com/gh/failure-driven/square-snippet-demo.svg?style=svg)](https://circleci.com/gh/failure-driven/square-snippet-demo)
+# SWIF Club - Shop with your friends on any website [![CircleCI](https://app.circleci.com/pipelines/github/failure-driven/square-snippet-demo?branch=main)
 ## Enables your Square powered app to add powerful "Interactive Social Shopping Feature" in 60 seconds 🎉
 
 [![Square Unboxed - API snippet for Rails Template Walkthrough](https://i.ibb.co/6X4wXtw/Screen-Shot-2021-06-08-at-2-28-36-pm.png)](https://www.youtube.com/watch?v=JbytzNibk54)
