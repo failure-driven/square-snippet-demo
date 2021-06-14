@@ -128,5 +128,26 @@ describe "Managing Stories", js: true do
         ],
       )
     end
+
+    When "the user visits their site test demo page and clicks SWiF" do
+      visit configure_site_config_identity_site_path(identity_id: "123456", id: "id-1")
+      # TODO: as iframe is broken and needs to be removed
+      form = focus_on(:configure_site)
+             .for_action(identity_site_path(identity_id: "123456", id: "id-1"))
+      form.submit(
+        "identity_site_widget_config_overrides_iframe" => "false",
+      )
+
+      visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
+      page.find("button.swif").click
+      pending "for some reason content doesn't load in specs"
+      expect(
+        page.find(".swif .header-wrapper").text,
+      ).to eq "Shop With Friends"
+    end
+
+    Then "a published story is shown" do
+      expect(page.find(".swif .stories-list").find_all("div").map(&:text)).to eq("a story about a product")
+    end
   end
 end

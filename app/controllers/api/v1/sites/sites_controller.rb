@@ -12,6 +12,11 @@ module Api
           site.update!(visit_count: site.visit_count + 1)
           render json: { visit_count: site.visit_count } if site
         end
+
+        def stories
+          @stories = Story.where(published: true)
+          render json: { stories: @stories }
+        end
       end
     end
   end

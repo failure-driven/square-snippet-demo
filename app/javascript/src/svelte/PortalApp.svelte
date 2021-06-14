@@ -3,6 +3,7 @@
   import Auth from "./components/Auth.svelte";
   import Chat from "./components/Chat.svelte";
   import Call from "./components/Call.svelte";
+  import Stories from "./components/Stories.svelte";
 
   export let dataset;
   const {site, identity} = dataset;
@@ -12,7 +13,8 @@
   page.redirect("/", `/identities/${identity}/sites/${site}/portal/chat`);
   page.redirect(
     `/identities/${identity}/sites/${site}/portal`,
-    `/identities/${identity}/sites/${site}/portal/chat`
+    `/identities/${identity}/sites/${site}/portal/chat`,
+    `/identities/${identity}/sites/${site}/portal/stories`
   );
   page(
     "/identities/:identity/sites/:site/portal/chat",
@@ -21,6 +23,10 @@
   page(
     "/identities/:identity/sites/:site/portal/call",
     () => (component = Call)
+  );
+  page(
+    "/identities/:identity/sites/:site/portal/stories",
+    () => (component = Stories)
   );
   page.start();
 </script>
@@ -44,6 +50,12 @@
         class:active={component == Call}
       >
         Call</a
+      >
+      <a
+        href={`/identities/${identity}/sites/${site}/portal/stories`}
+        class:active={component == Stories}
+      >
+        Stories</a
       >
     </div>
   </nav>
