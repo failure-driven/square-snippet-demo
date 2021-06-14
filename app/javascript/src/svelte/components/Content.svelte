@@ -26,5 +26,6 @@
     title="chatbot"
     allow="camera;microphone"
     src={portalUrl({site, identity})}
+    class="content-iframe"
   />
 {/if}

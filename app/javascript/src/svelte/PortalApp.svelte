@@ -53,6 +53,7 @@
       >
       <a
         href={`/identities/${identity}/sites/${site}/portal/stories`}
+        class="swif-stories-link"
         class:active={component == Stories}
       >
         Stories</a

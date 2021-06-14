@@ -18,7 +18,7 @@
   });
 </script>
 
-<div class="stories">
+<div class="swif-stories-list">
   {#if stories === undefined}
     loading
   {:else if stories === []}

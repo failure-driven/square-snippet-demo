@@ -144,8 +144,10 @@ describe "Managing Stories", js: true do
     end
 
     Then "a published story is shown" do
-      pending "the stories actually being published"
-      expect(page.find(".swif .stories-list").find_all("div").map(&:text)).to eq("a story about a product")
+      focus_on(:iframe).within do
+        page.find(".swif-stories-link").click
+        expect(focus_on(:swif, :stories).list).to eq(["a story about a product"])
+      end
     end
   end
 end
