@@ -42,11 +42,14 @@ describe "Managing Stories", js: true do
 
     And "they create a new story" do
       expect(focus_on(:nav).actions).to eq(["Stories", "Sign out"])
+
       focus_on(:nav).follow_link_for("Stories")
       expect(focus_on(:stories).title).to eq("My Stories")
+
+      focus_on(:stories).start_new_story
+      sleep(0.1) # the page changes too fast!
+      expect(focus_on(:stories).title).to eq("New Story")
       pending
-      find("[data-testid=new-story-link]", text: "Stories").click
-      expect(find("div [data-testid=page-title]")).to eq("New Story")
 
       focus_on(:stories).form.submit(
         {

@@ -1,6 +1,8 @@
 <div class="card" style="width: 100%;"  data-testid="stories-panel">
   <div class="card-header">
-    My Stories
+    <h4>My Stories</h4>
+
+    <%= link_to 'New Story', new_user_story_path(user_id: current_user.id), class: "btn btn-primary" %>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">story 1</li>

@@ -1,7 +1,11 @@
 module PageFragments
   module Stories
     def title
-      stories_panel.find(".card-header").text
+      stories_panel.find("h4").text
+    end
+
+    def start_new_story
+      stories_panel.find("a", text: "New Story").click
     end
 
     def form
