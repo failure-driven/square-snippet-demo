@@ -13,4 +13,16 @@
   <% end %>
 </ul>
 <br>
-<%= link_to "Enable/Disable Portal", toggle_portal_identity_path(@identity.uid, portal: "portal"), class: "btn btn-primary", method: :post if current_user.user_actions&.dig("admin", "can_administer") %>
+<% if current_user.user_actions&.dig("admin", "can_administer") %>
+  <%= link_to toggle_portal_identity_path(@identity.uid, portal: "portal"), method: :post do %>
+    <% if Flipper[:portal].enabled?(FormUser.find(@identity.user_id)) %>
+      <div class="btn btn-primary">
+        Enable Portal
+      </div>
+    <% else %>
+      <div class="btn btn-danger">
+        Disable Portal
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
