@@ -110,19 +110,23 @@ describe "Managing Stories", js: true do
     end
 
     When "the story is published" do
-      pending
-      find("[data-testid=edit-story-link]", text: "Edit").click
-      focus_on(:stories).form.submit({ published: true })
+      focus_on(:stories).form.submit(
+        {
+          # site_id: "site-title-1", #TODO this just happens to work because it's the first value in the select box
+          story_title: "a story about a product",
+          published: true,
+        },
+      )
     end
 
     Then "the story is shown as publish" do
-      expect(focus_on(:messages).success).to eq "Story successfully published"
-      expect(find("[data-testid=page-title]")).to eq("My Stories")
-      expect(
-        find_all("[data-testid=story-list] .row").map { |row| row.find_all("div").map(&:text) },
-      ).to eq([
-                %w[id date name views published],
-              ])
+      expect(focus_on(:messages).success).to eq "Story successfully saved"
+      expect(focus_on(:stories).title).to eq("My Stories")
+      expect(focus_on(:stories).list).to eq(
+        [
+          ["site-title-1", "a story about a product", "published", "Edit"],
+        ],
+      )
     end
   end
 end

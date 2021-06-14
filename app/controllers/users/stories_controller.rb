@@ -22,7 +22,13 @@ module Users
       @story = Story.find(params[:id])
     end
 
-    def update; end
+    def update
+      @story = Story.find(params[:id])
+      @story.update!(story_params)
+
+      flash[:info] = "Story successfully saved"
+      redirect_to action: :index
+    end
 
     private
 
