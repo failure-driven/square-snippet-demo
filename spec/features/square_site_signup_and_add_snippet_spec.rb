@@ -83,16 +83,25 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
               ])
     end
 
-    When "the configure their site to not have iframes" do
+    When "they check their configuration" do
       page.find("a", text: "title-1").click
       page.find("a", text: "Config").click
-      visit configure_site_config_identity_site_path(identity_id: "123456", id: "id-1")
-      # TODO: as iframe is broken and needs to be removed
-      form = focus_on(:configure_site)
-             .for_action(identity_site_path(identity_id: "123456", id: "id-1"))
-      form.submit(
-        "iframe" => "false",
-      )
+    end
+
+    Then "they see the following config" do
+      expect(
+        focus_on(:configure_site)
+          .for_action(identity_site_path(identity_id: "123456", id: "id-1"))
+          .fields,
+      ).to eq({
+                "title" => { value: "Shop with Friends" },
+                "visible" => { value: "true" },
+                "chat" => { value: "true" },
+                "call" => { value: "true" },
+                "background-color" => { value: "#ffffff" },
+                "counter" => { value: "true" },
+                "portal" => { value: "true" },
+              })
     end
 
     When "They look at their first site"
@@ -123,7 +132,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     Then "they see the swif header" do
       expect(
         page.find(".swif .header-wrapper").text,
-      ).to eq "Shopping With Friends Placeholder"
+      ).to eq "Shop with Friends"
     end
 
     When "they configure their title text" do
@@ -141,7 +150,6 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     Then "they see the swif custom header" do
-      pending "being able to read the site_config.json properly"
       expect(
         page.find(".swif .header-wrapper").text,
       ).to eq "Custom Title"

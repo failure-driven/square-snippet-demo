@@ -10,7 +10,6 @@ class Site < ApplicationRecord
     "call" => true,
     "background-color" => "#ffffff",
     "counter" => true,
-    "iframe" => true,
     "portal" => true,
   }.freeze
 
