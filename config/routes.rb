@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [] do
     scope module: "users" do
-      resources :stories, only: %i[index new]
+      resources :stories, only: %i[index new create]
     end
   end
 

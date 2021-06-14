@@ -59,21 +59,20 @@ describe "Managing Stories", js: true do
     end
 
     Then "their stories are listed" do
-      pending
-
-      expect(
-        find_all("[data-testid=story-list] .row").map { |row| row.find_all("div").map(&:text) },
-      ).to eq([
-                %w[id date name views draft],
-              ])
+      expect(find(".messages .alert").text).to eq "Story successfully created"
+      expect(focus_on(:stories).list).to eq(
+        [
+          ["site-title-1", "a story about a product", "draft"]
+        ]
+      )
     end
 
     When "the user views a story" do
+      pending
       find(".story-item", text: "a story about a product").click
     end
 
     Then "story details are shown" do
-      expect(find(".messages .alert").text).to eq "Story successfully created"
       expect(find("[data-testid=page-title]")).to eq("a story about a product")
       expect(focus_on(:stories).form.fields).to eq(
         {

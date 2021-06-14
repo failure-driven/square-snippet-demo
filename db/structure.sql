@@ -54,7 +54,7 @@ CREATE TABLE public.ar_internal_metadata (
 --
 
 CREATE TABLE public.flipper_features (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     key character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
@@ -66,7 +66,7 @@ CREATE TABLE public.flipper_features (
 --
 
 CREATE TABLE public.flipper_gates (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     feature_key character varying NOT NULL,
     key character varying NOT NULL,
     value character varying,
@@ -80,7 +80,7 @@ CREATE TABLE public.flipper_gates (
 --
 
 CREATE TABLE public.identities (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     user_id uuid NOT NULL,
     provider character varying,
     accesstoken character varying,
@@ -111,7 +111,7 @@ CREATE TABLE public.schema_migrations (
 --
 
 CREATE TABLE public.sites (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     reference_id character varying NOT NULL,
     site_title character varying NOT NULL,
     domain character varying,
@@ -128,11 +128,26 @@ CREATE TABLE public.sites (
 
 
 --
+-- Name: stories; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.stories (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    user_id uuid NOT NULL,
+    site_id uuid NOT NULL,
+    story_title character varying NOT NULL,
+    published boolean DEFAULT false,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: users; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.users (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
     email character varying DEFAULT ''::character varying NOT NULL,
     encrypted_password character varying DEFAULT ''::character varying NOT NULL,
     reset_password_token character varying,
@@ -205,6 +220,14 @@ ALTER TABLE ONLY public.sites
 
 
 --
+-- Name: stories stories_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stories
+    ADD CONSTRAINT stories_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -255,6 +278,20 @@ CREATE INDEX index_sites_on_status ON public.sites USING btree (status);
 
 
 --
+-- Name: index_stories_on_site_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stories_on_site_id ON public.stories USING btree (site_id);
+
+
+--
+-- Name: index_stories_on_user_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_stories_on_user_id ON public.stories USING btree (user_id);
+
+
+--
 -- Name: index_users_on_confirmation_token; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -283,6 +320,14 @@ CREATE UNIQUE INDEX index_users_on_unlock_token ON public.users USING btree (unl
 
 
 --
+-- Name: stories fk_rails_19e4328475; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stories
+    ADD CONSTRAINT fk_rails_19e4328475 FOREIGN KEY (site_id) REFERENCES public.sites(id);
+
+
+--
 -- Name: identities fk_rails_5373344100; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -296,6 +341,14 @@ ALTER TABLE ONLY public.identities
 
 ALTER TABLE ONLY public.sites
     ADD CONSTRAINT fk_rails_65a4762f9c FOREIGN KEY (identity_id) REFERENCES public.identities(id);
+
+
+--
+-- Name: stories fk_rails_c53f5feaac; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.stories
+    ADD CONSTRAINT fk_rails_c53f5feaac FOREIGN KEY (user_id) REFERENCES public.users(id);
 
 
 --
@@ -313,6 +366,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210529021428'),
 ('20210529030018'),
 ('20210529121413'),
-('20210603114818');
+('20210603114818'),
+('20210614055009');
 
 

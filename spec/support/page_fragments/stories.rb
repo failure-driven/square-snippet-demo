@@ -12,6 +12,12 @@ module PageFragments
       Support::Components::RailsForm.new(browser.find("[data-testid=new-story-form]"))
     end
 
+    def list
+      Support::Components::RailsList.new(
+        browser.find("[data-testid=stories-list]"),
+      ).list_items
+    end
+
     private
 
     def stories_panel
