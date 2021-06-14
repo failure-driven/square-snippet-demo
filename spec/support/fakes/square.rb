@@ -1,7 +1,7 @@
 module Support
   module Fakes
     class Square
-      def initialize(spec, sites: nil)
+      def initialize(spec, sites: nil, snippet_result: {})
         @spec = spec
         @sites = OpenStruct.new(
           list_sites: OpenStruct.new(
@@ -14,6 +14,7 @@ module Support
 
         @client = FakeSquareClient.new(
           @sites,
+          snippet_result,
         )
 
         spec.allow(
@@ -29,8 +30,23 @@ module Support
       class FakeSquareClient
         attr_reader :sites
 
-        def initialize(sites)
+        def initialize(sites, snippet_result)
           @sites = sites
+          @snippet_result = snippet_result
+        end
+
+        def snippets
+          FakeSquareSnippet.new(@snippet_result)
+        end
+      end
+
+      class FakeSquareSnippet
+        def initialize(snippet_result)
+          @snippet_result = snippet_result
+        end
+
+        def retrieve_snippet(_args)
+          @snippet_result
         end
       end
     end

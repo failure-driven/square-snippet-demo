@@ -37,6 +37,16 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
           site_title: "title-B",
         },
       ],
+      snippet_result: OpenStruct.new(
+        success?: true,
+        data: OpenStruct.new(
+          snippet: {
+            content: "the snippet content",
+            created_at: "2021-07-12T12:00:00",
+            updated_at: "2021-07-12T12:00:00",
+          },
+        ),
+      ),
     )
   end
 
@@ -74,15 +84,14 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     When "the configure their site to not have iframes" do
-      # TODO: navigation needs some more Square API endpoints faked out
-      # page.find("a", text: "title-1").click
-      # page.find("a", text: "Config").click
+      page.find("a", text: "title-1").click
+      page.find("a", text: "Config").click
       visit configure_site_config_identity_site_path(identity_id: "123456", id: "id-1")
       # TODO: as iframe is broken and needs to be removed
       form = focus_on(:configure_site)
              .for_action(identity_site_path(identity_id: "123456", id: "id-1"))
       form.submit(
-        "identity_site_widget_config_overrides_iframe" => "false",
+        "iframe" => "false",
       )
     end
 
@@ -122,7 +131,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
       form = focus_on(:configure_site)
              .for_action(identity_site_path(identity_id: "123456", id: "id-1"))
       form.submit(
-        "identity_site_widget_config_overrides_title" => "Custom Title",
+        "title" => "Custom Title",
       )
     end
 
