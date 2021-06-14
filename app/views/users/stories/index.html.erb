@@ -10,6 +10,7 @@
         <div><%= story.site.site_title %></div>
         <div><%= story.story_title %></div>
         <div><%= story.draft %></div>
+        <%= link_to 'Edit', edit_user_story_path(current_user, story), class: "btn btn-primary" %>
       </li>
     <% end %>
   </ul>

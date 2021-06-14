@@ -7,7 +7,6 @@ module Users
     end
 
     def new
-      @current_user = current_user
       @sites = Site.all
     end
 
@@ -17,6 +16,13 @@ module Users
       flash[:info] = "Story successfully created"
       redirect_to action: :index
     end
+
+    def edit
+      @sites = Site.all
+      @story = Story.find(params[:id])
+    end
+
+    def update; end
 
     private
 

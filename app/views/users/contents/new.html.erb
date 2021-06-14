@@ -1,0 +1,30 @@
+<div class="card" style="width: 100%;"  data-testid="contents-panel">
+  <div class="card-header">
+    <h4>New Content</h4>
+  </div>
+
+  <div class="card-body">
+    <%= form_with url: user_story_contents_url(user_id: current_user.id, story_id: @story.id), data: { testid: "new-content-form" } do |form| %>
+      <div class="row g-3 align-items-center mb-3">
+        <div class="col">
+          <div class="form-group">
+            <%= form.label :content_title, "Content title" %>
+            <%= form.text_field :content_title, class: "form-control", type: "text" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :description, "Description" %>
+            <%= form.text_field :description, class: "form-control", type: "text" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :url, "Url" %>
+            <%= form.text_field :url, class: "form-control", type: "text" %>
+          </div>
+
+          <%= form.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

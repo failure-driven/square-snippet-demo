@@ -18,6 +18,10 @@ module PageFragments
       ).list_items
     end
 
+    def edit_story_with_title(text)
+      stories_panel.find("li", text: text).find("a", text: "Edit").click
+    end
+
     private
 
     def stories_panel

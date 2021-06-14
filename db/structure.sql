@@ -50,6 +50,21 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
+-- Name: contents; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.contents (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    story_id uuid NOT NULL,
+    content_title character varying NOT NULL,
+    description character varying NOT NULL,
+    url character varying NOT NULL,
+    created_at timestamp(6) without time zone NOT NULL,
+    updated_at timestamp(6) without time zone NOT NULL
+);
+
+
+--
 -- Name: flipper_features; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -180,6 +195,14 @@ ALTER TABLE ONLY public.ar_internal_metadata
 
 
 --
+-- Name: contents contents_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.contents
+    ADD CONSTRAINT contents_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: flipper_features flipper_features_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -233,6 +256,13 @@ ALTER TABLE ONLY public.stories
 
 ALTER TABLE ONLY public.users
     ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: index_contents_on_story_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_contents_on_story_id ON public.contents USING btree (story_id);
 
 
 --
@@ -352,6 +382,14 @@ ALTER TABLE ONLY public.stories
 
 
 --
+-- Name: contents fk_rails_e0fb9304d7; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.contents
+    ADD CONSTRAINT fk_rails_e0fb9304d7 FOREIGN KEY (story_id) REFERENCES public.stories(id);
+
+
+--
 -- PostgreSQL database dump complete
 --
 
@@ -367,6 +405,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210529030018'),
 ('20210529121413'),
 ('20210603114818'),
-('20210614055009');
+('20210614055009'),
+('20210614070628');
 
 
