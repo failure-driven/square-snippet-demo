@@ -1,0 +1,4 @@
+Admin
+<hr>
+
+<%= link_to "Generate Admin", admin_generator_path(email: "test@test.co"), class: "btn btn-warning", method: :post if current_user.user_actions&.dig("admin", "can_administer") %>
