@@ -49,11 +49,9 @@ describe "Managing Stories", js: true do
       focus_on(:stories).start_new_story
       sleep(0.1) # the page changes too fast!
       expect(focus_on(:stories).title).to eq("New Story")
-      pending
-
       focus_on(:stories).form.submit(
         {
-          site: "site-title-1",
+          # site_id: "site-title-1", #TODO this just happens to work because it's the first value in the select box
           story_title: "a story about a product",
           published: false,
         },
@@ -61,6 +59,8 @@ describe "Managing Stories", js: true do
     end
 
     Then "their stories are listed" do
+      pending
+
       expect(
         find_all("[data-testid=story-list] .row").map { |row| row.find_all("div").map(&:text) },
       ).to eq([

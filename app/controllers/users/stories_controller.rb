@@ -4,6 +4,9 @@ module Users
 
     def index; end
 
-    def new; end
+    def new
+      @current_user = current_user
+      @sites = Site.all
+    end
   end
 end
