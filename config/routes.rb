@@ -48,6 +48,8 @@ Rails.application.routes.draw do
   authenticated :user do
     get "/", to: redirect("/identities")
     resources :accounts, only: %i[index show edit update]
+    get "/admin", to: "home#admin"
+    post "/admin_generator", to: "home#admin_generator"
   end
 
   get "/terms-of-service", to: "home#terms"
