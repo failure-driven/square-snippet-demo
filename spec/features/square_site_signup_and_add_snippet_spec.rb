@@ -131,11 +131,8 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     Then "they see the swif header" do
       expect(
-        # TODO: hacky attempt to deal with loading error on CI
-        page.document.synchronize do
-          page.find(".swif .header-wrapper", text: "Shop ").text
-        end,
-      ).to eq "Shop with Friends"
+        page.find(".swif .header-wrapper")
+      ).to have_content "Shop with Friends"
     end
 
     When "they configure their title text" do
