@@ -162,6 +162,64 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     Then "they see the re configured widget"
     When "they remove the widget"
     Then "it successfully is removed"
+
+    Given "there is an admin on the system" do
+      require "rake"
+      Rake::Task.define_task(:environment)
+      Rake.application.rake_require "tasks/admin"
+      Rake::Task["admin:make_admin_user"].reenable
+      Rake.application.invoke_task "admin:make_admin_user[m@m.m]"
+    end
+
+    And "no one is logged in and emails are clear" do
+      page.find("a", text: "Sign out").click
+      clear_emails
+    end
+
+    When "admin goes to reset their password as a way to log in" do
+      visit new_user_password_path
+      form = focus_on(:configure_site).for_action(user_password_path)
+      form.submit("Email" => "m@m.m")
+    end
+
+    Then "admin is notified they will get an email" do
+      expect(
+        focus_on(:messages).success,
+      ).to eq "You will receive an email with instructions on how to " \
+              "reset your password in a few minutes."
+    end
+
+    And "they get an email" do
+      open_email "m@m.m"
+    end
+
+    When "admin goes to change their passowrd" do
+      current_email.click_link "Change my password"
+      form = focus_on(:configure_site).for_action(user_password_path)
+      form.submit(
+        "New password" => "1password",
+        "Confirm new password" => "1password",
+      )
+    end
+
+    Then "they successfully login" do
+      expect(
+        focus_on(:messages).success,
+      ).to eq "Your password has been changed successfully. " \
+              "You are now signed in."
+      expect(
+        find("nav.navbar [data-testid=signin-name]").text,
+      ).to eq "m@m.m"
+    end
+
+    And "they see a list of all users with accounts" do
+      expect(
+        all("[data-testid=user-list] .row")
+          .map { |row| row.find_all("div").map(&:text) },
+      ).to eq([
+                ["123456", "square-name", "", ""],
+              ])
+    end
   end
 
   scenario "Square OAuth signs up but has no sites of their own yet"

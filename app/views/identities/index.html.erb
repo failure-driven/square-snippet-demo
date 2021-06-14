@@ -1,6 +1,7 @@
 <div class="container mt-3">
   <%= render partial: "identities/breadcrumbs" %>
-  <ul class="list-group"> <% @identities.map do |identity| %>
+  <ul class="list-group" data-testid="user-list">
+    <% @identities.map do |identity| %>
       <%= link_to identity_path(identity.uid), class: "list-group-item list-group-item-action" do %>
         <div class="row">
           <div class="col-lg-4">

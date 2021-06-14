@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
 
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development? || Rails.env.test?
+
   resources :identities, only: %i[index show] do
     member do
       get :show_sites

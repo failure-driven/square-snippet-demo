@@ -32,6 +32,9 @@ gem "devise"
 gem "omniauth-square", github: "saramic/omniauth-square"
 # Square API
 gem "square.rb"
+#
+# Email inline styling
+gem "premailer-rails"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
@@ -55,6 +58,7 @@ group :test do
   gem "rspec-rails"
 
   gem "capybara"
+  gem "capybara-email"
   gem "capybara-inline-screenshot"
   gem "selenium-webdriver"
   gem "webdrivers"
@@ -67,6 +71,8 @@ end
 group :development, :test do
   # call as my_complex_hash for awesome pretty print
   gem "awesome_print"
+
+  gem "letter_opener_web"
 
   # dev and test to be able to call binding.pry in specs
   gem "pry-byebug"
