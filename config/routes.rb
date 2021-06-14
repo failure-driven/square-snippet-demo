@@ -25,6 +25,7 @@ Rails.application.routes.draw do
           get :site_config
           get :stats
           get :portal
+          get :test_demo
         end
       end
     end

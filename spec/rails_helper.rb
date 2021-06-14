@@ -66,4 +66,8 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   # include PageFragments in features
   config.include PageFragments, type: :feature
+
+  # set predictable ports for things like email and API endpoints
+  Capybara.server_port = 3001
+  Capybara.server_host = "localhost"
 end

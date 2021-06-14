@@ -123,6 +123,24 @@ module Identities
       redirect_to Webpacker.manifest.lookup!("widget_demo_svelte.js")
     end
 
+    def test_demo
+      @site = @identity.sites.where(reference_id: params[:id]).first
+      @widget_snippet = <<~EO_SNIPPET_CONTENT
+        <script>
+          var SwifStaticConfig = (function(my){
+            my.data = () => {
+              return #{ {
+                site: @site.reference_id,
+                identity: @identity.uid,
+              }.to_json}
+            }#{' '}
+            return(my)
+          })(SwifStaticConfig || {})
+        </script>
+        <script defer src="#{widget_identity_site_url}"></script>
+      EO_SNIPPET_CONTENT
+    end
+
     private
 
     def set_identity
