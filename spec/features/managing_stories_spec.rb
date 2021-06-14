@@ -41,10 +41,10 @@ describe "Managing Stories", js: true do
     end
 
     And "they create a new story" do
-      pending "need a new route"
-      expect(find_all(".breadcrumb .breadcrumb-item").map(&:text)).to eq(%w[Home square-name Stories])
-      find("[data-testid=stories-link]", text: "Stories").click
-      expect(find("[data-testid=page-title]")).to eq("My Stories")
+      expect(focus_on(:nav).actions).to eq(["Stories", "Sign out"])
+      focus_on(:nav).follow_link_for("Stories")
+      expect(focus_on(:stories).title).to eq("My Stories")
+      pending
       find("[data-testid=new-story-link]", text: "Stories").click
       expect(find("div [data-testid=page-title]")).to eq("New Story")
 

@@ -31,6 +31,12 @@ Rails.application.routes.draw do
   end
   get "/identities/:identity_id/sites/:id/portal/*all" => "identities/sites#portal"
 
+  resources :users, only: [] do
+    scope module: "users" do
+      resources :stories, only: %i[index]
+    end
+  end
+
   authenticated :user do
     get "/", to: redirect("/identities")
   end
