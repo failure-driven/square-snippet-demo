@@ -1,5 +1,6 @@
 class IdentitiesController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorise_admin, only: [:toggle_portal]
 
   def index
     @identity = current_user.identities.first
@@ -19,12 +20,16 @@ class IdentitiesController < ApplicationController
   end
 
   def toggle_portal
-    return redirect_to root_path unless admin?
-
     form_user
     portal = Flipper[flipper_params]
 
-    switch_portal(portal, form_user)
+    if portal.enabled?(form_user)
+      portal.disable(form_user)
+      flash[:notice] = "Portal successfully disabled"
+    else
+      portal.enable(form_user)
+      flash[:notice] = "Portal successfully enabled"
+    end
 
     redirect_to action: :show
   end
@@ -59,19 +64,5 @@ class IdentitiesController < ApplicationController
   def form_user
     identity = current_user.identity_scope.find_by(uid: params[:id])
     identity.user.becomes(FormUser)
-  end
-
-  def admin?
-    current_user.user_actions&.dig("admin", "can_administer")
-  end
-
-  def switch_portal(portal, form_user)
-    if portal.enabled?(form_user)
-      portal.disable(form_user)
-      flash[:error] = "Portal successfully disabled"
-    else
-      portal.enable(form_user)
-      flash[:notice] = "Portal successfully enabled"
-    end
   end
 end
