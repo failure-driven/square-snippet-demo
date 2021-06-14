@@ -73,9 +73,4 @@ class IdentitiesController < ApplicationController
     identity = current_user.identity_scope.find_by(uid: params[:id])
     identity.user.becomes(FormUser)
   end
-
-  def form_user
-    identity = current_user.identity_scope.find_by(uid: params[:id])
-    identity.user.becomes(FormUser)
-  end
 end
