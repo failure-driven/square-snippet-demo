@@ -62,8 +62,8 @@ describe "Managing Stories", js: true do
       expect(find(".messages .alert").text).to eq "Story successfully created"
       expect(focus_on(:stories).list).to eq(
         [
-          ["site-title-1", "a story about a product", "draft"]
-        ]
+          ["site-title-1", "a story about a product", "draft"],
+        ],
       )
     end
 
