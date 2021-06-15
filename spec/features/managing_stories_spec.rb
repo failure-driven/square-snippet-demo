@@ -147,5 +147,20 @@ describe "Managing Stories", js: true do
         expect(focus_on(:swif, :stories).list).to eq(["a story about a product"])
       end
     end
+
+    When "the user clicks on a story" do
+      pending
+      focus_on(:iframe).within do
+        focus_on(:swif, :stories).go_to_story("a story about a product")
+      end
+    end
+
+    Then "it shows content for that story, newest first" do
+      focus_on(:iframe).within do
+        expect(
+          focus_on(:swif, :story).contents,
+        ).to eq([["buying a product online", "how i bought my product online", "a link to photo/video of my content"]])
+      end
+    end
   end
 end

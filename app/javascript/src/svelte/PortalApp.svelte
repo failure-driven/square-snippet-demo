@@ -4,17 +4,18 @@
   import Chat from "./components/Chat.svelte";
   import Call from "./components/Call.svelte";
   import Stories from "./components/Stories.svelte";
+  import Story from "./components/Story.svelte";
 
   export let dataset;
   const {site, identity} = dataset;
 
   let component;
+  let props = {};
 
   page.redirect("/", `/identities/${identity}/sites/${site}/portal/chat`);
   page.redirect(
     `/identities/${identity}/sites/${site}/portal`,
-    `/identities/${identity}/sites/${site}/portal/chat`,
-    `/identities/${identity}/sites/${site}/portal/stories`
+    `/identities/${identity}/sites/${site}/portal/chat`
   );
   page(
     "/identities/:identity/sites/:site/portal/chat",
@@ -28,6 +29,11 @@
     "/identities/:identity/sites/:site/portal/stories",
     () => (component = Stories)
   );
+  page("/identities/:identity/sites/:site/portal/stories/:id", context => {
+    component = Story;
+    const {params, query} = context;
+    props = {...params, ...query};
+  });
   page.start();
 </script>
 
@@ -61,7 +67,7 @@
     </div>
   </nav>
   <main>
-    <svelte:component this={component} />
+    <svelte:component this={component} {...props} />
   </main>
 </div>
 

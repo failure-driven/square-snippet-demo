@@ -2,6 +2,7 @@
   import axios from "axios";
   import {onMount} from "svelte";
 
+  export let site, identity;
   let stories;
 
   onMount(async () => {
@@ -26,7 +27,13 @@
   {:else}
     <ul>
       {#each stories as story}
-        <li>{story.story_title}</li>
+        <li>
+          <a
+            href={`/identities/${identity}/sites/${site}/portal/stories/${story.id}`}
+          >
+            {story.story_title}
+          </a>
+        </li>
       {/each}
     </ul>
   {/if}
