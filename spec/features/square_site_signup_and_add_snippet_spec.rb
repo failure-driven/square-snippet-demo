@@ -202,6 +202,8 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     And "they get an email" do
       open_email "m@m.m"
+      expect(current_email.subject).to eq "Reset password instructions"
+      expect(current_email.from).to eq(["swif.club+test@example.com"])
     end
 
     When "admin goes to change their passowrd" do
