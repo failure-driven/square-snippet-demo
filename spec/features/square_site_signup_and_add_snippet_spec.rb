@@ -30,11 +30,21 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
       sites: [
         {
           id: "id-1",
-          site_title: "title-1",
+          site_title: "deleted-some-time-ago",
+          is_published: false,
         },
         {
           id: "id-B",
-          site_title: "title-B",
+          site_title: "Active-NOT-published",
+          domain: "active-not-published.square.site",
+          is_published: false,
+        },
+        {
+          id: "id-X",
+          site_title: "Active-and-published",
+          domain: "active-and-published.square.site",
+          is_published: true,
+          updated_at: "2021-07-01T12:00:00",
         },
       ],
       snippet_result: OpenStruct.new(
@@ -78,20 +88,21 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
       expect(
         find_all("[data-testid=site-list] .row").map { |row| row.find_all("div").map(&:text) },
       ).to eq([
-                ["title-1", "id-1", "status:active", ""],
-                ["title-B", "id-B", "status:active", ""],
+                ["Active-and-published", "last published on July 01, 2021 to active-and-published.square.site"],
+                %w[Active-NOT-published unpublished],
+                %w[deleted-some-time-ago deleted],
               ])
     end
 
     When "they check their configuration" do
-      page.find("a", text: "title-1").click
+      page.find("a", text: "Active-and-published").click
       page.find("a", text: "Config").click
     end
 
     Then "they see the following config" do
       expect(
         focus_on(:configure_site)
-          .for_action(identity_site_path(identity_id: "123456", id: "id-1"))
+          .for_action(identity_site_path(identity_id: "123456", id: "id-X"))
           .fields,
       ).to eq({
                 "title" => { value: "Shop with Friends" },

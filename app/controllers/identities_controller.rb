@@ -1,6 +1,5 @@
 class IdentitiesController < ApplicationController
   before_action :authenticate_user!
-  SITE_TIMESTAMP_FIELDS = %w[created_at updated_at].freeze
 
   def index
     @identity = current_user.identities.first
@@ -15,12 +14,11 @@ class IdentitiesController < ApplicationController
 
   def show
     @identity = current_user.identity_scope.find_by(uid: params[:id])
-    @sites = @identity
-             .sites
+    @sites = @identity.sites
     render plain: "404 Not Found", status: :not_found unless @identity
   end
 
-  def show_sites # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def show_sites # rubocop:disable Metrics/AbcSize
     @identity = current_user.identity_scope.find_by(uid: params[:id])
     if @identity
       client = @identity.user.square_client
@@ -29,40 +27,11 @@ class IdentitiesController < ApplicationController
         result = sites_api.list_sites
 
         if result.success? && !result.data.nil?
-          result
-            .data
-            .sites
-            .each do |site_result|
-              site = Site
-                     .find_or_initialize_by(reference_id: site_result[:id], identity: @identity)
-              site
-                .update!(
-                  site_result
-                    .slice(*%i[site_title domain is_published created_at updated_at])
-                    .map do |key, value|
-                    # rubocop:disable Metrics/BlockNesting
-                    if SITE_TIMESTAMP_FIELDS
-                    .include?(key)
-                      ["site_#{key}", value]
-                    else
-                      [key, value]
-                    end
-                    # rubocop:enable Metrics/BlockNesting
-                  end
-                    .to_h
-                    .merge(
-                      identity: @identity,
-                      status: "active",
-                    ),
-                )
-            end
-          deleted_sites = @identity.sites.where.not(reference_id: result.data.sites.pluck(:id))
-          deleted_sites.update(status: "deleted")
+          Site.find_or_update_by_api_result(@identity, result.data.sites)
         elsif result.error?
           flash[:errors] = result.errors
         end
-        @sites = @identity
-                 .sites
+        @sites = @identity.sites
       end
       render partial: "show_sites"
     else

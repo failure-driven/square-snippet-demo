@@ -2,17 +2,11 @@
   <% @sites.map do |site| %>
     <%= link_to identity_site_path(@identity.uid, site.reference_id), class: "list-group-item list-group-item-action" do %>
       <div class="row">
-        <div class="col-lg-4">
-          <%= site.site_title %>
+        <div>
+          <strong><%= site.site_title %></strong>
         </div>
-        <div class="col-lg-2">
-          <%= site.reference_id %>
-        </div>
-        <div class="col-lg-2">
-          <strong>status:</strong><%= site.status %>
-        </div>
-        <div class="col-lg-4">
-          <%= site.domain %>
+        <div>
+          <%= site.last_published %>
         </div>
       </div>
     <% end %>
