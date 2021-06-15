@@ -137,7 +137,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     When "they visit their site test demo page and click swif" do
       visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
-      page.find("button.swif").click
+      focus_on(:swif, :widget).open
     end
 
     Then "they see the swif header" do
@@ -157,7 +157,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     And "visit their test demo page and view swif" do
       visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
-      page.find("button.swif").click
+      focus_on(:swif, :widget).open
     end
 
     Then "they see the swif custom header" do

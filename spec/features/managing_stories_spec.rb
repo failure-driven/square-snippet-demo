@@ -137,15 +137,13 @@ describe "Managing Stories", js: true do
 
     When "the user visits their site test demo page and clicks SWiF" do
       visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
-      page.find("button.swif").click
-      expect(
-        page.find(".swif .header-wrapper"),
-      ).to have_content "Shop with Friends"
+      focus_on(:swif, :widget).open
+      expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
     end
 
     Then "a published story is shown" do
       focus_on(:iframe).within do
-        page.find(".swif-stories-link").click
+        focus_on(:swif, :widget).go_to_stories
         expect(focus_on(:swif, :stories).list).to eq(["a story about a product"])
       end
     end
