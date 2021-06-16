@@ -3,7 +3,7 @@
   import {onMount} from "svelte";
 
   export let id;
-  let story;
+  let storyTitle;
 
   onMount(async () => {
     const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
@@ -14,11 +14,11 @@
         },
       })
       .then(response => {
-        story = response.data.story;
+        storyTitle = response.data.story.story_title;
       });
   });
 </script>
 
-<div class="swif-story">
-  this is a swif story! {story}
+<div class="swif-story-title">
+  {storyTitle}
 </div>
