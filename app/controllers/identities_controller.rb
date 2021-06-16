@@ -34,7 +34,7 @@ class IdentitiesController < ApplicationController
     redirect_to action: :show
   end
 
-  def show_sites # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def show_sites # rubocop:disable Metrics/AbcSize
     @identity = current_user.identity_scope.find_by(uid: params[:id])
     if @identity
       client = @identity.user.square_client
