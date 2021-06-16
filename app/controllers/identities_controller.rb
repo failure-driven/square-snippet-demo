@@ -6,7 +6,7 @@ class IdentitiesController < ApplicationController
     @identity = current_user.identities.first
     if @identity
       redirect_to identity_path(@identity.uid)
-    elsif current_user.user_actions&.dig("admin", "can_administer")
+    elsif current_user.admin?
       @identities = Identity.all
     else
       render plain: "404 Not Found", status: :not_found
@@ -19,7 +19,7 @@ class IdentitiesController < ApplicationController
     render plain: "404 Not Found", status: :not_found unless @identity
   end
 
-  def toggle_portal
+  def toggle_feature
     form_user
     portal = Flipper[flipper_params]
 
@@ -58,7 +58,7 @@ class IdentitiesController < ApplicationController
   private
 
   def flipper_params
-    params.require(:portal).to_sym
+    params.require(:feature).to_sym
   end
 
   def form_user
