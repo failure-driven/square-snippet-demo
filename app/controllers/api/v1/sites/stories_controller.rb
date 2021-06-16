@@ -9,7 +9,6 @@ module Api
 
         def show
           @story = Story.find(params[:id])
-          render json: { story: @story }
         end
       end
     end

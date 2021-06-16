@@ -6,7 +6,7 @@ module PageFragments
       end
 
       def contents
-        swif.find(".swif-contents-list").find_all("li").map(&:text)
+        swif.find(".swif-contents-list").find_all("li").map {|li| li.text.split("\n")}
       end
 
       private
