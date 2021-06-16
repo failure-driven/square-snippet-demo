@@ -19,6 +19,10 @@ class User < ApplicationRecord
   end
 
   def identity_scope
-    user_actions&.dig("admin", "can_administer") ? Identity : identities
+    admin? ? Identity : identities
+  end
+
+  def admin?
+    user_actions&.dig("admin", "can_administer")
   end
 end
