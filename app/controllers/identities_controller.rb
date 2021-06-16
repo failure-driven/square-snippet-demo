@@ -1,6 +1,6 @@
 class IdentitiesController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorise_admin, only: [:toggle_portal]
+  before_action :authorise_admin, only: [:toggle_feature]
 
   def index
     @identity = current_user.identities.first

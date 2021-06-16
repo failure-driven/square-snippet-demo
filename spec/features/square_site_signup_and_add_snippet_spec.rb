@@ -97,6 +97,9 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     When "they check their configuration" do
       page.find("a", text: "Active-and-published").click
       page.find("a", text: "Config").click
+      page.document.synchronize do
+        expect(page.all("ul.nav-tabs li").map(&:text)).to eq(%w[Status Config Stats])
+      end
     end
 
     Then "they see the following config" do
@@ -232,6 +235,28 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
       ).to eq([
                 ["123456", "square-name", "", ""],
               ])
+    end
+
+    When "admin set portal toggle to ON" do
+      page.find("a", text: "square-name").click
+      page.find("a", text: "Enable Portal").click
+    end
+
+    Then "admin sees success message" do
+      expect(
+        focus_on(:messages).success,
+      ).to eq "Portal successfully enabled"
+      # expect(page.all("ul.nav-tabs li").map(&:text)).to eq(["Status", "Config", "Stats"])
+    end
+
+    When "user logs in" do
+      page.find("a", text: "Sign out").click
+      find(".devise-form a", text: "Square").click
+    end
+
+    Then "user sees Portal nav item" do
+      page.find("a", text: "Active-and-published").click
+      expect(page.all("ul.nav-tabs li").map(&:text)).to eq(%w[Status Config Stats Portal])
     end
   end
 
