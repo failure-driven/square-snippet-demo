@@ -37,7 +37,7 @@ describe "Managing Stories", js: true do
   end
 
   it "allows users to add and manage their own stories" do
-    When "a user is signed in" do
+    When "a user is signed in to swif.club" do
       visit root_path
       expect(focus_on(:messages).success).to eq "You need to sign in or sign up before continuing."
       expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
