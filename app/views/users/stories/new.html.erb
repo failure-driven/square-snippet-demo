@@ -1,29 +1,31 @@
-<div class="card" style="width: 100%;"  data-testid="stories-panel">
-  <div class="card-header">
-    <h4>New Story</h4>
-  </div>
+<div class="card mb-3" data-testid="stories-panel">
+  <h5 class="card-header">
+    <div class="d-flex justify-content-between">
+      <div class="col-auto">
+        <h4>New Story</h4>
+      </div>
+    </div>
+  </h5>
 
   <div class="card-body">
-    <%= form_with url: user_stories_url(user_id: current_user.id), data: { testid: "new-story-form" } do |form| %>
-      <div class="row g-3 align-items-center mb-3">
-        <div class="col">
-          <div class="form-group">
-            <%= form.label :site, "Site" %>
-            <%= form.collection_select :site_id, @sites, :id, :site_title %>
-          </div>
+    <%= form_with url: user_stories_url(user_id: current_user.id), data: { testid: "story-form" } do |form| %>
+      <div class="form-group">
+        <%= form.label :site, "Site" %>
+        <%= form.collection_select :site_id, @sites, :id, :site_title, class: "form-control custom-select" %>
+      </div>
 
-          <div class="form-group">
-            <%= form.label :story_title, "Story title" %>
-            <%= form.text_field :story_title, class: "form-control", type: "text" %>
-          </div>
+      <div class="form-group">
+        <%= form.label :story_title, "Story title" %>
+        <%= form.text_field :story_title, class: "form-control", type: "text" %>
+      </div>
 
-          <div class="form-group">
-            <%= form.check_box :published %>
-            <%= form.label :published, "Published" %>
-          </div>
+      <div class="form-group">
+        <%= form.check_box :published %>
+        <%= form.label :published, "Published" %>
+      </div>
 
-          <%= form.submit "Submit", class: "btn btn-primary" %>
-        </div>
+      <div class="d-flex justify-content-end mt-3">
+        <%= form.submit "Submit", class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>

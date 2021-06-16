@@ -9,7 +9,7 @@ module PageFragments
     end
 
     def form
-      Support::Components::RailsForm.new(browser.find("[data-testid=new-story-form]"))
+      Support::Components::RailsForm.new(browser.find("[data-testid=story-form]"))
     end
 
     def list

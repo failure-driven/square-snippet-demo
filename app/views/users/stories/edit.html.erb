@@ -1,48 +1,54 @@
-<div class="card" style="width: 100%;"  data-testid="stories-panel">
-  <div class="card-header">
-    <h4>Edit Story</h4>
-  </div>
+<div class="card mb-3" data-testid="stories-panel">
+  <h5 class="card-header">
+    <div class="d-flex justify-content-between">
+      <div class="col-auto">
+        <h4>Edit Story</h4>
+      </div>
+    </div>
+  </h5>
 
   <div class="card-body">
-    <%= form_with url: user_story_path(user: current_user, story: @story), method: :put, data: { testid: "new-story-form" } do |form| %>
-      <div class="row g-3 align-items-center mb-3">
-        <div class="col">
-          <div class="form-group">
-            <%= form.label :site, "Site" %>
-            <%= form.collection_select :site_id, @sites, :id, :site_title %>
-          </div>
+    <%= form_with url: user_story_path(user: current_user, story: @story), method: :put, data: { testid: "story-form" } do |form| %>
+      <div class="form-group">
+        <%= form.label :site, "Site" %>
+        <%= form.collection_select :site_id, @sites, :id, :site_title, class: "form-control custom-select" %>
+      </div>
 
-          <div class="form-group">
-            <%= form.label :story_title, "Story title" %>
-            <%= form.text_field :story_title, class: "form-control", type: "text" %>
-          </div>
+      <div class="form-group">
+        <%= form.label :story_title, "Story title" %>
+        <%= form.text_field :story_title, class: "form-control", type: "text" %>
+      </div>
 
-          <div class="form-group">
-            <%= form.check_box :published %>
-            <%= form.label :published, "Published" %>
-          </div>
+      <div class="form-group">
+        <%= form.check_box :published %>
+        <%= form.label :published, "Published" %>
+      </div>
 
-          <%= form.submit "Submit", class: "btn btn-primary" %>
-        </div>
+      <div class="d-flex justify-content-end mt-3">
+        <%= form.submit "Submit", class: "btn btn-primary" %>
       </div>
     <% end %>
   </div>
 </div>
 
-<div class="card" style="width: 100%;"  data-testid="contents-panel">
-  <div class="card-header">
-    <h4>Contents</h4>
-
-    <%= link_to 'New Content', new_user_story_content_path(current_user, @story), class: "btn btn-primary" %>
-  </div>
-
-  <ul class="list-group list-group-flush" data-testid="contents-list">
+<div class="card mb-3" data-testid="contents-panel">
+  <h5 class="card-header">
+    <div class="d-flex justify-content-between">
+      <div class="col-auto">
+        <h4>Contents</h4>
+      </div>
+      <div class="col-auto">
+        <%= link_to 'New Content', new_user_story_content_path(current_user, @story), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </h5>
+  <div class="list-group list-group-flush" data-testid="contents-list">
     <% @story.contents.each do |content| %>
-      <li class="list-group-item">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
         <div><%= content.content_title %></div>
         <div><%= content.description %></div>
         <div><%= content.url %></div>
       </li>
     <% end %>
-  </ul>
+  </div>
 </div>
