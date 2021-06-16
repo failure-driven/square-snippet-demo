@@ -21,15 +21,17 @@ class IdentitiesController < ApplicationController
 
   def toggle_feature
     form_user
-    portal = Flipper[flipper_params]
+    feature = Flipper[flipper_params]
 
-    if portal.enabled?(form_user)
-      portal.disable(form_user)
-      flash[:notice] = "Portal successfully disabled"
+    if feature.enabled?(form_user)
+      feature.disable(form_user)
+      action = "disabled"
     else
-      portal.enable(form_user)
-      flash[:notice] = "Portal successfully enabled"
+      feature.enable(form_user)
+      action = "enabled"
     end
+
+    flash[:notice] = "#{feature.to_s.humanize} successfully #{action}"
 
     redirect_to action: :show
   end

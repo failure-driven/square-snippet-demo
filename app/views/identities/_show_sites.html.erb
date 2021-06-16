@@ -15,16 +15,18 @@
 <br>
 <div class="col-2">
   <% if current_user.admin? %>
-    <%= link_to toggle_feature_identity_path(@identity.uid, feature: "portal"), method: :post do %>
-      <% if !Flipper[:portal].enabled?(FormUser.find(@identity.user_id)) %>
-        <div class="btn btn-primary">
-          Enable Portal
-        </div>
-      <% else %>
-        <div class="btn btn-danger">
-          Disable Portal
-        </div>
-      <% end %>
+    <% %i[portal user_nav].each do |feature| %>
+      <%= link_to toggle_feature_identity_path(@identity.uid, feature: feature), method: :post do %>
+        <% if !Flipper[feature].enabled?(FormUser.find(@identity.user_id)) %>
+          <div class="btn btn-primary">
+            Enable <%= feature.to_s.humanize %>
+          </div>
+        <% else %>
+          <div class="btn btn-danger">
+            Disable <%= feature.to_s.humanize %>
+          </div>
+        <% end %>
+    <% end %>
   <% end %>
 </div>
 <% end %>

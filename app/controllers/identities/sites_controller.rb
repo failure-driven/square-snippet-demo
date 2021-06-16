@@ -9,6 +9,12 @@ module Identities
     def show
       @site = @identity.sites.where(reference_id: params[:id]).first
       render plain: "404 Not Found", status: :not_found unless @identity
+      # TODO: make tests work with user_nav before turning it on
+      # if Flipper[:user_nav].enabled?(FormUser.find(@identity.user_id))
+      render "show_with_user_nav"
+      # else
+      #   render
+      # end
     end
 
     def show_site # rubocop:disable Metrics/AbcSize
