@@ -22,9 +22,7 @@
 <div class="swif-stories-list">
   {#if stories === undefined}
     loading
-  {:else if stories === []}
-    you aint got no stories bruh
-  {:else}
+  {:else if stories.length > 0}
     <ul>
       {#each stories as story}
         <li>
@@ -36,5 +34,7 @@
         </li>
       {/each}
     </ul>
+  {:else}
+    <div class="swif-no-stories">you aint got no stories bruh</div>
   {/if}
 </div>

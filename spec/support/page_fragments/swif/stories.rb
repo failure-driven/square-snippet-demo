@@ -9,6 +9,10 @@ module PageFragments
         swif.find("a", text: story_name).click
       end
 
+      def no_stories_message
+        swif.find(".swif-no-stories").text
+      end
+
       private
 
       def swif

@@ -171,4 +171,54 @@ describe "Managing Stories", js: true do
       end
     end
   end
+
+  it "only renders published content in the widget" do
+    When "a user is signed in to swif.club" do
+      visit root_path
+      expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
+      expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
+      find(".devise-form a", text: "Square").click
+      expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
+      expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+    end
+
+    And "they create a new story" do
+      expect(focus_on(:nav).actions).to eq(["Stories", "Sign out"])
+
+      focus_on(:nav).follow_link_for("Stories")
+      expect(focus_on(:stories).title).to eq("My Stories")
+
+      focus_on(:stories).start_new_story
+      sleep(0.1) # the page changes too fast!
+      expect(focus_on(:stories).title).to eq("New Story")
+      focus_on(:stories).form.submit(
+        {
+          # site_id: "site-title-1", #TODO this just happens to work because it's the first value in the select box
+          story_title: "a story about a product",
+        },
+      )
+    end
+
+    Then "their stories are listed" do
+      expect(focus_on(:messages).alert).to eq "Story successfully created"
+      expect(focus_on(:stories).list).to eq(
+        [
+          ["site-title-1", "a story about a product", "no content", "Edit"],
+        ],
+      )
+    end
+
+    When "the user visits their site test demo page and clicks SWiF" do
+      visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
+      focus_on(:swif, :widget).open
+      expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+    end
+
+    Then "no stories are shown because there is no published content" do
+      focus_on(:iframe).within do
+        focus_on(:swif, :widget).go_to_stories
+        expect(focus_on(:swif, :stories).no_stories_message).to eq("you aint got no stories bruh")
+      end
+    end
+  end
 end
