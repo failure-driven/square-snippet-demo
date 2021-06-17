@@ -3,16 +3,14 @@ module Users
     before_action :authenticate_user!
 
     def new
-      @story = Story.find(params[:story_id])
+      story
     end
 
     def create
-      @story = Story.find(params[:story_id])
-
       Content.create!(content_params)
 
       flash[:info] = "Content successfully created"
-      redirect_to edit_user_story_path(current_user, @story)
+      redirect_to edit_user_story_path(current_user, story)
     end
 
     def edit
@@ -26,13 +24,17 @@ module Users
       @content.update!(content_params)
 
       flash[:info] = "Content successfully updated"
-      redirect_to edit_user_story_path(current_user, @story)
+      redirect_to edit_user_story_path(current_user, story)
     end
 
     private
 
     def content_params
       params.permit(:story_id, :content_title, :description, :url, attachments: [])
+    end
+
+    def story
+      @story ||= Story.find(params[:story_id])
     end
   end
 end
