@@ -73,7 +73,7 @@ describe "Managing Stories", js: true do
       )
     end
 
-    When "the user edits a story" do
+    When "the user clicks 'edit' for a story" do
       focus_on(:stories).edit_story_with_title("a story about a product")
     end
 
@@ -96,6 +96,39 @@ describe "Managing Stories", js: true do
 
       focus_on(:contents).form.submit(
         {
+          content_title: "buying MY product online",
+          description: "how i bought A product online",
+          url: "a link to photo/video of content",
+        },
+      )
+    end
+
+    Then "the new content is shown on the edit story page" do
+      expect(focus_on(:messages).success).to eq "Content successfully created"
+      expect(focus_on(:stories).title).to eq("Edit Story")
+
+      expect(focus_on(:contents).title).to eq("Contents")
+      expect(focus_on(:contents).list).to eq(
+        [
+          ["buying MY product online", "how i bought A product online", "a link to photo/video of content", "Edit"],
+        ],
+      )
+    end
+
+    When "the user edits their new content" do
+      focus_on(:contents).edit_content_with_title("buying MY product online")
+      sleep(0.1) # the page changes too fast!
+      expect(focus_on(:contents).title).to eq("Edit Content")
+      # expect(focus_on(:contents).form.fields).to eq(
+      #   {
+      #     content_title: "buying a product online",
+      #     description: "how i bought my product online",
+      #     url: "a link to photo/video of my content",
+      #   },
+      # ) #TODO pre-populate content fields on the edit view
+
+      focus_on(:contents).form.submit(
+        {
           content_title: "buying a product online",
           description: "how i bought my product online",
           url: "a link to photo/video of my content",
@@ -103,14 +136,11 @@ describe "Managing Stories", js: true do
       )
     end
 
-    Then "the new content is shown are updated" do
-      expect(focus_on(:messages).success).to eq "Content successfully created"
-      expect(focus_on(:stories).title).to eq("Edit Story")
-
-      expect(focus_on(:contents).title).to eq("Contents")
+    Then "updates are shown" do
+      expect(focus_on(:messages).success).to eq "Content successfully updated"
       expect(focus_on(:contents).list).to eq(
         [
-          ["buying a product online", "how i bought my product online", "a link to photo/video of my content"],
+          ["buying a product online", "how i bought my product online", "a link to photo/video of my content", "Edit"],
         ],
       )
     end

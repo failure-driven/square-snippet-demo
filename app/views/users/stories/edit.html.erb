@@ -49,6 +49,7 @@
           <div><%= content.content_title %></div>
           <div><%= content.description %></div>
           <div><%= content.url %></div>
+          <div><%= link_to 'Edit', edit_user_story_content_path(current_user, @story, content), class: "btn btn-secondary" %></div>
         </div>
         <div>
           <% content.attachments.each do |attachment| %>

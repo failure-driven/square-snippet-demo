@@ -9,13 +9,17 @@ module PageFragments
     end
 
     def form
-      Support::Components::RailsForm.new(browser.find("[data-testid=new-content-form]"))
+      Support::Components::RailsForm.new(browser.find("[data-testid=content-form]"))
     end
 
     def list
       Support::Components::RailsList.new(
         browser.find("[data-testid=contents-list]"),
       ).list_items
+    end
+
+    def edit_content_with_title(text)
+      contents_panel.find("li", text: text).find("a", text: "Edit").click
     end
 
     private

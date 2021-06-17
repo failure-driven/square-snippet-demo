@@ -15,6 +15,20 @@ module Users
       redirect_to edit_user_story_path(current_user, @story)
     end
 
+    def edit
+      @content = Content.find(params[:id])
+    end
+
+    def update
+      @story = Story.find(params[:story_id])
+
+      @content = Content.find(params[:id])
+      @content.update!(content_params)
+
+      flash[:info] = "Content successfully updated"
+      redirect_to edit_user_story_path(current_user, @story)
+    end
+
     private
 
     def content_params
