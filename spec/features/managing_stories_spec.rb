@@ -80,13 +80,10 @@ describe "Managing Stories", js: true do
     Then "story details are shown" do
       sleep(0.1) # the page changes too fast!
       expect(focus_on(:stories).title).to eq("Edit Story")
-      # expect(focus_on(:stories).form.fields).to eq(
-      #   {
-      #     site: "site-title-1",
-      #     story_title: "a story about a product",
-      #     published: false,
-      #   },
-      # ) #TODO pre-populate story fields on the edit view
+      # TODO: pre-populate story fields on the edit view
+      # expect(focus_on(:stories).form.text_value_for("site")).to eq("a story about a product")
+      expect(focus_on(:stories).form.text_value_for("story_title")).to eq("a story about a product")
+      expect(focus_on(:stories).form.is_checked("published")).to eq(false)
     end
 
     When "new content is added to the story" do
@@ -119,13 +116,13 @@ describe "Managing Stories", js: true do
       focus_on(:contents).edit_content_with_title("buying MY product online")
       sleep(0.1) # the page changes too fast!
       expect(focus_on(:contents).title).to eq("Edit Content")
-      # expect(focus_on(:contents).form.fields).to eq(
-      #   {
-      #     content_title: "buying a product online",
-      #     description: "how i bought my product online",
-      #     url: "a link to photo/video of my content",
-      #   },
-      # ) #TODO pre-populate content fields on the edit view
+      expect(focus_on(:contents).form.fields).to eq(
+        {
+          "Content title" => { value: "buying MY product online" },
+          "Description" => { value: "how i bought A product online" },
+          "Url" => { value: "a link to photo/video of content" },
+        },
+      )
 
       focus_on(:contents).form.submit(
         {
@@ -163,6 +160,19 @@ describe "Managing Stories", js: true do
           ["site-title-1", "a story about a product", "published", "Edit"],
         ],
       )
+    end
+
+    When "the user clicks 'edit' for the story again" do
+      focus_on(:stories).edit_story_with_title("a story about a product")
+    end
+
+    Then "story details are shown with published checked" do
+      sleep(0.1) # the page changes too fast!
+      expect(focus_on(:stories).title).to eq("Edit Story")
+      # TODO: pre-populate story fields on the edit view
+      # expect(focus_on(:stories).form.text_value_for("site")).to eq("a story about a product")
+      expect(focus_on(:stories).form.text_value_for("story_title")).to eq("a story about a product")
+      expect(focus_on(:stories).form.is_checked("published")).to eq(true)
     end
 
     When "the user visits their site test demo page and clicks SWiF" do

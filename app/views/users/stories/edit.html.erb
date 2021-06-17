@@ -16,11 +16,11 @@
 
       <div class="form-group">
         <%= form.label :story_title, "Story title" %>
-        <%= form.text_field :story_title, class: "form-control", type: "text" %>
+        <%= form.text_field :story_title, class: "form-control", type: "text", value: @story.story_title %>
       </div>
 
       <div class="form-group">
-        <%= form.check_box :published %>
+        <%= form.check_box :published, checked: @story.published? %>
         <%= form.label :published, "Published" %>
       </div>
 

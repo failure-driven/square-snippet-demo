@@ -49,6 +49,13 @@ module Support
         @form.find_field(label_text, disabled: :all).value
       end
 
+      def select_value_for(label_text)
+        binding.pry
+        @form.all("input").select { |i| i["name"] == label_text }.value
+        # @form.find("select")
+        # @form.find_field(label_text, disabled: :all).value
+      end
+
       def update(args = {})
         if args.empty?
           @form.find_all(".form-group").select do |form_group|

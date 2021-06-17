@@ -9,17 +9,17 @@
         <div class="col">
           <div class="form-group">
             <%= form.label :content_title, "Content title" %>
-            <%= form.text_field :content_title, class: "form-control", type: "text" %>
+            <%= form.text_field :content_title, class: "form-control", type: "text", value: @content.content_title %>
           </div>
 
           <div class="form-group">
             <%= form.label :description, "Description" %>
-            <%= form.text_field :description, class: "form-control", type: "text" %>
+            <%= form.text_field :description, class: "form-control", type: "text", value: @content.description %>
           </div>
 
           <div class="form-group">
             <%= form.label :url, "Url" %>
-            <%= form.text_field :url, class: "form-control", type: "text" %>
+            <%= form.text_field :url, class: "form-control", type: "text", value: @content.url %>
           </div>
 
           <%= form.submit "Submit", class: "btn btn-primary" %>
