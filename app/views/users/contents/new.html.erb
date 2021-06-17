@@ -22,7 +22,14 @@
             <%= form.text_field :url, class: "form-control", type: "text" %>
           </div>
 
-          <%= form.submit "Submit", class: "btn btn-primary" %>
+          <div class="form-group">
+            <%= form.label :attachments %>
+            <% 5.times do %>
+              <%= form.file_field :attachments, multiple: true, class: "form-control" %>
+            <% end%>
+          </div>
+
+          <%= form.submit "Submit", class: "btn btn-primary mt-3" %>
         </div>
       </div>
     <% end %>

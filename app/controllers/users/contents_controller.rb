@@ -18,7 +18,7 @@ module Users
     private
 
     def content_params
-      params.permit(:story_id, :content_title, :description, :url)
+      params.permit(:story_id, :content_title, :description, :url, attachments: [])
     end
   end
 end

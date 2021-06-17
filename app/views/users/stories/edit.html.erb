@@ -44,10 +44,17 @@
   </h5>
   <div class="list-group list-group-flush" data-testid="contents-list">
     <% @story.contents.each do |content| %>
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <div><%= content.content_title %></div>
-        <div><%= content.description %></div>
-        <div><%= content.url %></div>
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+          <div><%= content.content_title %></div>
+          <div><%= content.description %></div>
+          <div><%= content.url %></div>
+        </div>
+        <div>
+          <% content.attachments.each do |attachment| %>
+              <%= image_tag attachment.variant(resize_to_limit: [180, 180]) %>
+          <% end %>
+        </div>
       </li>
     <% end %>
   </div>

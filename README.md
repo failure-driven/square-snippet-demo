@@ -31,6 +31,12 @@ make
 make build
 bin/setup
 ```
+
+check tools
+```sh
+magick -version
+```
+
 ## Running the app
 ```zsh
 rails s
