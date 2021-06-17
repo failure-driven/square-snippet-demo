@@ -67,7 +67,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     Then "they are informed they need to signup" do
-      expect(focus_on(:messages).success).to eq "You need to sign in or sign up before continuing."
+      expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
     end
 
     And "the only way to do that is with square" do
@@ -79,7 +79,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     Then "They are successfully signed up" do
-      expect(focus_on(:messages).success).to eq "Successfully authenticated from Square account."
+      expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
       expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
       expect(find_all(".breadcrumb .breadcrumb-item").map(&:text)).to eq(%w[Home square-name])
     end
@@ -198,7 +198,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     Then "admin is notified they will get an email" do
       expect(
-        focus_on(:messages).success,
+        focus_on(:messages).alert,
       ).to eq "You will receive an email with instructions on how to " \
               "reset your password in a few minutes."
     end
@@ -220,7 +220,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     Then "they successfully login" do
       expect(
-        focus_on(:messages).success,
+        focus_on(:messages).alert,
       ).to eq "Your password has been changed successfully. " \
               "You are now signed in."
       expect(
@@ -244,7 +244,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     Then "admin sees success message" do
       expect(
-        focus_on(:messages).success,
+        focus_on(:messages).alert,
       ).to eq "Portal successfully enabled"
       # expect(page.all("ul.nav-tabs li").map(&:text)).to eq(["Status", "Config", "Stats"])
     end

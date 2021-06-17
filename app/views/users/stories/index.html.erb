@@ -14,7 +14,7 @@
       <li class="list-group-item d-flex justify-content-between align-items-center">
         <div><%= story.site.site_title %></div>
         <div><%= story.story_title %></div>
-        <div><%= story.draft %></div>
+        <div><%= story.content_count_message %></div>
         <div><%= link_to 'Edit', edit_user_story_path(current_user, story), class: "btn btn-secondary" %></div>
       </li>
     <% end %>

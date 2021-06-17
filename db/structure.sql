@@ -102,7 +102,8 @@ CREATE TABLE public.contents (
     description character varying NOT NULL,
     url character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    published boolean DEFAULT false
 );
 
 
@@ -517,6 +518,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210603114818'),
 ('20210614055009'),
 ('20210614070628'),
-('20210617082729');
+('20210617082729'),
+('20210617115237');
 
 

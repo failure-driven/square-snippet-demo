@@ -3,7 +3,7 @@ module Api
     module Sites
       class StoriesController < BaseApiController
         def index
-          @stories = Story.where(published: true)
+          @stories = Story.published_stories
           render json: { stories: @stories }
         end
 

@@ -15,6 +15,11 @@ module Users
 
       flash[:info] = "Story successfully created"
       redirect_to action: :index
+    rescue ActiveRecord::RecordInvalid => e
+      @sites = Site.all
+
+      flash[:notice] = e.message
+      render :new
     end
 
     def edit
