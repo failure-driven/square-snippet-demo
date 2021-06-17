@@ -22,11 +22,20 @@
             <%= form.text_field :url, class: "form-control", type: "text" %>
           </div>
 
-          <div class="form-group">
-            <%= form.label :attachments %>
-            <% 5.times do %>
-              <%= form.file_field :attachments, multiple: true, class: "form-control" %>
-            <% end%>
+          <div data-controller="multi-upload">
+            <div class="form-group attachments">
+              <%= form.label :attachments %>
+              <%= form.file_field(
+                :attachments,
+                multiple: true,
+                class: "form-control",
+                data: {
+                  action: "multi-upload#addFile"
+                }
+              ) %>
+            </div>
+
+            <div data-multi-upload-target="files"></div>
           </div>
 
           <%= form.submit "Submit", class: "btn btn-primary mt-3" %>

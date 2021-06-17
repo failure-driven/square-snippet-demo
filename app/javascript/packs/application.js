@@ -23,3 +23,4 @@ document.addEventListener('turbolinks:load', () => {
 });
 
 import '../controllers/index.js';
+import "../controllers/multi_upload_controller.js";
