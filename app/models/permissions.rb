@@ -1,6 +1,3 @@
-# frozen_string_literal: true
-
-# rubocop:todo Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity, Metrics/AbcSize
 class Permissions
   def initialize(user)
     @user = user

@@ -15,11 +15,7 @@ module Users
 
     def edit
       @content = Content.find(params[:id])
-
       authorised_to_access!(@content, :manage)
-    rescue ForbiddenOperationError => e
-      flash[:notice] = e.message
-      redirect_to("/")
     end
 
     def update

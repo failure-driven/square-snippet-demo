@@ -1,4 +1,9 @@
 class ApplicationController < ActionController::Base
+  rescue_from ForbiddenOperationError do |e|
+    flash[:notice] = e.message
+    redirect_to("/")
+  end
+
   def authorise_admin
     return redirect_to root_path flash[:error] = "Unathorised" unless current_user.admin?
   end

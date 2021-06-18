@@ -25,11 +25,7 @@ module Users
     def edit
       @sites = Site.all
       @story = Story.find(params[:id])
-
       authorised_to_access!(@story, :manage)
-    rescue ForbiddenOperationError => e
-      flash[:notice] = e.message
-      redirect_to("/")
     end
 
     def update
