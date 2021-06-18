@@ -194,7 +194,6 @@ CREATE TABLE public.stories (
     user_id uuid NOT NULL,
     site_id uuid NOT NULL,
     story_title character varying NOT NULL,
-    published boolean DEFAULT false,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -519,6 +518,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210614055009'),
 ('20210614070628'),
 ('20210617082729'),
-('20210617115237');
+('20210617115237'),
+('20210618024304');
 
 
