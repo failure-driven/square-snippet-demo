@@ -47,9 +47,20 @@
           <div><%= content.draft %></div>
           <div><%= link_to 'Edit', edit_user_story_content_path(current_user, @story, content), class: "btn btn-secondary" %></div>
         </div>
+        <div style="width: 260px; height: 260px">
+          <% unless content.video.blank? %>
+            <div>
+              <%= video_tag(url_for(content.video), style: "width: 100%; height: auto;", controls: "") %>
+            </div>
+          <% end %>
+        </div>
         <div>
           <% content.attachments.each do |attachment| %>
+            <% if attachment.representable? && attachment.variable? %>
               <%= image_tag attachment.variant(resize_to_limit: [180, 180]) %>
+            <% else %>
+              <%= image_tag attachment, size: 200 %>
+            <% end %>
           <% end %>
         </div>
       </li>
