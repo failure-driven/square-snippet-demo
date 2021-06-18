@@ -162,7 +162,7 @@ describe "Managing Stories", js: true do
       end
     end
 
-    Then "it shows content for that story, newest first" do
+    Then "it shows content for that story, newest first" do # TODO: implement the newest first part
       focus_on(:iframe).within do
         expect(focus_on(:swif, :story).title).to eq("a story about a product")
         expect(
@@ -172,7 +172,7 @@ describe "Managing Stories", js: true do
     end
   end
 
-  it "only renders published content in the widget" do
+  it "only renders stories with published content in the widget" do
     When "a user is signed in to swif.club" do
       visit root_path
       expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
@@ -218,6 +218,62 @@ describe "Managing Stories", js: true do
       focus_on(:iframe).within do
         focus_on(:swif, :widget).go_to_stories
         expect(focus_on(:swif, :stories).no_stories_message).to eq("you aint got no stories bruh")
+      end
+    end
+  end
+
+  context "when there is a story with published and unpublished content" do
+    before do
+      user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
+      identity = create(:identity, user: user, provider: "square", uid: "123456")
+      site = create(:site, identity: identity, reference_id: identity.id, status: "active")
+      story = create(:story, site: site, user: user, story_title: "i have a story to tell")
+      create(
+        :content,
+        story: story,
+        content_title: "published content",
+        description: "how i published a content",
+        published: true,
+      )
+      create(:content, story: story, content_title: "NOT published content")
+    end
+
+    it "only renders published content in the widget" do
+      When "a user is signed in to swif.club" do
+        visit root_path
+        expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
+        expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
+        find(".devise-form a", text: "Square").click
+        expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
+        expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+      end
+
+      And "visits their site test demo page and clicks SWiF" do
+        visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
+        focus_on(:swif, :widget).open
+        expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+      end
+
+      Then "their story is shown" do
+        focus_on(:iframe).within do
+          focus_on(:swif, :widget).go_to_stories
+          expect(focus_on(:swif, :stories).list).to eq(["i have a story to tell"])
+        end
+      end
+
+      When "they view the story" do
+        focus_on(:iframe).within do
+          focus_on(:swif, :stories).go_to_story("i have a story to tell")
+        end
+      end
+
+      Then "only published content is shown" do
+        focus_on(:iframe).within do
+          expect(focus_on(:swif, :story).title).to eq("i have a story to tell")
+          expect(
+            focus_on(:swif, :story).contents,
+          ).to eq([["published content", "how i published a content"]])
+        end
       end
     end
   end
