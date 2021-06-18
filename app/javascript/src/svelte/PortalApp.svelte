@@ -25,10 +25,11 @@
     "/identities/:identity/sites/:site/portal/call",
     () => (component = Call)
   );
-  page(
-    "/identities/:identity/sites/:site/portal/stories",
-    () => (component = Stories)
-  );
+  page("/identities/:identity/sites/:site/portal/stories", context => {
+    component = Stories;
+    const {params, query} = context;
+    props = {...params, ...query};
+  });
   page("/identities/:identity/sites/:site/portal/stories/:id", context => {
     component = Story;
     const {params, query} = context;

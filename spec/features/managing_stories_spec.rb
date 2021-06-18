@@ -25,11 +25,16 @@ describe "Managing Stories", js: true do
         refresh_token: "square-refresh-token",
       },
     )
+
+    @user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
+    @identity = create(:identity, user: @user, provider: "square", uid: "123456")
+    @site = create(:site, identity: @identity, reference_id: @identity.id, status: "active")
+
     Support::Fakes::Square.new(
       self,
       sites: [
         {
-          id: "id-1",
+          id: @site.id,
           site_title: "site-title-1",
         },
       ],
@@ -67,7 +72,7 @@ describe "Managing Stories", js: true do
       expect(focus_on(:messages).alert).to eq "Story successfully created"
       expect(focus_on(:stories).list).to eq(
         [
-          ["site-title-1", "a story about a product", "no content", "Edit"],
+          ["my site title", "a story about a product", "no content", "Edit"],
         ],
       )
     end
@@ -144,7 +149,7 @@ describe "Managing Stories", js: true do
     end
 
     When "the user visits their site test demo page and clicks SWiF" do
-      visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
+      visit test_demo_identity_site_path(identity_id: "123456", id: @site.id)
       focus_on(:swif, :widget).open
       expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
     end
@@ -203,13 +208,13 @@ describe "Managing Stories", js: true do
       expect(focus_on(:messages).alert).to eq "Story successfully created"
       expect(focus_on(:stories).list).to eq(
         [
-          ["site-title-1", "a story about a product", "no content", "Edit"],
+          ["my site title", "a story about a product", "no content", "Edit"],
         ],
       )
     end
 
     When "the user visits their site test demo page and clicks SWiF" do
-      visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
+      visit test_demo_identity_site_path(identity_id: "123456", id: @site.id)
       focus_on(:swif, :widget).open
       expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
     end
@@ -224,10 +229,7 @@ describe "Managing Stories", js: true do
 
   context "when there is a story with published and unpublished content" do
     before do
-      user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
-      identity = create(:identity, user: user, provider: "square", uid: "123456")
-      site = create(:site, identity: identity, reference_id: identity.id, status: "active")
-      story = create(:story, site: site, user: user, story_title: "i have a story to tell")
+      story = create(:story, site: @site, user: @user, story_title: "i have a story to tell")
       create(
         :content,
         story: story,
@@ -249,7 +251,7 @@ describe "Managing Stories", js: true do
       end
 
       And "visits their site test demo page and clicks SWiF" do
-        visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
+        visit test_demo_identity_site_path(identity_id: "123456", id: @site.id)
         focus_on(:swif, :widget).open
         expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
       end
@@ -280,10 +282,6 @@ describe "Managing Stories", js: true do
 
   context "when there is a story created by another user" do
     before do
-      user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
-      identity = create(:identity, user: user, provider: "square", uid: "123456")
-      create(:site, identity: identity, reference_id: identity.id, status: "active")
-
       @another_user = create(:user, email: "user2@email.com", confirmed_at: Time.zone.now)
       another_identity = create(:identity, user: @another_user, provider: "square", uid: "123457")
       another_site = create(:site, identity: another_identity, reference_id: another_identity.id, status: "active")
@@ -337,10 +335,7 @@ describe "Managing Stories", js: true do
 
   context "when there is a second site with published stories too" do
     before do
-      user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
-      identity = create(:identity, user: user, provider: "square", uid: "123456")
-      site = create(:site, identity: identity, reference_id: identity.id, status: "active")
-      story = create(:story, site: site, user: user, story_title: "i have a story to tell")
+      story = create(:story, site: @site, user: @user, story_title: "i have a story to tell")
       create(
         :content,
         story: story,
@@ -373,13 +368,12 @@ describe "Managing Stories", js: true do
       end
 
       And "visits their site test demo page and clicks SWiF" do
-        visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
+        visit test_demo_identity_site_path(identity_id: "123456", id: @site.id)
         focus_on(:swif, :widget).open
         expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
       end
 
       Then "only published stories for the current site are shown" do
-        pending "only stories for the current site should show up here"
         focus_on(:iframe).within do
           focus_on(:swif, :widget).go_to_stories
           expect(focus_on(:swif, :stories).list).to eq(["i have a story to tell"])

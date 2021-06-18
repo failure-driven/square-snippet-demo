@@ -8,7 +8,7 @@
   onMount(async () => {
     const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
     axios
-      .get(`${apiHostUrl}/api/v1/sites/stories`, {
+      .get(`${apiHostUrl}/api/v1/sites/stories?site_id=${site}`, {
         params: {
           domain: window.location.hostname,
         },
