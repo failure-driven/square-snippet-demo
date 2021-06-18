@@ -26,7 +26,7 @@ module Users
       @sites = Site.all
       @story = Story.find(params[:id])
 
-      raise(ForbiddenOperationError, "Sorry you do not have access to do that") unless @story.user.id == current_user.id
+      authorised_to_access!(@story, :manage)
     rescue ForbiddenOperationError => e
       flash[:notice] = e.message
       redirect_to("/")
