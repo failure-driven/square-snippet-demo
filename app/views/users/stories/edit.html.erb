@@ -1,3 +1,6 @@
+<% content_for :head do %>
+  <%= javascript_pack_tag 'vime_player', 'data-turbolinks-track': 'reload' %>
+<% end %>
 <div class="card mb-3" data-testid="stories-panel">
   <h5 class="card-header">
     <div class="d-flex justify-content-between">
@@ -47,13 +50,23 @@
           <div><%= content.draft %></div>
           <div><%= link_to 'Edit', edit_user_story_content_path(current_user, @story, content), class: "btn btn-secondary" %></div>
         </div>
-        <div style="width: 260px; height: 260px">
-          <% unless content.video.blank? %>
-            <div>
-              <%= video_tag(url_for(content.video), style: "width: 100%; height: auto;", controls: "") %>
-            </div>
-          <% end %>
-        </div>
+        <% unless content.video.blank? %>
+          <div style="width: 260px; height: 260px">
+              <vm-player playsinline>
+              <vm-video
+                cross-origin="true"
+                <%# room for a pre play thumbnail %>
+                <%# poster="https://media.vimejs.com/poster.png" %>
+              >
+                <source
+                  data-src="<%= url_for(content.video) %>"
+                  type="video/mp4"
+                />
+              </vm-video>
+              <vm-default-ui></vm-default-ui>
+            </vm-player>
+          </div>
+        <% end %>
         <div>
           <% content.attachments.each do |attachment| %>
             <% if attachment.representable? && attachment.variable? %>
