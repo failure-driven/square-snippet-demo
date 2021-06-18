@@ -277,4 +277,45 @@ describe "Managing Stories", js: true do
       end
     end
   end
+
+  context "when there is a story created by another user" do
+    before do
+      user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
+      identity = create(:identity, user: user, provider: "square", uid: "123456")
+      create(:site, identity: identity, reference_id: identity.id, status: "active")
+
+      @another_user = create(:user, email: "user2@email.com", confirmed_at: Time.zone.now)
+      another_identity = create(:identity, user: @another_user, provider: "square", uid: "123457")
+      another_site = create(:site, identity: another_identity, reference_id: another_identity.id, status: "active")
+      @story = create(:story, site: another_site, user: @another_user, story_title: "i have a story to tell")
+    end
+
+    it "only lets users manage the stories they have created" do
+      When "a user is signed in to swif.club" do
+        visit root_path
+        expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
+        expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
+        find(".devise-form a", text: "Square").click
+        expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
+        expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+      end
+
+      Then "they cannot see someone elses stories" do
+        expect(focus_on(:nav).actions).to eq(["Stories", "Sign out"])
+
+        focus_on(:nav).follow_link_for("Stories")
+        expect(focus_on(:stories).title).to eq("My Stories")
+        expect(focus_on(:stories).list).to eq([])
+      end
+
+      When "the user tries to edit someone else's story directly" do
+        visit("users/#{@another_user.id}/stories/#{@story.id}/edit")
+      end
+
+      Then "they are booted back to the home page with an error" do
+        expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
+        expect(focus_on(:sites).title).to eq("Your Sites")
+      end
+    end
+  end
 end

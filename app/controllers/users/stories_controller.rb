@@ -25,6 +25,11 @@ module Users
     def edit
       @sites = Site.all
       @story = Story.find(params[:id])
+
+      raise(ForbiddenOperationError, "Sorry you do not have access to do that") unless @story.user.id == current_user.id
+    rescue ForbiddenOperationError => e
+      flash[:notice] = e.message
+      redirect_to("/")
     end
 
     def update
