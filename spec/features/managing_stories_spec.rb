@@ -288,7 +288,13 @@ describe "Managing Stories", js: true do
       another_identity = create(:identity, user: @another_user, provider: "square", uid: "123457")
       another_site = create(:site, identity: another_identity, reference_id: another_identity.id, status: "active")
       @story = create(:story, site: another_site, user: @another_user, story_title: "i have a story to tell")
-      @content = create(:content, story: @story, content_title: "published content", description: "how i published a content")
+      @content = create(
+        :content,
+        story: @story,
+        content_title: "published content",
+        description: "how i published a content",
+        published: true,
+      )
     end
 
     it "only lets users manage the stories they have created" do
@@ -325,6 +331,59 @@ describe "Managing Stories", js: true do
       Then "they are booted back to the home page with an error" do
         expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
         expect(focus_on(:sites).title).to eq("Your Sites")
+      end
+    end
+  end
+
+  context "when there is a second site with published stories too" do
+    before do
+      user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
+      identity = create(:identity, user: user, provider: "square", uid: "123456")
+      site = create(:site, identity: identity, reference_id: identity.id, status: "active")
+      story = create(:story, site: site, user: user, story_title: "i have a story to tell")
+      create(
+        :content,
+        story: story,
+        content_title: "published content",
+        description: "how i published a content",
+        published: true,
+      )
+
+      @another_user = create(:user, email: "user2@email.com", confirmed_at: Time.zone.now)
+      another_identity = create(:identity, user: @another_user, provider: "square", uid: "123457")
+      another_site = create(:site, identity: another_identity, reference_id: another_identity.id, status: "active")
+      @another_story = create(:story, site: another_site, user: @another_user, story_title: "another story")
+      create(
+        :content,
+        story: @another_story,
+        content_title: "another published content",
+        description: "another how i published a content",
+        published: true,
+      )
+    end
+
+    it "does not render stories for other sites in the widget" do
+      When "a user is signed in to swif.club" do
+        visit root_path
+        expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
+        expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
+        find(".devise-form a", text: "Square").click
+        expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
+        expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+      end
+
+      And "visits their site test demo page and clicks SWiF" do
+        visit test_demo_identity_site_path(identity_id: "123456", id: "id-1")
+        focus_on(:swif, :widget).open
+        expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+      end
+
+      Then "only published stories for the current site are shown" do
+        pending "only stories for the current site should show up here"
+        focus_on(:iframe).within do
+          focus_on(:swif, :widget).go_to_stories
+          expect(focus_on(:swif, :stories).list).to eq(["i have a story to tell"])
+        end
       end
     end
   end
