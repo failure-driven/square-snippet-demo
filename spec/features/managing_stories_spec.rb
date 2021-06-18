@@ -280,6 +280,64 @@ describe "Managing Stories", js: true do
         end
       end
     end
+
+    it "allows users to delete their contents and their story (which in turn that deletes any corresponding content)" do
+      When "a user is signed in to swif.club" do
+        visit root_path
+        expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
+        expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
+        find(".devise-form a", text: "Square").click
+        expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
+        expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+      end
+
+      And "they view their stories" do
+        focus_on(:nav).follow_link_for("Stories")
+        expect(focus_on(:stories).title).to eq("My Stories")
+        expect(focus_on(:stories).list).to eq(
+          [
+            ["my site title", "i have a story to tell", "2", "Edit"],
+          ],
+        )
+      end
+
+      When "they delete content for their story" do
+        focus_on(:stories).edit_story_with_title("i have a story to tell")
+        sleep(0.1)
+        expect(focus_on(:stories).title).to eq("Edit Story")
+        expect(focus_on(:contents).list).to eq(
+          [
+            ["published content", "how i published a content", "the url", "published", "Edit"],
+            ["NOT published content", "the description", "the url", "draft", "Edit"],
+          ],
+        )
+        pending "need to implement delete action"
+        focus_on(:contents).delete_content_with_title("how i published a content")
+      end
+
+      Then "the content is deleted" do
+        expect(focus_on(:messages).alert).to eq "Story was deleted."
+        expect(focus_on(:stories).title).to eq("Edit Story")
+        expect(focus_on(:contents).list).to eq([["NOT published content", "the description", "the url", "draft", "Edit"]]) # just 1 content
+      end
+
+      And "the story is shown to have fewer contents" do
+        focus_on(:nav).follow_link_for("Stories")
+        expect(focus_on(:stories).title).to eq("My Stories")
+        expect(focus_on(:stories).list).to eq([["my site title", "i have a story to tell", "1", "Edit"]]) # story with content count == 1
+      end
+
+      When "they delete the story" do
+        pending "need to implement delete action"
+        focus_on(:stories).delete_story_with_title("i have a story to tell")
+      end
+
+      Then "the story is deleted" do
+        expect(focus_on(:messages).alert).to eq "Story was deleted."
+        expect(focus_on(:stories).title).to eq("My Stories")
+        expect(focus_on(:stories).list).to eq([[]])
+      end
+    end
   end
 
   context "when there is a story created by another user" do
