@@ -15,6 +15,13 @@ module Users
 
     def edit
       @content = Content.find(params[:id])
+
+      unless @content.story.user.id == current_user.id
+        raise(ForbiddenOperationError, "Sorry you do not have access to do that")
+      end
+    rescue ForbiddenOperationError => e
+      flash[:notice] = e.message
+      redirect_to("/")
     end
 
     def update

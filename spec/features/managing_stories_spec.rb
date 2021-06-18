@@ -288,6 +288,7 @@ describe "Managing Stories", js: true do
       another_identity = create(:identity, user: @another_user, provider: "square", uid: "123457")
       another_site = create(:site, identity: another_identity, reference_id: another_identity.id, status: "active")
       @story = create(:story, site: another_site, user: @another_user, story_title: "i have a story to tell")
+      @content = create(:content, story: @story, content_title: "published content", description: "how i published a content")
     end
 
     it "only lets users manage the stories they have created" do
@@ -310,6 +311,15 @@ describe "Managing Stories", js: true do
 
       When "the user tries to edit someone else's story directly" do
         visit("users/#{@another_user.id}/stories/#{@story.id}/edit")
+      end
+
+      Then "they are booted back to the home page with an error" do
+        expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
+        expect(focus_on(:sites).title).to eq("Your Sites")
+      end
+
+      When "the user tries to edit someone else's content directly" do
+        visit("users/#{@another_user.id}/stories/#{@story.id}/contents/#{@content.id}/edit")
       end
 
       Then "they are booted back to the home page with an error" do
