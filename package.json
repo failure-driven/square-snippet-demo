@@ -1,6 +1,9 @@
 {
   "name": "swif-club",
   "private": true,
+  "engines": {
+    "node": "14.16.1"
+  },
   "dependencies": {
     "@babel/preset-react": "^7.13.13",
     "@fortawesome/fontawesome-free": "^5.15.3",
