@@ -127,6 +127,11 @@ GEM
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
     erubi (1.10.0)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     faraday (1.4.2)
       faraday-em_http (~> 1.0)
       faraday-em_synchrony (~> 1.0)
@@ -410,6 +415,7 @@ DEPENDENCIES
   capybara-email
   capybara-inline-screenshot
   devise
+  factory_bot_rails
   flipper
   flipper-active_record
   flipper-ui

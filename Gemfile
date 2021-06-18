@@ -66,6 +66,8 @@ group :test do
   gem "selenium-webdriver"
   gem "webdrivers"
 
+  gem 'factory_bot_rails'
+
   gem "pry"
   gem "pry-rails"
   gem "pry-stack_explorer"
