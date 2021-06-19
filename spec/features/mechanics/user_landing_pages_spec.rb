@@ -115,7 +115,6 @@ describe "User landing pages", js: true do
         end
 
         And "are shown their active site" do
-          pending "display the default live site text"
           expect(page).to have_content "last published on July 01, 2021 to My-ONE-SITE.square.site"
         end
       end

@@ -93,8 +93,33 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
               ])
     end
 
+    When "they clik the nav brand SWiF" do
+      find("nav a.navbar-brand").click
+    end
+
+    Then "they land on their default enable site" do
+      expect(
+        all(".breadcrumb .breadcrumb-item", count: 3).map(&:text),
+      ).to eq(%w[Home square-name Active-and-published])
+      expect(
+        page.all(".card .row .row").map(&:text),
+      ).to include("SWiF snippet installed 🎉")
+    end
+
+    When "admin runs a rake script to enable user nav for all" do
+      require "rake"
+      Rake::Task.define_task(:environment)
+      Rake.application.rake_require "tasks/admin"
+      Rake::Task["admin:make_admin_user"].reenable
+      ENV["IDENTITIES"] = "123456"
+      Rake.application.invoke_task "admin:flipper[user_nav,enable]"
+    end
+
+    And "the user reloads the page by clicking nav brand SWiF" do
+      find("nav a.navbar-brand").click
+    end
+
     When "they check their configuration" do
-      page.find("a", text: "Active-and-published").click
       page.find("a", text: "Config").click
       page.document.synchronize do
         expect(page.all("ul.nav-tabs li").map(&:text)).to eq(%w[Status Config Stats])
@@ -236,16 +261,13 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
               ])
     end
 
-    When "admin set portal toggle to ON" do
+    When "admin sets user nav AND portal toggle to ON" do
       page.find("a", text: "square-name").click
       page.find("a", text: "Enable Portal").click
     end
 
     Then "admin sees success message" do
-      expect(
-        focus_on(:messages).alert,
-      ).to eq "Portal successfully enabled"
-      # expect(page.all("ul.nav-tabs li").map(&:text)).to eq(["Status", "Config", "Stats"])
+      expect(focus_on(:messages).alert).to eq "Portal successfully enabled"
     end
 
     When "user logs in" do

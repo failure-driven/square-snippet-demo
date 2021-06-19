@@ -1,0 +1,33 @@
+<% if @snippet %>
+  <div class="row">
+    <div class="col">
+      <%= link_to(
+        "Remove snippet",
+        remove_widget_identity_site_path,
+        class: "btn btn-outline-danger",
+        data: {
+          method: :post,
+          confirm: "Are you sure?"
+        }
+      ) %>
+      <%= link_to(
+        "Upsert snippet",
+        add_widget_identity_site_path,
+        class: "btn btn-primary",
+        data: { method: :post }
+      ) %>
+    </div>
+  </div>
+<% end %>
+<% if @alert || @errors %>
+  <div class="row">
+    <div class="col">
+      <%= link_to(
+        "Add snippet",
+        add_widget_identity_site_path,
+        class: "btn btn-primary",
+        data: { method: :post }
+      ) %>
+    </div>
+  </div>
+<% end %>

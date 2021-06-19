@@ -10,11 +10,11 @@ module Identities
       @site = @identity.sites.where(reference_id: params[:id]).first
       render plain: "404 Not Found", status: :not_found unless @identity
       # TODO: make tests work with user_nav before turning it on
-      # if Flipper[:user_nav].enabled?(FormUser.find(@identity.user_id))
-      render "show_with_user_nav"
-      # else
-      #   render
-      # end
+      if Flipper[:user_nav].enabled?(FormUser.find(@identity.user_id))
+        render "show_with_user_nav"
+      else
+        render
+      end
     end
 
     def show_site # rubocop:disable Metrics/AbcSize
@@ -27,7 +27,11 @@ module Identities
         if result.success?
           @snippet = result.data.snippet
         elsif result.error?
-          @errors = result.errors
+          if result.errors[0][:code] == "NOT_FOUND"
+            @alert = "SWiF snippet not installed"
+          else
+            @errors = result.errors
+          end
         end
         render partial: "show_sites"
       else
