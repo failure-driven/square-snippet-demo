@@ -28,6 +28,11 @@
           </div>
 
           <div class="form-group">
+            <%= form.label :video_url %>
+            <%= form.text_field :video_url, class: "form-control", value: @content.video_url %>
+          </div>
+
+          <div class="form-group">
             <%= form.label :video %>
               <%= form.file_field(
                 :video,

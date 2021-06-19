@@ -1487,7 +1487,7 @@
   dependencies:
     eslint-visitor-keys "^1.1.0"
 
-"@vime/core@^5.0.31":
+"@vime/core@5.0.31", "@vime/core@^5.0.31":
   version "5.0.31"
   resolved "https://registry.yarnpkg.com/@vime/core/-/core-5.0.31.tgz#d903f0ce86b9131dd82872356206c839cebf1b80"
   integrity sha512-ODLDGo6LpASTjhJNcaLNnq7gLwCm68UVdd1SJ6rpqwmBdO3Z3mqx7Cz3smBhDcgdVp0Lb+UrGIZShNw9Cw5Nwg==
@@ -1497,6 +1497,13 @@
     fscreen "^1.2.0"
     mitt "^2.1.0"
     stencil-wormhole "^3.2.2"
+
+"@vime/svelte@^5.0.31":
+  version "5.0.31"
+  resolved "https://registry.yarnpkg.com/@vime/svelte/-/svelte-5.0.31.tgz#350f9317ae2703caf61352b90b8df3ee76976ecf"
+  integrity sha512-9RWo+yL35yrWDKYK+Lf1L2BH0m9L2WaFQvaN0rHx8ew9bY8obC7ISN+U/LdqcXBD7zUH8RbmrZdiA3KZ8vvx6g==
+  dependencies:
+    "@vime/core" "5.0.31"
 
 "@webassemblyjs/ast@1.9.0":
   version "1.9.0"

@@ -103,7 +103,8 @@ CREATE TABLE public.contents (
     url character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,
-    published boolean DEFAULT false
+    published boolean DEFAULT false,
+    video_url character varying
 );
 
 
@@ -519,6 +520,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210614070628'),
 ('20210617082729'),
 ('20210617115237'),
-('20210618024304');
+('20210618024304'),
+('20210618232354');
 
 

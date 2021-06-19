@@ -5,7 +5,7 @@ module Api
         def index
           stories = []
           Content.where(published: true).map do |content|
-            stories << content.story if content.story.site_id == params[:site_id]
+            stories << content.story if content.story.site.reference_id == params[:site_id]
           end
 
           render json: { stories: stories.uniq }

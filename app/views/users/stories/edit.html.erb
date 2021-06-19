@@ -50,6 +50,15 @@
           <div><%= content.draft %></div>
           <div><%= link_to 'Edit', edit_user_story_content_path(current_user, @story, content), class: "btn btn-secondary" %></div>
         </div>
+        <% unless content.video_url.blank? %>
+          <div style="width: 260px; height: 260px">
+            <vm-player controls>
+              <vm-youtube
+                video-id="<%= content.video_url.sub(/^.*\//, '') %>"
+              />
+            </vm-player>
+          </div>
+        <% end %>
         <% unless content.video.blank? %>
           <div style="width: 260px; height: 260px">
               <vm-player playsinline>
