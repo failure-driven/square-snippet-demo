@@ -23,6 +23,7 @@ class Site < ApplicationRecord
   ].freeze
 
   default_scope { order(is_published: :desc).order(site_title: :asc) }
+  scope :active, -> { where(is_published: true).order(site_title: :asc) }
 
   def status
     @status ||= SiteStatus.new(self[:status])

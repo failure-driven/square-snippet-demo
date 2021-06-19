@@ -2,10 +2,20 @@ class IdentitiesController < ApplicationController
   before_action :authenticate_user!
   before_action :authorise_admin, only: [:toggle_feature]
 
-  def index
+  def index # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
     @identity = current_user.identities.first
     if @identity
-      redirect_to identity_path(@identity.uid)
+      if @identity.sites
+        if @identity.sites.one?
+          redirect_to identity_site_path(@identity.uid, @identity.sites.first.reference_id)
+        elsif @identity.sites.active.length == 1
+          redirect_to identity_site_path(@identity.uid, @identity.sites.active.first.reference_id)
+        else
+          redirect_to identity_path(@identity.uid)
+        end
+      else
+        redirect_to identity_path(@identity.uid)
+      end
     elsif current_user.admin?
       @identities = Identity.all
     else
@@ -16,7 +26,6 @@ class IdentitiesController < ApplicationController
   def show
     @identity = current_user.identity_scope.find_by(uid: params[:id])
     @sites = @identity.sites
-    redirect_to identity_site_path(@identity.uid, @sites.first.reference_id) if @sites.one?
     render plain: "404 Not Found", status: :not_found unless @identity
   end
 
