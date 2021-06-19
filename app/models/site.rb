@@ -22,8 +22,9 @@ class Site < ApplicationRecord
     updated_at
   ].freeze
 
-  default_scope { order(is_published: :desc).order(site_title: :asc) }
+  default_scope { where.not(status: :deleted).order(is_published: :desc).order(site_title: :asc) }
   scope :active, -> { where(is_published: true).order(site_title: :asc) }
+  scope :live, -> { where(is_published: true).order(site_title: :asc) }
 
   def status
     @status ||= SiteStatus.new(self[:status])
@@ -43,8 +44,9 @@ class Site < ApplicationRecord
   class << self
     def find_or_update_by_api_result(identity, sites)
       sites.each do |site_result|
-        site = Site.find_or_initialize_by(reference_id: site_result[:id], identity: identity)
+        site = Site.unscoped.find_or_initialize_by(reference_id: site_result[:id], identity: identity)
         site.update!(site_args_for(identity, site_result))
+        site.update!(status: "deleted") if !site.is_published? && site.domain&.empty?
       end
       deleted_sites = identity.sites.where.not(reference_id: sites.pluck(:id))
       deleted_sites.update(status: "deleted")

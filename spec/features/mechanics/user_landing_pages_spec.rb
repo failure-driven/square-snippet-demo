@@ -169,6 +169,7 @@ describe "User landing pages", js: true do
             {
               id: "site_DELETED_SOME_TIME_AGO",
               site_title: "DELETED SOME TIME AGO",
+              domain: "",
               is_published: false,
             },
             {
@@ -228,7 +229,6 @@ describe "User landing pages", js: true do
               all(".breadcrumb .breadcrumb-item", count: 2).map(&:text) # NOTE: minimum 2 causes wait behaviour
             end,
           ).to eq(%w[Home square-name])
-          pending "only admin being able to see deleted sites"
           expect(
             page.document.synchronize do # NOTE: needed for following map reduce to work on active elements
               find_all("[data-testid=site-list] .row").map { |row| row.find_all("div").map(&:text) }

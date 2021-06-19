@@ -3,7 +3,7 @@
 ## Release 1
 
 - [x] redirect directly to only active sites
-- [ ] don't show deleted sites
+- [x] don't show deleted sites
 - [ ] non active sites tell user to activate
 - [ ] on no sites get user to create a site
 - [ ] on site only let a user turn on and configure the widget
