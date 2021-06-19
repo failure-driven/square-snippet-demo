@@ -72,7 +72,7 @@ describe "Managing Stories", js: true do
       expect(focus_on(:messages).alert).to eq "Story successfully created"
       expect(focus_on(:stories).list).to eq(
         [
-          ["my site title", "a story about a product", "no content", "Edit"],
+          ["my site title", "a story about a product", "no content", "Edit", "Delete"],
         ],
       )
     end
@@ -111,7 +111,7 @@ describe "Managing Stories", js: true do
       expect(focus_on(:contents).title).to eq("Contents")
       expect(focus_on(:contents).list).to eq(
         [
-          ["buying MY product online", "how i bought A product online", "a link to photo/video of content", "draft", "Edit"],
+          ["buying MY product online", "how i bought A product online", "a link to photo/video of content", "draft", "Edit", "Delete"],
         ],
       )
     end
@@ -145,7 +145,7 @@ describe "Managing Stories", js: true do
       expect(focus_on(:messages).alert).to eq "Content successfully updated"
       expect(focus_on(:contents).list).to eq(
         [
-          ["buying a product online", "how i bought my product online", "a link to photo/video of my content", "published", "Edit"],
+          ["buying a product online", "how i bought my product online", "a link to photo/video of my content", "published", "Edit", "Delete"],
         ],
       )
     end
@@ -210,7 +210,7 @@ describe "Managing Stories", js: true do
       expect(focus_on(:messages).alert).to eq "Story successfully created"
       expect(focus_on(:stories).list).to eq(
         [
-          ["my site title", "a story about a product", "no content", "Edit"],
+          ["my site title", "a story about a product", "no content", "Edit", "Delete"],
         ],
       )
     end
@@ -296,7 +296,7 @@ describe "Managing Stories", js: true do
         expect(focus_on(:stories).title).to eq("My Stories")
         expect(focus_on(:stories).list).to eq(
           [
-            ["my site title", "i have a story to tell", "2", "Edit"],
+            ["my site title", "i have a story to tell", "2", "Edit", "Delete"],
           ],
         )
       end
@@ -307,35 +307,36 @@ describe "Managing Stories", js: true do
         expect(focus_on(:stories).title).to eq("Edit Story")
         expect(focus_on(:contents).list).to eq(
           [
-            ["published content", "how i published a content", "the url", "published", "Edit"],
-            ["NOT published content", "the description", "the url", "draft", "Edit"],
+            ["published content", "how i published a content", "the url", "published", "Edit", "Delete"],
+            ["NOT published content", "the description", "the url", "draft", "Edit", "Delete"],
           ],
         )
-        pending "need to implement delete action"
         focus_on(:contents).delete_content_with_title("how i published a content")
       end
 
       Then "the content is deleted" do
-        expect(focus_on(:messages).alert).to eq "Story was deleted."
+        expect(focus_on(:messages).alert).to eq "Content successfully deleted"
         expect(focus_on(:stories).title).to eq("Edit Story")
-        expect(focus_on(:contents).list).to eq([["NOT published content", "the description", "the url", "draft", "Edit"]]) # just 1 content
+        expect(focus_on(:contents).list).to eq([["NOT published content", "the description", "the url", "draft", "Edit", "Delete"]]) # just 1 content
       end
 
       And "the story is shown to have fewer contents" do
         focus_on(:nav).follow_link_for("Stories")
-        expect(focus_on(:stories).title).to eq("My Stories")
-        expect(focus_on(:stories).list).to eq([["my site title", "i have a story to tell", "1", "Edit"]]) # story with content count == 1
+        expect(focus_on(:stories).list).to eq([["my site title", "i have a story to tell", "1", "Edit", "Delete"]]) # story with content count == 1
       end
 
       When "they delete the story" do
-        pending "need to implement delete action"
         focus_on(:stories).delete_story_with_title("i have a story to tell")
       end
 
       Then "the story is deleted" do
-        expect(focus_on(:messages).alert).to eq "Story was deleted."
+        expect(focus_on(:messages).alert).to eq "Story successfully deleted"
         expect(focus_on(:stories).title).to eq("My Stories")
-        expect(focus_on(:stories).list).to eq([[]])
+        expect(focus_on(:stories).list).to eq([])
+      end
+
+      And "associated contents in the db are deleted too" do
+        expect(Content.count).to eq(0)
       end
     end
   end

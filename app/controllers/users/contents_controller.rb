@@ -19,12 +19,20 @@ module Users
     end
 
     def update
-      @story = Story.find(params[:story_id])
-
       @content = Content.find(params[:id])
       @content.update!(content_params)
 
       flash[:info] = "Content successfully updated"
+      redirect_to edit_user_story_path(current_user, story)
+    end
+
+    def destroy
+      @content = Content.find(params[:id])
+      authorised_to_access!(@content, :manage)
+
+      @content.destroy!
+
+      flash[:info] = "Content successfully deleted"
       redirect_to edit_user_story_path(current_user, story)
     end
 

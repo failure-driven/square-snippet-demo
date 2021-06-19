@@ -22,6 +22,10 @@ module PageFragments
       stories_panel.find("li", text: text).find("a", text: "Edit").click
     end
 
+    def delete_story_with_title(text)
+      stories_panel.find("li", text: text).find("a", text: "Delete").click
+    end
+
     private
 
     def stories_panel

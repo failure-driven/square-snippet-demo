@@ -16,6 +16,7 @@
         <div><%= story.story_title %></div>
         <div><%= story.content_count_message %></div>
         <div><%= link_to 'Edit', edit_user_story_path(current_user, story), class: "btn btn-secondary" %></div>
+        <div><%= link_to 'Delete', user_story_path(current_user, story), method: :delete, class: "btn btn-danger" %></div>
       </li>
     <% end %>
   </div>

@@ -36,6 +36,16 @@ module Users
       redirect_to action: :index
     end
 
+    def destroy
+      @story = Story.find(params[:id])
+      authorised_to_access!(@story, :manage)
+
+      @story.destroy!
+
+      flash[:info] = "Story successfully deleted"
+      redirect_to user_stories_path(current_user)
+    end
+
     private
 
     def story_params

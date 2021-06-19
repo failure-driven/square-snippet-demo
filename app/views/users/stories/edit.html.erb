@@ -49,6 +49,7 @@
           <div><%= content.url %></div>
           <div><%= content.draft %></div>
           <div><%= link_to 'Edit', edit_user_story_content_path(current_user, @story, content), class: "btn btn-secondary" %></div>
+          <div><%= link_to 'Delete', user_story_content_path(current_user, @story, content), method: :delete, class: "btn btn-danger" %></div>
         </div>
         <% unless content.video_url.blank? %>
           <div style="width: 260px; height: 260px">
