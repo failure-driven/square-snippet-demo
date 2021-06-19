@@ -36,12 +36,14 @@
             {content.content_title}
           </a>
           <p>{content.description}</p>
-          <Player>
-            <vm-youtube video-id={content.video_url.replace(/^.*\//, "")} />
-            <Ui>
-              <!-- UI components are placed here. -->
-            </Ui>
-          </Player>
+          {#if content.video_url}
+            <Player>
+              <vm-youtube video-id={content.video_url.replace(/^.*\//, "")} />
+              <Ui>
+                <!-- UI components are placed here. -->
+              </Ui>
+            </Player>
+          {/if}
         </li>
       {/each}
     </ul>

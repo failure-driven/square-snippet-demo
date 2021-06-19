@@ -1,5 +1,8 @@
 # BUGS
 
+- this commit broke our styles by adding mailer.css which should ONLY be used
+  for emails
+  https://github.com/failure-driven/square-snippet-demo/commit/c062045ccfe6c374400d0577345db2af972b2e64
 - add retries for flaky api calls failing
 - swif is slow to load? investigate if onLoad module thing is slowing it down?
 - lint does not complain about console.log???

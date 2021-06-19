@@ -28,14 +28,14 @@ describe "Managing Stories", js: true do
 
     @user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
     @identity = create(:identity, user: @user, provider: "square", uid: "123456")
-    @site = create(:site, identity: @identity, reference_id: @identity.id, status: "active")
+    @site = create(:site, identity: @identity, reference_id: "site_SQUARE_SITE_ID", status: "active")
 
     Support::Fakes::Square.new(
       self,
       sites: [
         {
-          id: @site.id,
-          site_title: "site-title-1",
+          id: "site_SQUARE_SITE_ID",
+          site_title: "my site title",
         },
       ],
     )
@@ -125,6 +125,8 @@ describe "Managing Stories", js: true do
           "Content title" => { value: "buying MY product online" },
           "Description" => { value: "how i bought A product online" },
           "Url" => { value: "a link to photo/video of content" },
+          "Video url" => { value: "" },
+          "Video" => { value: "" },
           "Published" => { value: "1" },
         },
       )
@@ -149,7 +151,7 @@ describe "Managing Stories", js: true do
     end
 
     When "the user visits their site test demo page and clicks SWiF" do
-      visit test_demo_identity_site_path(identity_id: "123456", id: @site.id)
+      visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
       focus_on(:swif, :widget).open
       expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
     end
@@ -214,7 +216,7 @@ describe "Managing Stories", js: true do
     end
 
     When "the user visits their site test demo page and clicks SWiF" do
-      visit test_demo_identity_site_path(identity_id: "123456", id: @site.id)
+      visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
       focus_on(:swif, :widget).open
       expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
     end
@@ -251,7 +253,7 @@ describe "Managing Stories", js: true do
       end
 
       And "visits their site test demo page and clicks SWiF" do
-        visit test_demo_identity_site_path(identity_id: "123456", id: @site.id)
+        visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
         focus_on(:swif, :widget).open
         expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
       end
@@ -368,7 +370,7 @@ describe "Managing Stories", js: true do
       end
 
       And "visits their site test demo page and clicks SWiF" do
-        visit test_demo_identity_site_path(identity_id: "123456", id: @site.id)
+        visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
         focus_on(:swif, :widget).open
         expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
       end
