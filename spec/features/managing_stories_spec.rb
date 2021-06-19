@@ -38,6 +38,16 @@ describe "Managing Stories", js: true do
           site_title: "my site title",
         },
       ],
+      snippet_result: OpenStruct.new(
+        success?: true,
+        data: OpenStruct.new(
+          snippet: {
+            content: "the snippet content",
+            created_at: "2021-07-12T12:00:00",
+            updated_at: "2021-07-12T12:00:00",
+          },
+        ),
+      ),
     )
   end
 
@@ -380,7 +390,7 @@ describe "Managing Stories", js: true do
 
       Then "they are booted back to the home page with an error" do
         expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
-        expect(focus_on(:sites).title).to eq("Your Sites")
+        expect(find_all(".breadcrumb .breadcrumb-item").map(&:text)).to eq(["Home", "square-name", "my site title"])
       end
 
       When "the user tries to edit someone else's content directly" do
@@ -389,7 +399,7 @@ describe "Managing Stories", js: true do
 
       Then "they are booted back to the home page with an error" do
         expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
-        expect(focus_on(:sites).title).to eq("Your Sites")
+        expect(find_all(".breadcrumb .breadcrumb-item").map(&:text)).to eq(["Home", "square-name", "my site title"])
       end
     end
   end
