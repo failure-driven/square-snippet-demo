@@ -24,23 +24,20 @@ module Users
 
     def edit
       @sites = Site.all
-      @story = Story.find(params[:id])
-      authorised_to_access!(@story, :manage)
+      authorised_to_access!(story, :manage)
     end
 
     def update
-      @story = Story.find(params[:id])
-      @story.update!(story_params)
+      story.update!(story_params)
 
       flash[:info] = "Story successfully saved"
       redirect_to action: :index
     end
 
     def destroy
-      @story = Story.find(params[:id])
-      authorised_to_access!(@story, :manage)
+      authorised_to_access!(story, :manage)
 
-      @story.destroy!
+      story.destroy!
 
       flash[:info] = "Story successfully deleted"
       redirect_to user_stories_path(current_user)
@@ -50,6 +47,10 @@ module Users
 
     def story_params
       params.permit(:site_id, :story_title, :published, :user_id)
+    end
+
+    def story
+      @story ||= Story.find(params[:id])
     end
   end
 end
