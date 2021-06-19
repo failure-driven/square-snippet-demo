@@ -2,7 +2,7 @@
 
 ## Release 1
 
-- [ ] redirect directly to only active sites
+- [x] redirect directly to only active sites
 - [ ] don't show deleted sites
 - [ ] non active sites tell user to activate
 - [ ] on no sites get user to create a site
@@ -11,6 +11,7 @@
 - [ ] show stats
 - [ ] widget up in hidden mode
 - [ ] stats collecting
+- [ ] save uploading/upserting/removing widget for admin display
 
 ## Next
 
