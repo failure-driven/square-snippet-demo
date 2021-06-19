@@ -63,7 +63,6 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
   it "Square OAuth signup and load snippet with default configuration" do
     Given "the landing page" do
       visit root_path
-      # TODO: describe the landing page
     end
 
     Then "they are informed they need to signup" do
@@ -255,7 +254,6 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     Then "user sees Portal nav item" do
-      page.find("a", text: "Active-and-published").click
       expect(page.all("ul.nav-tabs li").map(&:text)).to eq(%w[Status Config Stats Portal])
     end
   end
