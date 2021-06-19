@@ -390,7 +390,7 @@ describe "Managing Stories", js: true do
 
       Then "they are booted back to the home page with an error" do
         expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
-        expect(find_all(".breadcrumb .breadcrumb-item").map(&:text)).to eq(["Home", "square-name", "my site title"])
+        expect(find_all(".breadcrumb .breadcrumb-item", count: 2).map(&:text)).to eq(%w[Home square-name])
       end
 
       When "the user tries to edit someone else's content directly" do
@@ -399,7 +399,7 @@ describe "Managing Stories", js: true do
 
       Then "they are booted back to the home page with an error" do
         expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
-        expect(find_all(".breadcrumb .breadcrumb-item").map(&:text)).to eq(["Home", "square-name", "my site title"])
+        expect(find_all(".breadcrumb .breadcrumb-item", count: 2).map(&:text)).to eq(%w[Home square-name])
       end
     end
   end

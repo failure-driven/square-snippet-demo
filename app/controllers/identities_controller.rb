@@ -2,17 +2,11 @@ class IdentitiesController < ApplicationController
   before_action :authenticate_user!
   before_action :authorise_admin, only: [:toggle_feature]
 
-  def index # rubocop:disable Metrics/AbcSize, Metrics/PerceivedComplexity
+  def index # rubocop:disable Metrics/AbcSize
     @identity = current_user.identities.first
     if @identity
-      if @identity.sites
-        if @identity.sites.one?
-          redirect_to identity_site_path(@identity.uid, @identity.sites.first.reference_id)
-        elsif @identity.sites.active.length == 1
-          redirect_to identity_site_path(@identity.uid, @identity.sites.active.first.reference_id)
-        else
-          redirect_to identity_path(@identity.uid)
-        end
+      if @identity.sites && @identity.sites.active.length == 1
+        redirect_to identity_site_path(@identity.uid, @identity.sites.active.first.reference_id)
       else
         redirect_to identity_path(@identity.uid)
       end
