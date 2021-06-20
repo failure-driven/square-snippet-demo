@@ -19,6 +19,10 @@
   });
 </script>
 
+<a href={`/sites/${site}/stories/new`} target="_blank">
+  create your own story
+</a>
+
 <div class="swif-stories-list">
   {#if stories === undefined}
     loading
