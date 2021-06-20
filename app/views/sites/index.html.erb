@@ -1,0 +1,16 @@
+<div class="container mt-3">
+  <ul class="list-group" data-testid="site-list">
+  <% @sites.map do |site| %>
+    <%= link_to site_stories_path(site.reference_id), class: "list-group-item list-group-item-action" do %>
+      <div class="row">
+        <div>
+          <strong><%= site.site_title %></strong>
+        </div>
+        <div>
+          <%= site.last_published %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</ul>
+</div>

@@ -12,6 +12,8 @@ class IdentitiesController < ApplicationController
       end
     elsif current_user.admin?
       @identities = Identity.all
+    elsif current_user
+      redirect_to sites_path
     else
       render plain: "404 Not Found", status: :not_found
     end

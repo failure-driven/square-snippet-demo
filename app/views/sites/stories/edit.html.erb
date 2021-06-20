@@ -11,15 +11,10 @@
   </h5>
 
   <div class="card-body">
-    <%= form_with url: user_story_path(user: current_user, story: @story), method: :put, data: { testid: "story-form" } do |form| %>
-      <div class="form-group">
-        <%= form.label :site, "Site" %>
-        <%= form.collection_select :site_id, @sites, :id, :site_title, class: "form-control custom-select" %>
-      </div>
-
+    <%= form_with model: @story, url: site_story_path(@site.reference_id, @story), method: :put, data: { testid: "story-form" } do |form| %>
       <div class="form-group">
         <%= form.label :story_title, "Story title" %>
-        <%= form.text_field :story_title, class: "form-control", type: "text", value: @story.story_title %>
+        <%= form.text_field :story_title, class: "form-control", type: "text" %>
       </div>
 
       <div class="d-flex justify-content-end mt-3">
@@ -36,7 +31,7 @@
         <h4>Contents</h4>
       </div>
       <div class="col-auto">
-        <%= link_to 'New Content', new_user_story_content_path(current_user, @story), class: "btn btn-primary" %>
+        <%= link_to 'New Content', new_site_story_content_path(@site.reference_id, @story), class: "btn btn-primary" %>
       </div>
     </div>
   </h5>
@@ -48,8 +43,8 @@
           <div><%= content.description %></div>
           <div><%= content.url %></div>
           <div><%= content.draft %></div>
-          <div><%= link_to 'Edit', edit_user_story_content_path(current_user, @story, content), class: "btn btn-secondary" %></div>
-          <div><%= link_to 'Delete', user_story_content_path(current_user, @story, content), method: :delete, class: "btn btn-danger" %></div>
+          <div><%= link_to 'Edit', edit_site_story_content_path(@site.reference_id, @story, content), class: "btn btn-secondary" %></div>
+          <div><%= link_to 'Delete', site_story_content_path(@site.reference_id, @story, content), method: :delete, class: "btn btn-danger" %></div>
         </div>
         <% unless content.video_url.blank? %>
           <div style="width: 260px; height: 260px">

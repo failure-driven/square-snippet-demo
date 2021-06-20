@@ -26,7 +26,7 @@ describe "Managing Stories", js: true do
       },
     )
 
-    @user = create(:user, email: "square@email.com", confirmed_at: Time.zone.now)
+    @user = create(:user, email: "square@email.com", password: "1password", confirmed_at: Time.zone.now)
     @identity = create(:identity, user: @user, provider: "square", uid: "123456")
     @site = create(:site, identity: @identity, reference_id: "site_SQUARE_SITE_ID", status: "active")
 
@@ -36,6 +36,9 @@ describe "Managing Stories", js: true do
         {
           id: "site_SQUARE_SITE_ID",
           site_title: "my site title",
+          domain: "my-square-site.square.site",
+          is_published: true,
+          updated_at: "2021-07-01T12:00:00",
         },
       ],
       snippet_result: OpenStruct.new(
@@ -54,26 +57,23 @@ describe "Managing Stories", js: true do
   it "allows users to add and manage their own stories" do
     When "a user is signed in to swif.club" do
       visit root_path
-      expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
-      find(".devise-form a", text: "Square").click
-      expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
-      expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+      focus_on(:nav).follow_link_for("Log in")
+      login_form = Support::Components::RailsForm.new(
+        page.find("form[action=\"#{new_user_session_path}\"]"),
+      )
+      login_form.submit("Email" => "square@email.com", "Password" => "1password")
+      expect(focus_on(:messages).alert).to eq "Signed in successfully."
+      # TODO: how will we deal with Square logins and what to show for their account
+      # expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
     end
 
     And "they create a new story" do
-      expect(focus_on(:nav).actions).to eq(["Stories", "Sign out"])
-
-      focus_on(:nav).follow_link_for("Stories")
-      expect(focus_on(:stories).title).to eq("My Stories")
-
-      focus_on(:stories).start_new_story
-      sleep(0.1) # the page changes too fast!
+      # TODO: no navigation for a shop owner to create their own story
+      visit new_site_story_path("site_SQUARE_SITE_ID")
       expect(focus_on(:stories).title).to eq("New Story")
+
       focus_on(:stories).form.submit(
-        {
-          # site_id: "site-title-1", #TODO this just happens to work because it's the first value in the select box
-          story_title: "a story about a product",
-        },
+        "Story title" => "a story about a product",
       )
     end
 
@@ -95,7 +95,7 @@ describe "Managing Stories", js: true do
       expect(focus_on(:stories).title).to eq("Edit Story")
       # TODO: pre-populate story fields on the edit view
       # expect(focus_on(:stories).form.text_value_for("site")).to eq("a story about a product")
-      expect(focus_on(:stories).form.text_value_for("story_title")).to eq("a story about a product")
+      expect(focus_on(:stories).form.text_value_for("Story title")).to eq("a story about a product")
     end
 
     When "new content is added to the story" do
@@ -105,10 +105,10 @@ describe "Managing Stories", js: true do
 
       focus_on(:contents).form.submit(
         {
-          content_title: "buying MY product online",
-          description: "how i bought A product online",
-          url: "a link to photo/video of content",
-          published: false,
+          "Content title" => "buying MY product online",
+          "Description" => "how i bought A product online",
+          "Url" => "a link to photo/video of content",
+          "Published" => false,
         },
       )
     end
@@ -142,10 +142,10 @@ describe "Managing Stories", js: true do
 
       focus_on(:contents).form.submit(
         {
-          content_title: "buying a product online",
-          description: "how i bought my product online",
-          url: "a link to photo/video of my content",
-          published: true,
+          "Content title" => "buying a product online",
+          "Description" => "how i bought my product online",
+          "Url" => "a link to photo/video of my content",
+          "Published" => true,
         },
       )
     end
@@ -191,26 +191,20 @@ describe "Managing Stories", js: true do
   it "only renders stories with published content in the widget" do
     When "a user is signed in to swif.club" do
       visit root_path
-      expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
-      find(".devise-form a", text: "Square").click
-      expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
-      expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+      focus_on(:nav).follow_link_for("Log in")
+      login_form = Support::Components::RailsForm.new(
+        page.find("form[action=\"#{new_user_session_path}\"]"),
+      )
+      login_form.submit("Email" => "square@email.com", "Password" => "1password")
+      expect(focus_on(:messages).alert).to eq "Signed in successfully."
     end
 
     And "they create a new story" do
-      expect(focus_on(:nav).actions).to eq(["Stories", "Sign out"])
-
-      focus_on(:nav).follow_link_for("Stories")
-      expect(focus_on(:stories).title).to eq("My Stories")
-
-      focus_on(:stories).start_new_story
-      sleep(0.1) # the page changes too fast!
+      # TODO: no navigation for a shop owner to create their own story
+      visit new_site_story_path("site_SQUARE_SITE_ID")
       expect(focus_on(:stories).title).to eq("New Story")
       focus_on(:stories).form.submit(
-        {
-          # site_id: "site-title-1", #TODO this just happens to work because it's the first value in the select box
-          story_title: "a story about a product",
-        },
+        "Story title" => "a story about a product",
       )
     end
 
@@ -253,10 +247,12 @@ describe "Managing Stories", js: true do
     it "only renders published content in the widget" do
       When "a user is signed in to swif.club" do
         visit root_path
-        expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
-        find(".devise-form a", text: "Square").click
-        expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
-        expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+        focus_on(:nav).follow_link_for("Log in")
+        login_form = Support::Components::RailsForm.new(
+          page.find("form[action=\"#{new_user_session_path}\"]"),
+        )
+        login_form.submit("Email" => "square@email.com", "Password" => "1password")
+        expect(focus_on(:messages).alert).to eq "Signed in successfully."
       end
 
       And "visits their site test demo page and clicks SWiF" do
@@ -291,14 +287,17 @@ describe "Managing Stories", js: true do
     it "allows users to delete their contents and their story (which in turn that deletes any corresponding content)" do
       When "a user is signed in to swif.club" do
         visit root_path
-        expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
-        find(".devise-form a", text: "Square").click
-        expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
-        expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+        focus_on(:nav).follow_link_for("Log in")
+        login_form = Support::Components::RailsForm.new(
+          page.find("form[action=\"#{new_user_session_path}\"]"),
+        )
+        login_form.submit("Email" => "square@email.com", "Password" => "1password")
+        expect(focus_on(:messages).alert).to eq "Signed in successfully."
       end
 
       And "they view their stories" do
-        focus_on(:nav).follow_link_for("Stories")
+        # TODO: no navigation for a shop owner to create their own story
+        visit site_stories_path("site_SQUARE_SITE_ID")
         expect(focus_on(:stories).title).to eq("My Stories")
         expect(focus_on(:stories).list).to eq(
           [
@@ -327,7 +326,8 @@ describe "Managing Stories", js: true do
       end
 
       And "the story is shown to have fewer contents" do
-        focus_on(:nav).follow_link_for("Stories")
+        # TODO: no navigation for a shop owner to create their own story
+        visit site_stories_path("site_SQUARE_SITE_ID")
         expect(focus_on(:stories).list).to eq([["my site title", "i have a story to tell", "1", "Edit", "Delete"]]) # story with content count == 1
       end
 
@@ -365,36 +365,42 @@ describe "Managing Stories", js: true do
     it "only lets users manage the stories they have created" do
       When "a user is signed in to swif.club" do
         visit root_path
-        expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
-        find(".devise-form a", text: "Square").click
-        expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
-        expect(find("nav.navbar [data-testid=signin-name]").text).to eq "square-name"
+        focus_on(:nav).follow_link_for("Log in")
+        login_form = Support::Components::RailsForm.new(
+          page.find("form[action=\"#{new_user_session_path}\"]"),
+        )
+        login_form.submit("Email" => "square@email.com", "Password" => "1password")
+        expect(focus_on(:messages).alert).to eq "Signed in successfully."
       end
 
       Then "they cannot see someone elses stories" do
-        expect(focus_on(:nav).actions).to eq(["Stories", "Sign out"])
-
-        focus_on(:nav).follow_link_for("Stories")
+        # TODO: no navigation for a shop owner to create their own story
+        visit site_stories_path("site_SQUARE_SITE_ID")
         expect(focus_on(:stories).title).to eq("My Stories")
         expect(focus_on(:stories).list).to eq([])
       end
 
       When "the user tries to edit someone else's story directly" do
-        visit("users/#{@another_user.id}/stories/#{@story.id}/edit")
+        visit edit_site_story_path("site_SQUARE_SITE_ID", @story)
       end
 
       Then "they are booted back to the home page with an error" do
         expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
-        expect(find_all(".breadcrumb .breadcrumb-item", count: 2).map(&:text)).to eq(%w[Home square-name])
+        expect(
+          find_all(".breadcrumb .breadcrumb-item", count: 3).map(&:text),
+        ).to eq(["Home", "/identities/123456", "my site title"])
       end
 
       When "the user tries to edit someone else's content directly" do
-        visit("users/#{@another_user.id}/stories/#{@story.id}/contents/#{@content.id}/edit")
+        # visit("site/site_SQUARE_SITE_ID/stories/#{@story.id}/contents/#{@content.id}/edit")
+        visit edit_site_story_content_path("site_SQUARE_SITE_ID", @story, @content)
       end
 
       Then "they are booted back to the home page with an error" do
         expect(focus_on(:messages).alert).to eq("Sorry you do not have access to do that")
-        expect(find_all(".breadcrumb .breadcrumb-item", count: 2).map(&:text)).to eq(%w[Home square-name])
+        expect(
+          find_all(".breadcrumb .breadcrumb-item", count: 3).map(&:text),
+        ).to eq(["Home", "/identities/123456", "my site title"])
       end
     end
   end

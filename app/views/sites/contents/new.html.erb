@@ -4,21 +4,21 @@
   </div>
 
   <div class="card-body">
-    <%= form_with url: user_story_contents_url(user_id: current_user.id, story_id: @story.id), data: { testid: "content-form" } do |form| %>
+    <%= form_with model: @content, url: site_story_contents_url(@site.reference_id, @story.id), data: { testid: "content-form" } do |form| %>
       <div class="row g-3 align-items-center mb-3">
         <div class="col">
           <div class="form-group">
-            <%= form.label :content_title, "Content title" %>
+            <%= form.label :content_title %>
             <%= form.text_field :content_title, class: "form-control", type: "text" %>
           </div>
 
           <div class="form-group">
-            <%= form.label :description, "Description" %>
+            <%= form.label :description %>
             <%= form.text_field :description, class: "form-control", type: "text" %>
           </div>
 
           <div class="form-group">
-            <%= form.label :url, "Url" %>
+            <%= form.label :url %>
             <%= form.text_field :url, class: "form-control", type: "text" %>
           </div>
 

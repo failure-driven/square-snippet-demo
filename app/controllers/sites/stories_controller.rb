@@ -1,33 +1,35 @@
-module Users
+module Sites
   class StoriesController < ApplicationController
     before_action :authenticate_user!
 
     def index
+      @site = Site.find_by(reference_id: params[:site_id])
       @stories = Story.where(user: current_user)
     end
 
     def new
-      @sites = Site.all
+      @site = Site.find_by(reference_id: params[:site_id])
+      @story = Story.new
     end
 
     def create
-      Story.create!(story_params)
+      @site = Site.find_by(reference_id: params[:site_id])
+      Story.create!(story_params.merge(site: @site, user: current_user))
 
       flash[:info] = "Story successfully created"
       redirect_to action: :index
     rescue ActiveRecord::RecordInvalid => e
-      @sites = Site.all
-
       flash[:notice] = e.message
       render :new
     end
 
     def edit
-      @sites = Site.all
+      @site = Site.find_by(reference_id: params[:site_id])
       authorised_to_access!(story, :manage)
     end
 
     def update
+      @site = Site.find_by(reference_id: params[:site_id])
       story.update!(story_params)
 
       flash[:info] = "Story successfully saved"
@@ -40,13 +42,13 @@ module Users
       story.destroy!
 
       flash[:info] = "Story successfully deleted"
-      redirect_to user_stories_path(current_user)
+      redirect_to site_stories_path(params[:site_id])
     end
 
     private
 
     def story_params
-      params.permit(:site_id, :story_title, :published, :user_id)
+      params.require(:story).permit(:site_id, :story_title, :published, :user_id, :story)
     end
 
     def story

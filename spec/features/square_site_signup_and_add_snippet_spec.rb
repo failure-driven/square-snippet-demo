@@ -185,7 +185,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     Then "they see the swif custom header" do
       expect(
-        page.find(".swif .header-wrapper").text,
+        page.find(".swif .header-wrapper", wait: 5.seconds).text,
       ).to eq "Custom Title"
     end
 

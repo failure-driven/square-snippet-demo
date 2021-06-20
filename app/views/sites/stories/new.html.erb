@@ -8,14 +8,9 @@
   </h5>
 
   <div class="card-body">
-    <%= form_with url: user_stories_url(user_id: current_user.id), data: { testid: "story-form" } do |form| %>
+    <%= form_with model: @story, url: site_stories_url(@site.reference_id), data: { testid: "story-form" } do |form| %>
       <div class="form-group">
-        <%= form.label :site, "Site" %>
-        <%= form.collection_select :site_id, @sites, :id, :site_title, class: "form-control custom-select" %>
-      </div>
-
-      <div class="form-group">
-        <%= form.label :story_title, "Story title" %>
+        <%= form.label :story_title %>
         <%= form.text_field :story_title, class: "form-control", type: "text" %>
       </div>
 

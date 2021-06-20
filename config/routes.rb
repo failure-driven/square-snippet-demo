@@ -35,8 +35,8 @@ Rails.application.routes.draw do
   end
   get "/identities/:identity_id/sites/:id/portal/*all" => "identities/sites#portal"
 
-  resources :users, only: [] do
-    scope module: "users" do
+  resources :sites do
+    scope module: "sites" do
       resources :stories do
         resources :contents
       end
