@@ -46,6 +46,7 @@
 
   function onPointerMove(e) {
     if (moving) {
+      e.preventDefault;
       right += e.movementX;
       bottom += e.movementY;
       hasMoved = true;
@@ -66,16 +67,18 @@
   let main;
 </script>
 
-<div
-  class="draggable center"
-  style="left: {right}px; top: {bottom}px;"
-  bind:this={main}
->
-  <Launcher {showMain} on:toggleMain={toggleMain} bind:moving />
-  <MainWindow {showMain} bind:this={mainWindow}>
-    <div slot="header"><slot name="header" /></div>
-    <div slot="content"><slot name="content" /></div>
-  </MainWindow>
+<div class="draggable-wrapper moving-{moving}">
+  <div
+    class="draggable center"
+    style="left: {right}px; top: {bottom}px;"
+    bind:this={main}
+  >
+    <Launcher {showMain} on:toggleMain={toggleMain} bind:moving />
+    <MainWindow {showMain} bind:this={mainWindow}>
+      <div slot="header"><slot name="header" /></div>
+      <div slot="content"><slot name="content" /></div>
+    </MainWindow>
+  </div>
 </div>
 <svelte:window on:pointerup={onPointerUp} on:pointermove={onPointerMove} />
 
@@ -93,6 +96,23 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+  }
+
+  .draggable-wrapper {
+    position: fixed;
+    top: 0;
+  }
+
+  .draggable-wrapper.moving-true {
+    height: 100vh;
+    width: 100vw;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: none;
   }
 
   .center {
