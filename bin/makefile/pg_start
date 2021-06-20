@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+# could run on another port if PGPORT is set
+pg_ctl -D tmp/postgres -l tmp/postgres/logfile start || echo "pg was probably running" 

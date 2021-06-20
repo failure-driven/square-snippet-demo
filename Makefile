@@ -19,3 +19,10 @@ production_deploy:
 		HEROKU_DOMAIN=swif.club \
 		API_HOST_URL=https://swif.club \
 		bin/makefile/heroku-create
+
+pg_init:
+	bin/makefile/pg_init
+pg_start:
+	bin/makefile/pg_start
+pg_stop:
+	bin/makefile/pg_stop
