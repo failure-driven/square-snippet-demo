@@ -37,7 +37,7 @@
     user-select: none;
   }
 
-  @media(hover: hover) and (pointer: fine) {
+  @media (hover: hover) and (pointer: fine) {
     .launcher:hover {
       width: 125%;
       height: 125%;
