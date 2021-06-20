@@ -95,6 +95,7 @@
   </div>
   <input
     on:keydown={messageSubmit}
+    autocomplete="off"
     type="text"
     style="margin: 0 auto; width: 60%; margin-top: -1px"
     placeholder={cooldown
