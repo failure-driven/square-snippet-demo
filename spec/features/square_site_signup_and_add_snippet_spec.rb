@@ -65,11 +65,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
       visit root_path
     end
 
-    Then "they are informed they need to signup" do
-      expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
-    end
-
-    And "the only way to do that is with square" do
+    Then "they see a call to action to sign up using square" do
       expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
     end
 

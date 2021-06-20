@@ -12,10 +12,6 @@ describe "User landing pages", js: true do
       ).to have_content "Swif"
     end
 
-    And "a message to log in" do
-      expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
-    end
-
     And "a call to action to login with square" do
       expect(all(".devise-form a").map(&:text)).to contain_exactly("Square")
     end
@@ -231,7 +227,7 @@ describe "User landing pages", js: true do
           ).to eq(%w[Home square-name])
           expect(
             page.document.synchronize do # NOTE: needed for following map reduce to work on active elements
-              find_all("[data-testid=site-list] .row").map { |row| row.find_all("div").map(&:text) }
+              all("[data-testid=site-list] .row", count: 2).map { |row| row.find_all("div").map(&:text) }
             end,
           ).to eq([
                     ["ACTIVE AND PUBLISHED", "last published on July 01, 2021 to active-and-published.square.site"],

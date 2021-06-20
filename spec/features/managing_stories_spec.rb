@@ -54,7 +54,6 @@ describe "Managing Stories", js: true do
   it "allows users to add and manage their own stories" do
     When "a user is signed in to swif.club" do
       visit root_path
-      expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
       expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
       find(".devise-form a", text: "Square").click
       expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
@@ -192,7 +191,6 @@ describe "Managing Stories", js: true do
   it "only renders stories with published content in the widget" do
     When "a user is signed in to swif.club" do
       visit root_path
-      expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
       expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
       find(".devise-form a", text: "Square").click
       expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
@@ -255,7 +253,6 @@ describe "Managing Stories", js: true do
     it "only renders published content in the widget" do
       When "a user is signed in to swif.club" do
         visit root_path
-        expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
         expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
         find(".devise-form a", text: "Square").click
         expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
@@ -294,7 +291,6 @@ describe "Managing Stories", js: true do
     it "allows users to delete their contents and their story (which in turn that deletes any corresponding content)" do
       When "a user is signed in to swif.club" do
         visit root_path
-        expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
         expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
         find(".devise-form a", text: "Square").click
         expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
@@ -369,7 +365,6 @@ describe "Managing Stories", js: true do
     it "only lets users manage the stories they have created" do
       When "a user is signed in to swif.club" do
         visit root_path
-        expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
         expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
         find(".devise-form a", text: "Square").click
         expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."
@@ -431,7 +426,6 @@ describe "Managing Stories", js: true do
     it "does not render stories for other sites in the widget" do
       When "a user is signed in to swif.club" do
         visit root_path
-        expect(focus_on(:messages).alert).to eq "You need to sign in or sign up before continuing."
         expect(find_all(".devise-form a").map(&:text)).to eq(["Square"])
         find(".devise-form a", text: "Square").click
         expect(focus_on(:messages).alert).to eq "Successfully authenticated from Square account."

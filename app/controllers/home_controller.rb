@@ -1,16 +1,11 @@
 class HomeController < ApplicationController
-  before_action :authenticate_user!, except: %i[terms privacy]
   before_action :set_company_details
 
   def index
-    @identity = current_user.identities.first
+    redirect_to identities_path if current_user
   end
 
   private
-
-  def terms; end
-
-  def privacy; end
 
   def set_company_details
     @website_address = "https://swif.club"
