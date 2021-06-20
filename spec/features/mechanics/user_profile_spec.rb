@@ -14,8 +14,7 @@ describe "User profile", js: true do
     end
 
     Then "they sign up successfully" do
-      pending "1 click signup working"
-      expect(focus_on(:messages).alert).to eq "Signed up successfully."
+      expect(focus_on(:messages).alert).to eq "Welcome! You have signed up successfully."
       expect(find("nav.navbar [data-testid=signin-name]").text).to eq "influencer@email.com"
     end
   end

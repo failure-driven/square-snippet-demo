@@ -1,4 +1,17 @@
 class RegistrationsController < Devise::RegistrationsController
+  def create
+    super do |resource|
+      if resource.password.blank?
+        temp_password = Devise.friendly_token[0, 20]
+
+        resource.password = temp_password
+        resource.password_confirmation = temp_password
+        resource.save
+      end
+      sign_in resource
+    end
+  end
+
   def update_resource(resource, params) # rubocop:disable Metrics/AbcSize.
     if resource.encrypted_password.blank? # || params[:password].blank?
       resource.email = params[:email] if params[:email]
