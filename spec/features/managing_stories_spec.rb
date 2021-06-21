@@ -345,6 +345,34 @@ describe "Managing Stories", js: true do
         expect(Content.count).to eq(0)
       end
     end
+
+    it "notifies story followers when new contents are published" do
+      When "a user is signed in to swif.club" do
+        visit root_path
+        focus_on(:nav).follow_link_for("Log in")
+        login_form = Support::Components::RailsForm.new(
+          page.find("form[action=\"#{new_user_session_path}\"]"),
+        )
+        login_form.submit("Email" => "square@email.com", "Password" => "1password")
+        expect(focus_on(:messages).alert).to eq "Signed in successfully."
+      end
+
+      And "SWiFs from their site test demo page" do
+        visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
+        focus_on(:swif, :widget).open
+        expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+      end
+
+      And "they follow a story"
+
+      And "they sign in"
+
+      Then "the follower count is increased"
+
+      When "new content is published for the story"
+
+      Then "story followers are notified by email"
+    end
   end
 
   context "when there is a story created by another user" do
