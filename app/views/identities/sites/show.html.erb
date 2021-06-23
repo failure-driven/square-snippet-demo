@@ -8,6 +8,12 @@
       <div>
         <%= @site.last_published %>
       </div>
+      <div>
+        <%= link_to "http://#{@site.domain}", target: "_blank" do %>
+          <i class="fa fa-external-link-alt"></i>
+          <%= "http://#{@site.domain}" %>
+        <% end %>
+      </div>
       <div class="row">
         <div
           data-controller="content-loader"
