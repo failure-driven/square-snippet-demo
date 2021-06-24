@@ -421,6 +421,7 @@ DEPENDENCIES
   flipper-ui
   image_processing (~> 1.2)
   jbuilder (~> 2.7)
+  jwt
   letter_opener_web
   listen (~> 3.3)
   omniauth-square!

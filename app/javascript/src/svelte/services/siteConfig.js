@@ -6,6 +6,9 @@ const getSiteConfigUrl = ({identity, site}) => {
 const portalUrl = ({identity, site}) => {
   return `${SERVER_URL}/identities/${identity}/sites/${site}/portal`;
 };
+const authWidgetUrl = () => {
+  return `${SERVER_URL}/widget_auth/new`;
+};
 
 export default async function getSiteConfig({identity, site}) {
   const headers = {
@@ -19,4 +22,4 @@ export default async function getSiteConfig({identity, site}) {
   return response.json();
 }
 
-export {portalUrl};
+export {portalUrl, authWidgetUrl};

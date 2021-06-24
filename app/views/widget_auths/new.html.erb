@@ -1,0 +1,14 @@
+<%= content_tag(
+  :div,
+  "",
+  data: {
+    app: "auth-app",
+    user: {
+      id: @user.id,
+      email: @user.email,
+      "authToken": @user.generate_jwt,
+    },
+  },
+)%>
+
+<%= javascript_pack_tag "auth_app" %>

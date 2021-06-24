@@ -43,6 +43,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resource :widget_auth, only: :new
+
   authenticated :user do
     get "/", to: redirect("/identities")
   end

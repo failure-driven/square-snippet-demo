@@ -27,6 +27,7 @@ gem "image_processing", "~> 1.2"
 
 # authorization
 gem "devise"
+gem "jwt"
 
 # Square Omniauth
 gem "omniauth-square", github: "saramic/omniauth-square"
