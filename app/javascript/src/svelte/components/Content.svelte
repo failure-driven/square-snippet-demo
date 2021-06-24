@@ -1,6 +1,8 @@
 <script>
   import {createEventDispatcher, onMount} from "svelte";
   import getSiteConfig, {portalUrl} from "../services/siteConfig";
+  import * as zoid from "zoid";
+
   let site, identity;
   if ("SwifStaticConfig" in window) {
     site = window["SwifStaticConfig"].data().site;
@@ -8,6 +10,13 @@
   }
   const dispatch = createEventDispatcher();
   let siteConfig = {};
+
+  let swifFrame = zoid.create({
+    tag: "swif-frame",
+    url: portalUrl({site, identity}),
+    dimensions: {height: "400px", width: "350px"},
+  });
+
   onMount(async () => {
     try {
       const response = await getSiteConfig({site, identity});
@@ -16,16 +25,10 @@
     } catch (error) {
       this.error(500, "error: " + error.message);
     }
+    swifFrame().render("#swifFrame-container");
   });
 </script>
 
 {#if siteConfig && siteConfig.config && siteConfig.config.portal}
-  <iframe
-    frameBorder="0"
-    style="height: 350px; width: 100%"
-    title="chatbot"
-    allow="camera;microphone"
-    src={portalUrl({site, identity})}
-    class="content-iframe"
-  />
+  <div id="swifFrame-container" />
 {/if}
