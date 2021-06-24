@@ -14,7 +14,13 @@
   let swifFrame = zoid.create({
     tag: "swif-frame",
     url: portalUrl({site, identity}),
-    dimensions: {height: "400px", width: "350px"},
+    dimensions: {height: "100%", width: "100%"},
+    props: {
+      onNotification: {
+        type: "function",
+        required: true,
+      },
+    },
   });
 
   onMount(async () => {
@@ -25,10 +31,21 @@
     } catch (error) {
       this.error(500, "error: " + error.message);
     }
-    swifFrame().render("#swifFrame-container");
   });
 </script>
 
 {#if siteConfig && siteConfig.config && siteConfig.config.portal}
-  <div id="swifFrame-container" />
+  <div id="swifFrame-container">
+    {#if swifFrame({onNotification: function () {
+        console.log("notification!");
+      }}).render("#swifFrame-container")}
+      {""}
+    {/if}
+  </div>
 {/if}
+
+<style>
+  #swifFrame-container {
+    height: 100%;
+  }
+</style>

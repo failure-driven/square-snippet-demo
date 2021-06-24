@@ -5,6 +5,8 @@
   import Call from "./components/Call.svelte";
   import Stories from "./components/Stories.svelte";
   import Story from "./components/Story.svelte";
+  import {portalUrl} from "./services/siteConfig";
+  import * as zoid from "zoid";
 
   export let dataset;
   const {site, identity} = dataset;
@@ -36,6 +38,11 @@
     props = {...params, ...query};
   });
   page.start();
+
+  zoid.create({
+    tag: "swif-frame",
+    url: portalUrl({site, identity}),
+  });
 </script>
 
 <svelte:head>
