@@ -18,7 +18,10 @@
     <% if signed_in? %>
       <span class="nav-link" data-testid="signin-name">
         <div class="mx-1">
-          <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
+          <%= link_to edit_user_registration_path do %>
+            <%= image_tag avatar_path(current_user, size: 40), height: 30, width: 30, class: "rounded" %>
+            <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
+          <% end %>
         </div>
       </span>
       <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
