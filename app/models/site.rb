@@ -11,6 +11,7 @@ class Site < ApplicationRecord
     "background-color" => "#ffffff",
     "counter" => true,
     "portal" => true,
+    "zoid_portal" => false,
   }.freeze
 
   SITE_TIMESTAMP_FIELDS = %i[created_at updated_at].freeze

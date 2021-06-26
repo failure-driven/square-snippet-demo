@@ -11,37 +11,50 @@
   const dispatch = createEventDispatcher();
   let siteConfig = {};
 
-  let swifFrame = zoid.create({
-    tag: "swif-frame",
-    url: portalUrl({site, identity}),
-    dimensions: {height: "100%", width: "100%"},
-    props: {
-      onNotification: {
-        type: "function",
-        required: true,
+  let swifFrame;
+  const createSwifFrame = () => {
+    swifFrame = zoid.create({
+      tag: "swif-frame",
+      url: portalUrl({site, identity}),
+      dimensions: {height: "100%", width: "100%"},
+      props: {
+        onNotification: {
+          type: "function",
+          required: true,
+        },
       },
-    },
-  });
+    });
+  };
 
   onMount(async () => {
     try {
       const response = await getSiteConfig({site, identity});
       siteConfig = response;
       dispatch("siteConfig", siteConfig);
+      createSwifFrame();
     } catch (error) {
-      this.error(500, "error: " + error.message);
+      console.error(500, "error: " + error.message);
     }
   });
 </script>
 
-{#if siteConfig && siteConfig.config && siteConfig.config.portal}
+{#if siteConfig && siteConfig.config && siteConfig.config.zoid_portal}
   <div id="swifFrame-container">
-    {#if swifFrame({onNotification: function () {
-        console.log("notification!");
-      }}).render("#swifFrame-container")}
+    {#if swifFrame && swifFrame({onNotification: function () {
+          console.log("notification!");
+        }}).render("#swifFrame-container")}
       {""}
     {/if}
   </div>
+{:else if siteConfig && siteConfig.config && siteConfig.config.portal}
+  <iframe
+    frameBorder="0"
+    style="height: 350px; width: 100%"
+    title="chatbot"
+    allow="camera;microphone"
+    src={portalUrl({site, identity})}
+    class="content-iframe"
+  />
 {/if}
 
 <style>
