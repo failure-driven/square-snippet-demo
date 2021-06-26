@@ -3,6 +3,14 @@
   import getSiteConfig, {portalUrl} from "../services/siteConfig";
   import * as zoid from "zoid";
 
+  const hostnamePartRegex = new RegExp(/[^\/]+\/\/([^\.^\:^\/]+)/i);
+  const needle = (process.env.API_HOST_URL || "http://localhost:3000").match(
+    hostnamePartRegex
+  );
+  const swifFrameContainerId = `swifFrame-container-${
+    needle ? needle[1] : "null"
+  }`;
+
   let site, identity;
   if ("SwifStaticConfig" in window) {
     site = window["SwifStaticConfig"].data().site;
@@ -39,12 +47,10 @@
 </script>
 
 {#if siteConfig && siteConfig.config && siteConfig.config.zoid_portal}
-  <div id="swifFrame-container">
+  <div id={swifFrameContainerId} class="swifFrame-container">
     {#if swifFrame && swifFrame({onNotification: function () {
           console.log("notification!");
-        }}).render("#swifFrame-container")}
-      {""}
-    {/if}
+        }}).render(`#${swifFrameContainerId}`)}{/if}
   </div>
 {:else if siteConfig && siteConfig.config && siteConfig.config.portal}
   <iframe
@@ -58,7 +64,7 @@
 {/if}
 
 <style>
-  #swifFrame-container {
+  .swifFrame-container {
     height: 100%;
   }
 </style>
