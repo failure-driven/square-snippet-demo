@@ -19,7 +19,7 @@
       <span class="nav-link" data-testid="signin-name">
         <div class="mx-1">
           <%= link_to edit_user_registration_path do %>
-            <%= image_tag avatar_path(current_user, size: 40), height: 30, width: 30, class: "rounded" %>
+            <%= image_tag avatar_path(current_user, size: 30), height: 30, width: 30, class: "rounded" %>
             <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
           <% end %>
         </div>
