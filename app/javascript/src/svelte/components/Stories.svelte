@@ -41,8 +41,10 @@
   {/if}
 </div>
 
-<a href={`/sites/${site}/stories/new`} target="_blank">
-  create your own story
+<a href={`/sites/${site}/stories/new`}> create your own story </a>
+
+<a href={`/identities/${identity}/sites/${site}/portal/new_story`}>
+  create your own story from SWiF
 </a>
 
 <div class="swif-stories-list">

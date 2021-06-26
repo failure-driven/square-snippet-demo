@@ -5,6 +5,7 @@
   import Call from "./components/Call.svelte";
   import Stories from "./components/Stories.svelte";
   import Story from "./components/Story.svelte";
+  import NewStory from "./components/NewStory.svelte";
   import {portalUrl} from "./services/siteConfig";
   import * as zoid from "zoid";
 
@@ -36,6 +37,11 @@
     component = Story;
     const {params, query} = context;
     props = {...params, ...query};
+  });
+  page("/identities/:identity/sites/:site/portal/new_story", context => {
+    component = NewStory;
+    // const {params, query} = context;
+    // props = {...params, ...query};
   });
   page.start();
 

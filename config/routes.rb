@@ -59,7 +59,7 @@ Rails.application.routes.draw do
       namespace :sites do
         get "/visit_count", to: "sites#visit_count"
         patch "/visit_count", to: "sites#update_visit_count"
-        resources :stories, only: %i[index show]
+        resources :stories, only: %i[index show create]
       end
     end
   end
