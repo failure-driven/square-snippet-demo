@@ -10,6 +10,8 @@ class User < ApplicationRecord
 
   has_many :identities, dependent: :destroy
 
+  has_one_attached :avatar
+
   def generate_jwt
     JWT.encode(
       {
