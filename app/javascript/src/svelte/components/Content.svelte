@@ -3,7 +3,7 @@
   import getSiteConfig, {portalUrl} from "../services/siteConfig";
   import * as zoid from "zoid";
 
-  const hostnamePartRegex = new RegExp(/[^\/]+\/\/([^\.^\:^\/]+)/i);
+  const hostnamePartRegex = new RegExp(/[^/]+\/\/([^.^:^/]+)/i);
   const needle = (process.env.API_HOST_URL || "http://localhost:3000").match(
     hostnamePartRegex
   );
@@ -48,9 +48,13 @@
 
 {#if siteConfig && siteConfig.config && siteConfig.config.zoid_portal}
   <div id={swifFrameContainerId} class="swifFrame-container">
-    {#if swifFrame && swifFrame({onNotification: function () {
+    {swifFrame &&
+      swifFrame({
+        onNotification: function () {
           console.log("notification!");
-        }}).render(`#${swifFrameContainerId}`)}{/if}
+        },
+      }).render(`#${swifFrameContainerId}`) &&
+      ""}
   </div>
 {:else if siteConfig && siteConfig.config && siteConfig.config.portal}
   <iframe
