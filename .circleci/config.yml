@@ -8,7 +8,7 @@ jobs:
           PGHOST: localhost
           PGUSER: your-app-name
           RAILS_ENV: test
-      - image: postgres:12.3
+      - image: postgres:13.2
         environment:
           POSTGRES_USER: your-app-name
           POSTGRES_DB: your-app-name_test

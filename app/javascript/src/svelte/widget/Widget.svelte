@@ -4,6 +4,7 @@
   import {onMount} from "svelte";
 
   let showMain = false;
+  let mainWindow;
 
   function toggleMain() {
     showMain = !showMain;
@@ -12,13 +13,25 @@
   export let right = window.innerWidth - 80;
   export let bottom = window.innerHeight - 80;
 
-  let moving = false;
+  let cachedWindowheight = window.innerHeight;
 
+  let moving = false;
+  let hasMoved = false;
   let mouseIsDown = false;
   let idTimeout;
 
   onMount(async () => {
-    main.addEventListener("mousedown", function (e) {
+    window.addEventListener("resize", function () {
+      if (right > window.innerWidth - 60) {
+        right += right - window.innerWidth;
+      }
+      if (cachedWindowheight !== window.innerHeight) {
+        cachedWindowheight = window.innerHeight;
+        bottom = window.innerHeight - 80;
+      }
+    });
+
+    main.addEventListener("pointerdown", function (e) {
       mouseIsDown = true;
       idTimeout = setTimeout(function () {
         if (mouseIsDown) {
@@ -27,62 +40,47 @@
           main.classList.add("moving");
           moving = true;
         }
-      }, 500);
+      }, 300);
     });
   });
 
-  function onMouseMove(e) {
+  function onPointerMove(e) {
     if (moving) {
+      e.preventDefault;
       right += e.movementX;
       bottom += e.movementY;
+      hasMoved = true;
     }
   }
 
-  function onMouseUp() {
+  function onPointerUp() {
     main.classList.remove("moving");
     moving = false;
     clearTimeout(idTimeout);
     mouseIsDown = false;
-    alignWindow();
-  }
-
-  let height = 400;
-  let width = Math.min(window.innerWidth * 0.82, 400);
-
-  let main;
-  let windowClasses = ["swif", "main", "animated-gradient", "top", "left"];
-
-  function alignWindow() {
-    windowClasses = ["swif", "main", "animated-gradient"];
-    if (window.innerWidth < 425) {
-      windowClasses.push("top", "left");
-    } else {
-      if (main.getBoundingClientRect().left + 35 < width) {
-        windowClasses.push("right");
-      } else {
-        windowClasses.push("left");
-      }
-      if (main.getBoundingClientRect().top + 24 < height) {
-        windowClasses.push("bottom");
-      } else {
-        windowClasses.push("top");
-      }
+    if (hasMoved) {
+      mainWindow.alignWindow();
+      hasMoved = false;
     }
   }
+
+  let main;
 </script>
 
-<div
-  class="draggable center"
-  style="left: {right}px; top: {bottom}px;"
-  bind:this={main}
->
-  <Launcher {showMain} on:toggleMain={toggleMain} bind:moving />
-  <MainWindow {showMain} bind:windowClasses>
-    <div slot="header"><slot name="header" /></div>
-    <div slot="content"><slot name="content" /></div>
-  </MainWindow>
+<div class="draggable-wrapper moving-{moving}">
+  <div
+    class="draggable center"
+    style="left: {right}px; top: {bottom}px;"
+    bind:this={main}
+  >
+    <Launcher {showMain} on:toggleMain={toggleMain} bind:moving />
+    <MainWindow {showMain} bind:this={mainWindow}>
+      <div slot="header"><slot name="header" /></div>
+      <div slot="content"><slot name="content" /></div>
+    </MainWindow>
+  </div>
 </div>
-<svelte:window on:mouseup={onMouseUp} on:mousemove={onMouseMove} />
+<svelte:window on:pointerup={onPointerUp} on:pointermove={onPointerMove} />
 
 <style>
   .draggable {
@@ -92,6 +90,29 @@
     height: 3rem;
     border: none;
     border-radius: 50%;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .draggable-wrapper {
+    position: fixed;
+    top: 0;
+  }
+
+  .draggable-wrapper.moving-true {
+    height: 100vh;
+    width: 100vw;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    touch-action: none;
   }
 
   .center {

@@ -31,6 +31,8 @@ RSpec/ExampleLength:
 RSpec/MultipleExpectations:
   Exclude:
     - spec/features/**/*
+RSpec/InstanceVariable:
+  Enabled: false
 Metrics/AbcSize:
   Exclude:
     - db/**/*

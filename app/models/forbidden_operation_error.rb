@@ -1,0 +1,1 @@
+class ForbiddenOperationError < StandardError; end

@@ -1,59 +1,30 @@
 <div class="container mt-3">
   <%= render partial: "identities/breadcrumbs" %>
-  <%= render partial: "site_tabs" %>
-  <ul class="list-group">
-    <li class="list-group-item">
-      <div class="row">
-        <div class="col-lg-2 d-none d-lg-block">
-          <strong>site title</strong>
-        </div>
-        <div class="col-lg-4 d-none d-lg-block">
-          <strong>domain</strong>
-        </div>
-        <div class="col-lg-2 d-none d-lg-block">
-          <strong>live</strong>
-        </div>
-        <div class="col-lg-2 d-none d-lg-block">
-          <strong>created at</strong>
-        </div>
-        <div class="col-lg-2 d-none d-lg-block">
-          <strong>updated at</strong>
-        </div>
+  <div class="row card">
+    <div class="card-body">
+      <div class="card-title">
+        <strong><%= @site.site_title %></strong>
       </div>
-      <% if @site %>
-      <div class="row">
-        <div class="col-lg-2">
-          <strong class="d-lg-none">site title</strong>
-          <%= @site.site_title %>
-        </div>
-        <div class="col-lg-4">
-          <strong class="d-lg-none">domain</strong>
-          <%= link_to "http://#{@site.domain}", "http://#{@site.domain}" %>
-        </div>
-        <div class="col-lg-2">
-          <strong class="d-lg-none">live</strong>
-          <%= @site.is_published %>
-        </div>
-        <div class="col-lg-2">
-          <strong class="d-lg-none">created at</strong>
-          <%= @site.created_at %>
-        </div>
-        <div class="col-lg-2">
-          <strong class="d-lg-none">updated at</strong>
-          <%= @site.updated_at %>
-        </div>
+      <div>
+        <%= @site.last_published %>
       </div>
-      <div
-        data-controller="content-loader"
-        data-content-loader-url-value="<%= show_site_identity_site_path(@identity.uid) %>"
-      >
-        <div class="text-center mt-3">
-          <div class="spinner-border" role="status">
-            <span class="visually-hidden">Loading...</span>
+      <div>
+        <%= link_to "http://#{@site.domain}", target: "_blank" do %>
+          <i class="fa fa-external-link-alt"></i>
+          <%= "http://#{@site.domain}" %>
+        <% end %>
+      </div>
+      <div class="row">
+        <div
+          data-controller="content-loader"
+          data-content-loader-url-value="<%= show_site_identity_site_path(@identity.uid) %>"
+        >
+          <div class="text-center mt-3">
+            <div class="spinner-border" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
           </div>
         </div>
       </div>
-      <% end %>
     </div>
-  </li>
-</ul>
+  </div>

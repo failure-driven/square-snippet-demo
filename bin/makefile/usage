@@ -19,5 +19,10 @@ _usage() {
   echo -e "${GREEN}Deploy to Heroku${NC}"
   echo
   echo -e "${YELLOW}make production_deploy${NC} assuming access to 'config/master.key' deploy to Heroku"
+  echo
+  echo -e "${YELLOW}make pg_init${NC}           initialize a local postgres instance"
+  echo -e "${YELLOW}make pg_start${NC}          start postgres"
+  echo -e "${YELLOW}make pg_stop${NC}           stop postgres"
+  echo
 }
 _usage

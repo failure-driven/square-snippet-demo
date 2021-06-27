@@ -1,13 +1,14 @@
 <script>
   import {auth, db} from "../services/firebase";
-  import {onDestroy} from "svelte";
+  import {onDestroy, onMount} from "svelte";
   import ChatMessage from "../components/ChatMessage.svelte";
+
   export let roomId;
   export let leaveRoom;
   let currentUser;
   let messages = [];
   let cooldown = false;
-  console.log(roomId);
+  let xprops;
 
   auth.onAuthStateChanged(user => (currentUser = user));
   const unsubscribe = db
@@ -28,6 +29,9 @@
                 .scrollIntoView({behavior: "smooth"});
           }, 500);
         });
+        if (xprops !== undefined) {
+          xprops.onNotification();
+        }
       },
       error => {
         console.log(error);
@@ -64,6 +68,10 @@
   }
 
   onDestroy(unsubscribe);
+
+  onMount(async () => {
+    xprops = window.xprops;
+  });
 </script>
 
 <div class="chat-room-wrapper">
@@ -95,6 +103,7 @@
   </div>
   <input
     on:keydown={messageSubmit}
+    autocomplete="off"
     type="text"
     style="margin: 0 auto; width: 60%; margin-top: -1px"
     placeholder={cooldown

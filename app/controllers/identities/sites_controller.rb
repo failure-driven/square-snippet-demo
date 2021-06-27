@@ -9,6 +9,11 @@ module Identities
     def show
       @site = @identity.sites.where(reference_id: params[:id]).first
       render plain: "404 Not Found", status: :not_found unless @identity
+      if Flipper[:user_nav].enabled?(FormUser.find(@identity.user_id))
+        render "show_with_user_nav"
+      else
+        render
+      end
     end
 
     def show_site # rubocop:disable Metrics/AbcSize
@@ -21,7 +26,11 @@ module Identities
         if result.success?
           @snippet = result.data.snippet
         elsif result.error?
-          @errors = result.errors
+          if result.errors[0][:code] == "NOT_FOUND"
+            @alert = "SWiF snippet not installed"
+          else
+            @errors = result.errors
+          end
         end
         render partial: "show_sites"
       else
@@ -121,6 +130,24 @@ module Identities
 
     def widget
       redirect_to Webpacker.manifest.lookup!("widget_demo_svelte.js")
+    end
+
+    def test_demo
+      @site = @identity.sites.where(reference_id: params[:id]).first
+      @widget_snippet = <<~EO_SNIPPET_CONTENT
+        <script>
+          var SwifStaticConfig = (function(my){
+            my.data = () => {
+              return #{ {
+                site: @site.reference_id,
+                identity: @identity.uid,
+              }.to_json}
+            }#{' '}
+            return(my)
+          })(SwifStaticConfig || {})
+        </script>
+        <script defer src="#{widget_identity_site_url}"></script>
+      EO_SNIPPET_CONTENT
     end
 
     private

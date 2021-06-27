@@ -1,0 +1,78 @@
+<% if @snippet %>
+  <div class="row mt-3">
+    <div class="col">
+      <strong>status</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      SWiF snippet installed 🎉
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <strong>created at</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= DateTime.parse(@snippet[:created_at]).to_s(:long) %>
+    </div>
+  </div>
+  <div class="row mt-3">
+    <div class="col">
+      <strong>updated at</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= DateTime.parse(@snippet[:updated_at]).to_s(:long) %>
+    </div>
+  </div>
+  <div class="row my-3">
+    <div class="col">
+      <strong>content</strong>
+      <button
+        class="btn"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapseSnippetContent"
+        aria-expanded="false"
+        aria-controls="collapseSnippetContent"
+      >
+        show snippet content
+      </button>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col collapse" id="collapseSnippetContent">
+      <pre class="word-wrap"><%= @snippet[:content] %></pre>
+    </div>
+  </div>
+<% end %>
+<% if @alert %>
+  <div class="row mt-3">
+    <div class="col">
+      <strong>status</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <pre><%= @alert %></pre>
+    </div>
+  </div>
+<% end %>
+<% if @errors %>
+  <div class="row mt-3">
+    <div class="col">
+      <strong>errors</strong>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <pre><%= @errors %></pre>
+    </div>
+  </div>
+<% end %>
+
+<%= render partial: "show_site_actions" %>

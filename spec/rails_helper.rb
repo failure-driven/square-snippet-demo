@@ -6,6 +6,7 @@ require File.expand_path("../config/environment", __dir__)
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require "rspec/rails"
 # Add additional requires below this line. Rails is not loaded until this point!
+require "capybara/email/rspec"
 Dir["spec/support/**/*.rb"].each do |file|
   require Rails.root.join(file).to_s
 end
@@ -34,6 +35,9 @@ rescue ActiveRecord::PendingMigrationError => e
   exit 1
 end
 RSpec.configure do |config|
+  # Use FactoryBot shortcuts
+  config.include FactoryBot::Syntax::Methods
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -64,4 +68,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+  # include PageFragments in features
+  config.include PageFragments, type: :feature
+
+  # set predictable ports for things like email and API endpoints
+  Capybara.server_port = 3001
+  Capybara.server_host = "localhost"
 end

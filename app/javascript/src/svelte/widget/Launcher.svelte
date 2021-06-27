@@ -14,7 +14,7 @@
   class="swif launcher animated-gradient {showMain} moving-{moving}"
   on:click={handleClick}
 >
-  SWiF
+  {moving ? "✢" : "SWiF"}
 </button>
 
 <style>
@@ -29,11 +29,19 @@
     transition: height 0.15s, width 0.15s;
     color: white;
     font-weight: 800;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
-  .launcher:hover {
-    width: 125%;
-    height: 125%;
+  @media (hover: hover) and (pointer: fine) {
+    .launcher:hover {
+      width: 125%;
+      height: 125%;
+    }
   }
 
   .moving-true {

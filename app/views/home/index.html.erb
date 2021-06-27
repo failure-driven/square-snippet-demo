@@ -1,1 +1,19 @@
-swif
+  <div class="row mt-5">
+    <div class="col-lg-6 m-auto">
+      <div class="card devise-form">
+        <div class="card-body devise-form">
+          <h2>Swif log in</h2>
+          <div class="d-flex justify-content-center">
+            <%= link_to(
+                omniauth_authorize_path(FormUser, "square"),
+                class: "d-flex btn btn-block btn-lg btn-square",
+                method: :post
+              ) do %>
+              <i class="fb fb-square"></i>
+              <span class="align-self-center">Square</span>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

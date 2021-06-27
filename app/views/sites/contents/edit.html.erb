@@ -1,0 +1,51 @@
+<div class="card" style="width: 100%;"  data-testid="contents-panel">
+  <div class="card-header">
+    <h4>Edit Content</h4>
+  </div>
+
+  <div class="card-body">
+    <%= form_with model: @content, url: site_story_content_path(@site.reference_id, @content.story, @content), method: :put, data: { testid: "content-form" } do |form| %>
+      <div class="row g-3 align-items-center mb-3">
+        <div class="col">
+          <div class="form-group">
+            <%= form.label :content_title, "Content title" %>
+            <%= form.text_field :content_title, class: "form-control", type: "text" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :description, "Description" %>
+            <%= form.text_field :description, class: "form-control", type: "text" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :url, "Url" %>
+            <%= form.text_field :url, class: "form-control", type: "text" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.check_box :published %>
+            <%= form.label :published, "Published" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :video_url %>
+            <%= form.text_field :video_url, class: "form-control" %>
+          </div>
+
+          <div class="form-group">
+            <%= form.label :video %>
+              <%= form.file_field(
+                :video,
+                class: "form-control",
+                data: {
+                  action: "multi-upload#addFile"
+                }
+              ) %>
+          </div>
+
+          <%= form.submit "Submit", class: "btn btn-primary" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

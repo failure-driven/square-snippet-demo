@@ -10,10 +10,12 @@ Rails.application.routes.draw do
     mount Flipper::UI.app(Flipper) => "/flipper"
   end
 
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development? || Rails.env.test?
+
   resources :identities, only: %i[index show] do
     member do
       get :show_sites
-      post :toggle_portal
+      post :toggle_feature
     end
     scope module: "identities" do
       resources :sites, only: %i[show update] do
@@ -26,11 +28,22 @@ Rails.application.routes.draw do
           get :site_config
           get :stats
           get :portal
+          get :test_demo
         end
       end
     end
   end
   get "/identities/:identity_id/sites/:id/portal/*all" => "identities/sites#portal"
+
+  resources :sites do
+    scope module: "sites" do
+      resources :stories do
+        resources :contents
+      end
+    end
+  end
+
+  resource :widget_auth, only: :new
 
   authenticated :user do
     get "/", to: redirect("/identities")
@@ -48,6 +61,7 @@ Rails.application.routes.draw do
       namespace :sites do
         get "/visit_count", to: "sites#visit_count"
         patch "/visit_count", to: "sites#update_visit_count"
+        resources :stories, only: %i[index show]
       end
     end
   end

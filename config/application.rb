@@ -45,5 +45,9 @@ module SquareSnippetDemo
 
     # to allow custom database types etc.
     config.active_record.schema_format = :sql
+
+    config.to_prepare do
+      Devise::Mailer.layout "mailer"
+    end
   end
 end

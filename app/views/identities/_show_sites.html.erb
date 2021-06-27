@@ -1,0 +1,32 @@
+<ul class="list-group" data-testid="site-list">
+  <% @sites.map do |site| %>
+    <%= link_to identity_site_path(@identity.uid, site.reference_id), class: "list-group-item list-group-item-action" do %>
+      <div class="row">
+        <div>
+          <strong><%= site.site_title %></strong>
+        </div>
+        <div>
+          <%= site.last_published %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</ul>
+<br>
+<div class="col-2">
+  <% if current_user.admin? %>
+    <% %i[portal user_nav].each do |feature| %>
+      <%= link_to toggle_feature_identity_path(@identity.uid, feature: feature), method: :post do %>
+        <% if !Flipper[feature].enabled?(FormUser.find(@identity.user_id)) %>
+          <div class="btn btn-primary">
+            Enable <%= feature.to_s.humanize %>
+          </div>
+        <% else %>
+          <div class="btn btn-danger">
+            Disable <%= feature.to_s.humanize %>
+          </div>
+        <% end %>
+    <% end %>
+  <% end %>
+</div>
+<% end %>

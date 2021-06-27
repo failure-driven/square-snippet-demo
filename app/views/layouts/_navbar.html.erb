@@ -5,7 +5,7 @@
   <div class="collapse navbar-collapse" id="navbarContent">
     <% if signed_in? && current_user %>
       <ul class="navbar-nav">
-        <% if current_user.user_actions&.dig("admin", "can_administer") %>
+        <% if current_user.admin? %>
           <li class="nav-item">
             <%= link_to 'flipper', "/flipper", class: "nav-link" %>
           </li>

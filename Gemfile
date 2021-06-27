@@ -23,15 +23,19 @@ gem "jbuilder", "~> 2.7"
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+gem "image_processing", "~> 1.2"
 
 # authorization
 gem "devise"
+gem "jwt"
 
 # Square Omniauth
 gem "omniauth-square", github: "saramic/omniauth-square"
 # Square API
 gem "square.rb"
+#
+# Email inline styling
+gem "premailer-rails"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", ">= 1.4.4", require: false
@@ -50,14 +54,20 @@ gem "flipper-ui"
 # Adapter
 gem "flipper-active_record"
 
+# image upload
+gem "aws-sdk-s3", require: false
+
 group :test do
   gem "rspec-example_steps"
   gem "rspec-rails"
 
   gem "capybara"
+  gem "capybara-email"
   gem "capybara-inline-screenshot"
   gem "selenium-webdriver"
   gem "webdrivers"
+
+  gem "factory_bot_rails"
 
   gem "pry"
   gem "pry-rails"
@@ -67,6 +77,8 @@ end
 group :development, :test do
   # call as my_complex_hash for awesome pretty print
   gem "awesome_print"
+
+  gem "letter_opener_web"
 
   # dev and test to be able to call binding.pry in specs
   gem "pry-byebug"

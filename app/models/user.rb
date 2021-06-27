@@ -10,6 +10,16 @@ class User < ApplicationRecord
 
   has_many :identities, dependent: :destroy
 
+  def generate_jwt
+    JWT.encode(
+      {
+        id: id,
+        exp: 60.days.from_now.to_i,
+      },
+      Rails.application.credentials.secret_key_base,
+    )
+  end
+
   def square
     identities.find_by(provider: "square")
   end
@@ -19,6 +29,10 @@ class User < ApplicationRecord
   end
 
   def identity_scope
-    user_actions&.dig("admin", "can_administer") ? Identity : identities
+    admin? ? Identity : identities
+  end
+
+  def admin?
+    user_actions&.dig("admin", "can_administer")
   end
 end

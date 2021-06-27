@@ -1,0 +1,87 @@
+<% content_for :head do %>
+  <%= javascript_pack_tag 'vime_player', 'data-turbolinks-track': 'reload' %>
+<% end %>
+<div class="card mb-3" data-testid="stories-panel">
+  <h5 class="card-header">
+    <div class="d-flex justify-content-between">
+      <div class="col-auto">
+        <h4>Edit Story</h4>
+      </div>
+    </div>
+  </h5>
+
+  <div class="card-body">
+    <%= form_with model: @story, url: site_story_path(@site.reference_id, @story), method: :put, data: { testid: "story-form" } do |form| %>
+      <div class="form-group">
+        <%= form.label :story_title, "Story title" %>
+        <%= form.text_field :story_title, class: "form-control", type: "text" %>
+      </div>
+
+      <div class="d-flex justify-content-end mt-3">
+        <%= form.submit "Submit", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="card mb-3" data-testid="contents-panel">
+  <h5 class="card-header">
+    <div class="d-flex justify-content-between">
+      <div class="col-auto">
+        <h4>Contents</h4>
+      </div>
+      <div class="col-auto">
+        <%= link_to 'New Content', new_site_story_content_path(@site.reference_id, @story), class: "btn btn-primary" %>
+      </div>
+    </div>
+  </h5>
+  <div class="list-group list-group-flush" data-testid="contents-list">
+    <% @story.contents.each do |content| %>
+      <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center">
+          <div><%= content.content_title %></div>
+          <div><%= content.description %></div>
+          <div><%= content.url %></div>
+          <div><%= content.draft %></div>
+          <div><%= link_to 'Edit', edit_site_story_content_path(@site.reference_id, @story, content), class: "btn btn-secondary" %></div>
+          <div><%= link_to 'Delete', site_story_content_path(@site.reference_id, @story, content), method: :delete, class: "btn btn-danger" %></div>
+        </div>
+        <% unless content.video_url.blank? %>
+          <div style="width: 260px; height: 260px">
+            <vm-player controls>
+              <vm-youtube
+                video-id="<%= content.video_url.sub(/^.*\//, '') %>"
+              />
+            </vm-player>
+          </div>
+        <% end %>
+        <% unless content.video.blank? %>
+          <div style="width: 260px; height: 260px">
+              <vm-player playsinline>
+              <vm-video
+                cross-origin="true"
+                <%# room for a pre play thumbnail %>
+                <%# poster="https://media.vimejs.com/poster.png" %>
+              >
+                <source
+                  data-src="<%= url_for(content.video) %>"
+                  type="video/mp4"
+                />
+              </vm-video>
+              <vm-default-ui></vm-default-ui>
+            </vm-player>
+          </div>
+        <% end %>
+        <div>
+          <% content.attachments.each do |attachment| %>
+            <% if attachment.representable? && attachment.variable? %>
+              <%= image_tag attachment.variant(resize_to_limit: [180, 180]) %>
+            <% else %>
+              <%= image_tag attachment, size: 200 %>
+            <% end %>
+          <% end %>
+        </div>
+      </li>
+    <% end %>
+  </div>
+</div>

@@ -1,5 +1,20 @@
 # TODO
 
+## Release 1
+
+- [x] redirect directly to only active sites
+- [x] don't show deleted sites
+- [ ] non active sites tell user to activate
+- [ ] on no sites get user to create a site
+- [ ] on site only let a user turn on and configure the widget
+- [ ] once configured let them visit it
+- [ ] show stats
+- [ ] widget up in hidden mode
+- [ ] stats collecting
+- [ ] save uploading/upserting/removing widget for admin display
+
+## Next
+
 - [ ] track unsubscribe
 - [ ] write out SUBMISSION.md
 - [ ] find some powered by square sites to beta test with

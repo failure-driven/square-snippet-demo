@@ -1,13 +1,19 @@
 class IdentitiesController < ApplicationController
   before_action :authenticate_user!
-  SITE_TIMESTAMP_FIELDS = %w[created_at updated_at].freeze
+  before_action :authorise_admin, only: [:toggle_feature]
 
-  def index
+  def index # rubocop:disable Metrics/AbcSize
     @identity = current_user.identities.first
     if @identity
-      redirect_to identity_path(@identity.uid)
-    elsif current_user.user_actions&.dig("admin", "can_administer")
+      if @identity.sites && @identity.sites.active.length == 1
+        redirect_to identity_site_path(@identity.uid, @identity.sites.active.first.reference_id)
+      else
+        redirect_to identity_path(@identity.uid)
+      end
+    elsif current_user.admin?
       @identities = Identity.all
+    elsif current_user
+      redirect_to sites_path
     else
       render plain: "404 Not Found", status: :not_found
     end
@@ -15,23 +21,28 @@ class IdentitiesController < ApplicationController
 
   def show
     @identity = current_user.identity_scope.find_by(uid: params[:id])
-    @sites = @identity
-             .sites
+    @sites = @identity.sites
     render plain: "404 Not Found", status: :not_found unless @identity
   end
 
-  def toggle_portal
-    return redirect_to root_path unless admin?
-
+  def toggle_feature
     form_user
-    portal = Flipper[flipper_params]
+    feature = Flipper[flipper_params]
 
-    switch_portal(portal, form_user)
+    if feature.enabled?(form_user)
+      feature.disable(form_user)
+      action = "disabled"
+    else
+      feature.enable(form_user)
+      action = "enabled"
+    end
+
+    flash[:notice] = "#{feature.to_s.humanize} successfully #{action}"
 
     redirect_to action: :show
   end
 
-  def show_sites # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+  def show_sites # rubocop:disable Metrics/AbcSize
     @identity = current_user.identity_scope.find_by(uid: params[:id])
     if @identity
       client = @identity.user.square_client
@@ -39,41 +50,12 @@ class IdentitiesController < ApplicationController
         sites_api = client.sites
         result = sites_api.list_sites
 
-        if result.success?
-          result
-            .data
-            .sites
-            .each do |site_result|
-              site = Site
-                     .find_or_initialize_by(reference_id: site_result[:id], identity: @identity)
-              site
-                .update!(
-                  site_result
-                    .slice(*%i[site_title domain is_published created_at updated_at])
-                    .map do |key, value|
-                    # rubocop:disable Metrics/BlockNesting
-                    if SITE_TIMESTAMP_FIELDS
-                    .include?(key)
-                      ["site_#{key}", value]
-                    else
-                      [key, value]
-                    end
-                    # rubocop:enable Metrics/BlockNesting
-                  end
-                    .to_h
-                    .merge(
-                      identity: @identity,
-                      status: "active",
-                    ),
-                )
-            end
-          deleted_sites = @identity.sites.where.not(reference_id: result.data.sites.pluck(:id))
-          deleted_sites.update(status: "deleted")
+        if result.success? && !result.data.nil?
+          Site.find_or_update_by_api_result(@identity, result.data.sites)
         elsif result.error?
           flash[:errors] = result.errors
         end
-        @sites = @identity
-                 .sites
+        @sites = @identity.sites
       end
       render partial: "show_sites"
     else
@@ -84,25 +66,11 @@ class IdentitiesController < ApplicationController
   private
 
   def flipper_params
-    params.require(:portal).to_sym
+    params.require(:feature).to_sym
   end
 
   def form_user
     identity = current_user.identity_scope.find_by(uid: params[:id])
     identity.user.becomes(FormUser)
-  end
-
-  def admin?
-    current_user.user_actions&.dig("admin", "can_administer")
-  end
-
-  def switch_portal(portal, form_user)
-    if portal.enabled?(form_user)
-      portal.disable(form_user)
-      flash[:error] = "Portal successfully disabled"
-    else
-      portal.enable(form_user)
-      flash[:notice] = "Portal successfully enabled"
-    end
   end
 end
