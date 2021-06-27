@@ -1,71 +1,86 @@
 <script>
   import axios from "axios";
+  import Story from "./Story.svelte";
 
+  export let site;
   let title = "";
   let description = "";
   let videoUrl = "";
 
-  let success = "";
+  let story = undefined;
 
   function submit() {
-      const authToken = JSON.parse(localStorage.getItem("swifAuth")).user.authToken
+    const authToken = JSON.parse(localStorage.getItem("swifAuth")).user
+      .authToken;
 
-      const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
-      axios
-          .post(`${apiHostUrl}/api/v1/sites/stories`, {
-              params: {
-                  domain: window.location.hostname,
-                }
-              },
-              {
-                headers: {
-                    "CONTENT-TYPE": "application/json",
-                    "AUTHORIZATION": `Token ${authToken}`,
-                }
-              })
-          .then(response => {
-              success = response.data;
-          });
+    const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
+    axios
+      .post(
+        `${apiHostUrl}/api/v1/sites/stories`,
+        {
+          domain: window.location.hostname,
+          story: {
+            title: this.elements["title"].value,
+            description: this.elements["description"].value,
+            url: this.elements["videoUrl"].value,
+            site_id: site,
+          },
+        },
+        {
+          headers: {
+            "CONTENT-TYPE": "application/json",
+            AUTHORIZATION: `Token ${authToken}`,
+          },
+        }
+      )
+      .then(response => {
+        story = response.data.story;
+      });
   }
 </script>
 
 <div>
-    {JSON.stringify(success)}
+  {#if story === undefined}
+    <h2 class="swif-story-title">New Story</h2>
 
-  <h2 class="swif-story-title">New Story</h2>
-
-  <form on:submit|preventDefault={submit}>
-    <label>
-      Title
-      <input
-        required
-        minlength={2}
-        maxlength={40}
-        placeholder="Buying Shoes"
-        bind:value={title}
-      />
-    </label>
-    <label>
-      Description
-        <textarea
-            required
-            minlength={2}
-            maxlength={160}
-            placeholder=" "
-            bind:value={description}
+    <form class="new-story-form" on:submit|preventDefault={submit}>
+      <label>
+        Title
+        <input
+          required
+          name="title"
+          minlength={2}
+          maxlength={40}
+          placeholder="Buying Shoes"
+          bind:value={title}
         />
-    </label>
-    <label>
-      Video url
-      <input
-        required
-        placeholder="http(s)://something"
-        type="url"
-        bind:value={videoUrl}
-      />
-    </label>
-    <button>Submit</button>
-  </form>
+      </label>
+      <label>
+        Description
+        <textarea
+          required
+          name="description"
+          minlength={2}
+          maxlength={160}
+          placeholder=" "
+          bind:value={description}
+        />
+      </label>
+      <label>
+        Video url
+        <input
+          required
+          name="videoUrl"
+          placeholder="http(s)://something"
+          type="url"
+          bind:value={videoUrl}
+        />
+      </label>
+      <button class="new-story-form-submit">Submit</button>
+    </form>
+  {:else}
+    <Story id={story.id} />
+  {/if}
 </div>
 
 <style>

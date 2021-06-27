@@ -231,6 +231,48 @@ describe "Managing Stories", js: true do
     end
   end
 
+  it "allows users to upload content for a new story from the widget" do
+    When "a user is signed in to swif.club" do
+      visit root_path
+      focus_on(:nav).follow_link_for("Log in")
+      login_form = Support::Components::RailsForm.new(
+        page.find("form[action=\"#{new_user_session_path}\"]"),
+      )
+      login_form.submit("Email" => "square@email.com", "Password" => "1password")
+      expect(focus_on(:messages).alert).to eq "Signed in successfully."
+    end
+
+    And "the user visits their site test demo page and clicks SWiF" do
+      visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
+      focus_on(:swif, :widget).open
+      expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+    end
+
+    And "they create a content" do
+      focus_on(:iframe).within do
+        focus_on(:swif, :widget).go_to_stories
+        page.find(".new-story-link").click
+        expect(focus_on(:swif, :story).title).to eq("New Story")
+
+        form = page.find(".new-story-form")
+        form.fill_in("Title", with: "Story title")
+        form.fill_in("Description", with: "Story description")
+        form.fill_in("Video url", with: "http://url")
+        form.find(".new-story-form-submit").click
+      end
+    end
+
+    Then "the content is shown" do
+      pending "how to sign user into the widget from a test?"
+      focus_on(:iframe).within do
+        expect(focus_on(:swif, :story).title).to eq("Story title")
+        expect(
+          focus_on(:swif, :story).contents,
+        ).to eq([["Story title", "Story description"]])
+      end
+    end
+  end
+
   context "when there is a story with published and unpublished content" do
     before do
       story = create(:story, site: @site, user: @user, story_title: "i have a story to tell")

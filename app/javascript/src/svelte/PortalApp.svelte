@@ -40,8 +40,8 @@
   });
   page("/identities/:identity/sites/:site/portal/new_story", context => {
     component = NewStory;
-    // const {params, query} = context;
-    // props = {...params, ...query};
+    const {params, query} = context;
+    props = {...params, ...query};
   });
   page.start();
 

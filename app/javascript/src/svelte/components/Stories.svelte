@@ -43,7 +43,10 @@
 
 <a href={`/sites/${site}/stories/new`}> create your own story </a>
 
-<a href={`/identities/${identity}/sites/${site}/portal/new_story`}>
+<a
+  class="new-story-link"
+  href={`/identities/${identity}/sites/${site}/portal/new_story`}
+>
   create your own story from SWiF
 </a>
 

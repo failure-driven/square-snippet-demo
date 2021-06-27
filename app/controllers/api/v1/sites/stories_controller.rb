@@ -17,8 +17,31 @@ module Api
           @story = Story.find(params[:id])
         end
 
-        def create
-          render json: {}
+        def create # rubocop:disable Metrics/AbcSize
+          site = Site.find_by(reference_id: create_params[:site_id])
+          ActiveRecord::Base.transaction do
+            @story = Story.create!(
+              user_id: @current_user_id,
+              site: site,
+              story_title: create_params[:title],
+            )
+            Content.create!(
+              story: @story,
+              content_title: create_params[:title],
+              description: create_params[:description],
+              url: create_params[:url],
+              published: true,
+              video_url: create_params[:url],
+            )
+          end
+
+          render status: :created
+        end
+
+        private
+
+        def create_params
+          params.require(:story).permit(:site_id, :title, :description, :url)
         end
       end
     end
