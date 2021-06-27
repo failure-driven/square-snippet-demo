@@ -135,6 +135,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
                 "background-color" => { value: "#ffffff" },
                 "counter" => { value: "true" },
                 "portal" => { value: "true" },
+                "zoid_portal" => {:value=>"false"}
               })
     end
 
