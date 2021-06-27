@@ -9,7 +9,7 @@ class Site < ApplicationRecord
     "chat" => true,
     "call" => true,
     "background-color" => "#ffffff",
-    "counter" => true,
+    "counter" => false,
     "portal" => true,
     "zoid_portal" => false,
   }.freeze

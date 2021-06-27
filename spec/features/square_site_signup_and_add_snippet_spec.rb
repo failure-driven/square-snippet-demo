@@ -133,7 +133,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
                 "chat" => { value: "true" },
                 "call" => { value: "true" },
                 "background-color" => { value: "#ffffff" },
-                "counter" => { value: "true" },
+                "counter" => { value: "false" },
                 "portal" => { value: "true" },
                 "zoid_portal" => { value: "false" },
               })

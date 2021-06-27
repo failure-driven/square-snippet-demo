@@ -1,6 +1,7 @@
 <script>
   import {createEventDispatcher, onMount} from "svelte";
   import getSiteConfig, {portalUrl} from "../services/siteConfig";
+  import Counter from "./Counter.svelte";
   import * as zoid from "zoid";
 
   const hostnamePartRegex = new RegExp(/[^/]+\/\/([^.^:^/]+)/i);
@@ -46,6 +47,9 @@
   });
 </script>
 
+{#if siteConfig && siteConfig.config && siteConfig.config.noisy_counter}
+  <Counter />
+{/if}
 {#if siteConfig && siteConfig.config && siteConfig.config.zoid_portal}
   <div id={swifFrameContainerId} class="swifFrame-container">
     {swifFrame &&
