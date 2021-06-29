@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="col-lg-6 offset-lg-3">
+    <h1>User List</h1>
+    <ol>
+      <% @users.each do |user| %>
+        <li>
+          <%= user.email %>
+          <%= link_to "go to user details", account_path(user) %>
+        </li>
+      <% end %>
+    </ol>
+  </div>
+</div>
