@@ -1,0 +1,8 @@
+<div class="container">
+  <div class="col-lg-6 offset-lg-3">
+		<%= simple_form_for(@user, url: account_path(@user) ) do |f| %>
+			<%= f.input :avatar, label: "Avatar Image" %>
+			<%= image_tag avatar_path(f.object), class: "rounded border shadow-sm d-block mx-auto my-3" %>
+		<% end %>
+	</div>
+</div>
