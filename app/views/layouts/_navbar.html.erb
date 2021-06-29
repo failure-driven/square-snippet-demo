@@ -20,7 +20,7 @@
         <div class="mx-1">
 
         <% if Flipper[:user_nav].enabled? %>
-          <%= link_to edit_user_registration_path do %>
+          <%= link_to edit_account_path(current_user) do %>
             <%= image_tag avatar_path(current_user, size: 30), height: 30, width: 30, class: "rounded" %>
             <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
         <% end %>
