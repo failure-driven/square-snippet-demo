@@ -2,6 +2,7 @@ class HomeController < ApplicationController
   before_action :set_company_details
   before_action :authenticate_user!
   before_action :admin?, only: %i[admin admin_generator]
+  before_action :authorise_admin, only: %i[admin_generator]
 
   def index
     redirect_to identities_path if current_user
