@@ -1,6 +1,6 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorise_admin, only: %i[index show]
+  before_action :authorise_admin, only: %i[index show admin_generator]
 
   def index
     @users = User.all
@@ -23,6 +23,11 @@ class AccountsController < ApplicationController
       flash[:error] = "error"
       render "edit"
     end
+  end
+
+  def admin_generator
+    flash[:success] = "YOLO"
+    redirect_to accounts_path
   end
 
   private

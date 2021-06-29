@@ -49,7 +49,7 @@ Rails.application.routes.draw do
     get "/", to: redirect("/identities")
     resources :accounts, only: %i[index show edit update]
     get "/admin", to: "home#admin"
-    post "/admin_generator", to: "home#admin_generator"
+    post "/admin_generator", to: "accounts#admin_generator"
   end
 
   get "/terms-of-service", to: "home#terms"
