@@ -9,6 +9,9 @@
           <li class="nav-item">
             <%= link_to 'flipper', "/flipper", class: "nav-link" %>
           </li>
+          <li class="nav-item">
+            <%= link_to 'user list', "/accounts", class: "nav-link" %>
+          </li>
         <% end %>
       </ul>
     <% end %>
@@ -16,12 +19,11 @@
 
   <ul class="navbar-nav ml-auto" style="flex-direction: row;">
     <% if signed_in? %>
-      <span class="nav-link" data-testid="signin-name">
+      <span class="nav-item" data-testid="signin-name">
         <div class="mx-1">
-
         <% if Flipper[:user_nav].enabled? %>
-          <%= link_to edit_account_path(current_user) do %>
-            <%= image_tag avatar_path(current_user, size: 30), height: 30, width: 30, class: "rounded" %>
+          <%= link_to edit_account_path(current_user), class: "nav-link" do %>
+            <%= image_tag avatar_path(current_user), height: 30, width: 30, class: "rounded" %>
             <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
         <% end %>
           <% else %>
@@ -29,7 +31,9 @@
           <% end %>
         </div>
       </span>
-      <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+      <li class="nav-link">
+        <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
+      </li>
     <% else %>
       <li class="nav-link">
         <%= link_to 'Log in', new_user_session_path, class: "btn" %>
