@@ -26,8 +26,25 @@ class AccountsController < ApplicationController
   end
 
   def admin_generator
-    flash[:success] = "YOLO"
-    redirect_to accounts_path
+    @user = User.find(params[:id])
+    if @user.update(user_actions: { "admin" => { "can_administer" => true } })
+      flash[:success] = "Account successfully updated"
+      redirect_to accounts_path
+    else
+      flash[:error] = "error"
+      redirect_to account_path(@user)
+    end
+  end
+
+  def admin_revoker
+    @user = User.find(params[:id])
+    if @user.update(user_actions: nil)
+      flash[:success] = "Account successfully updated"
+      redirect_to accounts_path
+    else
+      flash[:error] = "error"
+      redirect_to account_path(@user)
+    end
   end
 
   private

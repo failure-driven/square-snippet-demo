@@ -50,6 +50,7 @@ Rails.application.routes.draw do
     resources :accounts, only: %i[index show edit update]
     get "/admin", to: "home#admin"
     post "/admin_generator", to: "accounts#admin_generator"
+    post "/admin_revoker", to: "accounts#admin_revoker"
   end
 
   get "/terms-of-service", to: "home#terms"
