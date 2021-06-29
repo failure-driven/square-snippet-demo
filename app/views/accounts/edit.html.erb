@@ -1,0 +1,6 @@
+<div class="container">
+  <%= simple_form_for(@user, url: account_path(@user) ) do |f| %>
+    <%= f.input :avatar, label: "Avatar Image" %>
+    <%= f.submit class: "btn btn-primary mt-3" %>
+  <% end %>
+</div>

@@ -97,6 +97,10 @@ body {
   @extend .alert-danger;
 }
 
+.form-control-file {
+  @extend .form-control;
+}
+
 @keyframes cf4FadeInOut {
   0% {
     opacity: 1;
