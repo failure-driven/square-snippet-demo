@@ -1,10 +1,13 @@
 class AccountsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :authorise_admin, only: %i[index show]
+
   def index
-    # TODO admin list with pagy
+    @users = User.all
   end
 
   def show
-    # TODO admin acces ?
+    @user = User.find(params[:id])
   end
 
   def edit
