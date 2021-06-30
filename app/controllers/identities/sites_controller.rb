@@ -165,8 +165,8 @@ module Identities
 
     def allow_iframe
       site = Site.find_by(reference_id: params[:id])
-      response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM http://#{site.domain} https://#{site.domain}"
-      # response.headers.delete "X-Frame-Options" # this would allow everyone
+      response.headers.except! "X-Frame-Options"
+      response.headers["Content-Security-Policy"] = "frame-ancestors 'self' #{site.domain}"
     end
 
     def widget_config_overrides_permitted_params
