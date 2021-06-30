@@ -1,0 +1,56 @@
+#!/usr/bin/env zsh
+
+set -e
+
+zmodload zsh/mapfile
+FNAME=.tmux_windows
+
+if [ ! -f $FNAME ]
+then
+  echo "skipping: no .tmux_windows file found"
+  exit 0
+fi
+
+FLINES=( "${(f)mapfile[$FNAME]}" )
+integer POS=0 # Index
+integer SIZE=$#FLINES # Number of lines
+
+PROJECT=$(basename $PWD)
+
+if tmux -L "$PROJECT" list-sessions
+then
+  echo "tmux server $PROJECT already started"
+else
+  echo "Starting tmux server $PROJECT"
+  tmux -L "$PROJECT" new-session -d
+  sleep 1
+fi
+
+tmux -L "$PROJECT" rename-window -t "0:0" "scratch"
+echo "Creating 0:scratch"
+((POS=POS+1))
+
+for ITEM in $FLINES
+{
+  echo "Creating $POS:$ITEM"
+  tmux -L "$PROJECT" new-window -d -n $ITEM -t "0:$POS" || echo "tmux window $PROJECT:$POS already exists"
+  if [[ $ITEM == *"_optional"* ]]
+  then
+    echo "skipping optional target $ITEM"
+  else
+    tmux -L "$PROJECT" send-keys -t "0:$POS" "make $ITEM" Enter
+  fi
+  ((POS=POS+1))
+}
+
+echo "Creating $PROJECT:$POS"
+tmux -L "$PROJECT" new-window -d -n "scratch" -t "0:$POS" || echo "tmux window $PROJECT:$POS already exists"
+tmux -L "$PROJECT" rename-window -t "0:$POS" "scratch"
+((POS=POS+1))
+
+if [ -z $ITERM_PROFILE ]
+then
+  tmux -L "$PROJECT" attach-session
+else
+  tmux -L "$PROJECT" -CC attach-session
+fi

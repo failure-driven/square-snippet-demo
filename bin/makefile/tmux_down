@@ -1,0 +1,35 @@
+#!/usr/bin/env zsh
+
+set -eu
+
+zmodload zsh/mapfile
+FNAME=.tmux_windows
+
+if [ ! -f $FNAME ]
+then
+  echo "skipping: no .tmux_windows file found"
+  exit 0
+fi
+
+FLINES=( "${(f)mapfile[$FNAME]}" )
+integer POS=1 # Index
+integer SIZE=$#FLINES # Number of lines
+
+PROJECT=$(basename $PWD)
+
+if tmux -L "$PROJECT" list-sessions
+then
+  echo "tmux server $PROJECT is running"
+else
+  echo "tmux server $PROJECT isn't running"
+  exit 0
+fi
+
+for ITEM in $FLINES
+{
+  echo Stopping $POS:$ITEM
+  tmux -L "$PROJECT" send-keys -t "0:$POS" C-c || echo "tmux window 0:$POS already killed"
+  ((POS=POS+1))
+}
+
+tmux -L "$PROJECT" kill-session
