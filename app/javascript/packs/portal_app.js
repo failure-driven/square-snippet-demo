@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
       dataset: {
         identity: element.dataset.identity,
         site: element.dataset.site,
+        config: JSON.parse(element.dataset.config),
       },
     },
   });

@@ -19,6 +19,7 @@
     align-items: center;
     transition: width 1.6s;
     margin: 5px 5px;
+    display: none;
   }
 
   .header-wrapper {

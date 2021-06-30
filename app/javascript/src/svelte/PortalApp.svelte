@@ -1,23 +1,23 @@
 <script>
   import page from "page";
-  import Auth from "./components/Auth.svelte";
   import Chat from "./components/Chat.svelte";
   import Call from "./components/Call.svelte";
   import Stories from "./components/Stories.svelte";
   import Story from "./components/Story.svelte";
   import NewStory from "./components/NewStory.svelte";
+  import Money from "./components/Money.svelte";
+  import Account from "./components/Account.svelte";
   import {portalUrl} from "./services/siteConfig";
   import * as zoid from "zoid";
   import Icon from "./components/Icon.svelte";
   import {faHome} from "@fortawesome/free-solid-svg-icons/faHome";
   import {faCommentAlt} from "@fortawesome/free-solid-svg-icons/faCommentAlt";
-  import {faPhone} from "@fortawesome/free-solid-svg-icons/faPhone";
   import {faPlusSquare} from "@fortawesome/free-solid-svg-icons/faPlusSquare";
   import {faCommentsDollar} from "@fortawesome/free-solid-svg-icons/faCommentsDollar";
   import {faUser} from "@fortawesome/free-solid-svg-icons/faUser";
 
   export let dataset;
-  const {site, identity} = dataset;
+  const {site, identity, config} = dataset;
 
   let component;
   let props = {};
@@ -50,6 +50,16 @@
     const {params, query} = context;
     props = {...params, ...query};
   });
+  page("/identities/:identity/sites/:site/portal/money", context => {
+    component = Money;
+    const {params, query} = context;
+    props = {...params, ...query};
+  });
+  page("/identities/:identity/sites/:site/portal/account", context => {
+    component = Account;
+    const {params, query} = context;
+    props = {...params, ...query};
+  });
   page.start();
 
   zoid.create({
@@ -63,41 +73,18 @@
 </svelte:head>
 
 <div class="swif">
-  <nav>
-    <Auth />
-    <div style="display:inline">
-      <a
-        href={`/identities/${identity}/sites/${site}/portal/chat`}
-        class:active={component == Chat}
-      >
-        Chat</a
-      >
-      <a
-        href={`/identities/${identity}/sites/${site}/portal/call`}
-        class:active={component == Call}
-      >
-        Call</a
-      >
-      <a
-        href={`/identities/${identity}/sites/${site}/portal/stories`}
-        class:active={component == Stories}
-      >
-        Stories</a
-      >
-    </div>
-  </nav>
   <main>
     <svelte:component this={component} {...props} />
   </main>
   <nav class="icon-nav">
-    <div style="display:flex;justify-content: space-between;">
-      <a
-        href={`/identities/${identity}/sites/${site}/portal/`}
-        class="swif-stories-link"
-        class:active={component == Stories}
-      >
-        <Icon class="myClass1 myClass2" icon={faHome} />
-      </a>
+    <a
+      href={`/identities/${identity}/sites/${site}/portal/`}
+      class="swif-stories-link"
+      class:active={component == Stories}
+    >
+      <Icon class="myClass1 myClass2" icon={faHome} />
+    </a>
+    {#if config && config.in_dev}
       <a
         href={`/identities/${identity}/sites/${site}/portal/chat`}
         class:active={component == Chat}
@@ -105,29 +92,33 @@
       >
         <Icon class="myClass1 myClass2" icon={faCommentAlt} />
       </a>
+    {:else}
+      &nbsp;
+    {/if}
+    <a
+      href={`/identities/${identity}/sites/${site}/portal/new_story`}
+      class:active={component == Stories}
+      alt="New Story"
+    >
+      <Icon class="myClass1 myClass2" icon={faPlusSquare} />
+    </a>
+    {#if config && config.in_dev}
       <a
-        href={`/identities/${identity}/sites/${site}/portal/call`}
-        class:active={component == Call}
-        alt="Call"
-        style="display:none;"
+        href={`/identities/${identity}/sites/${site}/portal/money`}
+        class:active={component == Money}
+        alt="Negotiate payment"
       >
-        <Icon class="myClass1 myClass2" icon={faPhone} />
+        <Icon class="myClass1 myClass2" icon={faCommentsDollar} />
       </a>
-      <a
-        href={`/identities/${identity}/sites/${site}/portal/new_story`}
-        class:active={component == Stories}
-        alt="New Story"
-      >
-        <Icon class="myClass1 myClass2" icon={faPlusSquare} />
-      </a>
-      <Icon class="myClass1 myClass2" icon={faCommentsDollar} />
-      <a
-        href={`/identities/${identity}/sites/${site}/portal/stories`}
-        class:active={component == Stories}
-      >
-        <Icon class="myClass1 myClass2" icon={faUser} />
-      </a>
-    </div>
+    {:else}
+      &nbsp;
+    {/if}
+    <a
+      href={`/identities/${identity}/sites/${site}/portal/account`}
+      class:active={component == Account}
+    >
+      <Icon class="myClass1 myClass2" icon={faUser} />
+    </a>
   </nav>
 </div>
 
@@ -140,17 +131,20 @@
 
   nav {
     min-height: 25px;
+    display: flex;
+    justify-content: space-between;
   }
 
   main {
-    height: 90%;
+    height: 100%;
   }
   .icon-nav {
-    background-color: #eeeeee;
+    /* background-color: #eeeeee; */
     padding-top: 5px;
+    padding-right: 40px;
   }
   div :global(.myClass1) {
-    color: #8c8c8c;
+    color: #212121;
   }
 
   div :global(.myClass2) {

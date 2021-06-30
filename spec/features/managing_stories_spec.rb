@@ -162,7 +162,7 @@ describe "Managing Stories", js: true do
     When "the user visits their site test demo page and clicks SWiF" do
       visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
       focus_on(:swif, :widget).open
-      expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+      expect(focus_on(:swif, :widget).header).to have_content "" # "Shop with Friends"
     end
 
     Then "a story with published content is shown" do
@@ -220,7 +220,7 @@ describe "Managing Stories", js: true do
     When "the user visits their site test demo page and clicks SWiF" do
       visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
       focus_on(:swif, :widget).open
-      expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+      expect(focus_on(:swif, :widget).header).to have_content "" # "Shop with Friends"
     end
 
     Then "no stories are shown because there is no published content" do
@@ -245,7 +245,7 @@ describe "Managing Stories", js: true do
     And "the user visits their site test demo page and clicks SWiF" do
       visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
       focus_on(:swif, :widget).open
-      expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+      expect(focus_on(:swif, :widget).header).to have_content "" # "Shop with Friends"
     end
 
     And "they create a content" do
@@ -300,7 +300,7 @@ describe "Managing Stories", js: true do
       And "visits their site test demo page and clicks SWiF" do
         visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
         focus_on(:swif, :widget).open
-        expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+        expect(focus_on(:swif, :widget).header).to have_content "" # "Shop with Friends"
       end
 
       Then "their story is shown" do
@@ -402,7 +402,7 @@ describe "Managing Stories", js: true do
       And "SWiFs from their site test demo page" do
         visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
         focus_on(:swif, :widget).open
-        expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+        expect(focus_on(:swif, :widget).header).to have_content "" # "Shop with Friends"
       end
 
       And "they follow a story"
@@ -511,7 +511,7 @@ describe "Managing Stories", js: true do
       And "visits their site test demo page and clicks SWiF" do
         visit test_demo_identity_site_path(identity_id: "123456", id: @site.reference_id)
         focus_on(:swif, :widget).open
-        expect(focus_on(:swif, :widget).header).to have_content "Shop with Friends"
+        expect(focus_on(:swif, :widget).header).to have_content "" # "Shop with Friends"
       end
 
       Then "only published stories for the current site are shown" do

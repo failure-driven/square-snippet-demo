@@ -1,9 +1,11 @@
 <script>
   import {auth, db} from "../services/firebase";
   import ChatRoom from "./ChatRoom.svelte";
+  import ChatNav from "./ChatNav.svelte";
+
   let currentUser;
   let roomId = localStorage.getItem("swifChatId");
-
+  let site, identity;
   auth.onAuthStateChanged(user => (currentUser = user));
 
   function newChatRoom() {
@@ -29,6 +31,8 @@
     roomId = null;
   }
 </script>
+
+<ChatNav {site} {identity} />
 
 {#if typeof currentUser === "undefined"}
   loading ...

@@ -3,7 +3,7 @@ module Identities
   class SitesController < ApplicationController # rubocop:disable Metrics/ClassLength
     before_action :authenticate_user!, except: %i[widget site_config portal]
     before_action :set_identity, except: %i[widget site_config portal]
-    before_action :set_site, only: %i[show site_config stats configure_site_config]
+    before_action :set_site, only: %i[show site_config stats configure_site_config portal]
     after_action :allow_iframe, only: %i[portal]
 
     def show
@@ -125,6 +125,7 @@ module Identities
     def stats; end
 
     def portal
+      @config = @site.widget_config
       render layout: false
     end
 

@@ -8,6 +8,7 @@ class Site < ApplicationRecord
     "visible" => true,
     "chat" => true,
     "call" => true,
+    "in_dev" => false,
     "background-color" => "#ffffff",
     "counter" => false,
     "portal" => true,

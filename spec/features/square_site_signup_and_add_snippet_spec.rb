@@ -134,6 +134,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
                 "call" => { value: "true" },
                 "background-color" => { value: "#ffffff" },
                 "counter" => { value: "false" },
+                "in_dev" => { value: "false" },
                 "portal" => { value: "true" },
                 "zoid_portal" => { value: "false" },
               })
@@ -165,9 +166,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     Then "they see the swif header" do
-      expect(
-        page.find(".swif .header-wrapper"),
-      ).to have_content "Shop with Friends"
+      expect(focus_on(:swif, :widget).header).to have_content "" # "Shop with Friends"
     end
 
     When "they configure their title text" do
@@ -186,8 +185,8 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
 
     Then "they see the swif custom header" do
       expect(
-        page.find(".swif .header-wrapper", wait: 5.seconds).text,
-      ).to eq "Custom Title"
+        page.find(".swif .header-wrapper", visible: :all, wait: 5.seconds).text,
+      ).to eq "" # no longer display the title "Custom Title"
     end
 
     When "they look at stats on swif.club"

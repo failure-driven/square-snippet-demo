@@ -6,7 +6,7 @@ module PageFragments
       end
 
       def header
-        browser.find(".swif .header-wrapper").text
+        browser.find(".swif .header-wrapper", visible: :all).text
       end
 
       def go_to_stories

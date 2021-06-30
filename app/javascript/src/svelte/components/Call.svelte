@@ -1,5 +1,8 @@
 <script>
   import {db} from "../services/firebase";
+  import ChatNav from "./ChatNav.svelte";
+
+  let site, identity;
 
   const servers = {
     iceServers: [
@@ -138,6 +141,8 @@
     });
   };
 </script>
+
+<ChatNav {site} {identity} />
 
 Call a friend ...
 <div class="videos">
