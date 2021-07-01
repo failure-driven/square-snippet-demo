@@ -5,5 +5,17 @@
       <%= image_tag avatar_path(f.object), class: "rounded border shadow-sm d-block mx-auto my-3" %>
       <%= f.submit class: "btn btn-primary mt-3" %>
     <% end %>
+
+    <div class="mt-3">
+      <% if current_user.identities.where(provider: :facebook).empty? %>
+        <%= link_to omniauth_authorize_path(FormUser, :facebook), class: "btn btn-primary", method: :post do %>
+          <i class="fa fa-facebook-official"></i>
+          <span class="align-self-center">connect Facebook</span>
+        <% end %>
+      <% else %>
+        connected to <i class="fa fa-facebook-official"></i> facebook as
+        <%= current_user.identities.where(provider: :facebook).first.name %>
+      <% end %>
+    </div>
   </div>
 </div>

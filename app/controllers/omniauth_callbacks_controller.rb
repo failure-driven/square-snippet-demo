@@ -3,6 +3,10 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     generic_callback("square")
   end
 
+  def facebook
+    generic_callback("facebook")
+  end
+
   def generic_callback(provider) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
     @identity = Identity.find_for_oauth request.env["omniauth.auth"]
 

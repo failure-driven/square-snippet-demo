@@ -32,6 +32,7 @@ gem "devise"
 gem "jwt"
 
 # Square Omniauth
+gem "omniauth-facebook"
 gem "omniauth-square", github: "saramic/omniauth-square"
 # Square API
 gem "square.rb"

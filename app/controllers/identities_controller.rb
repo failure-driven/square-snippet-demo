@@ -3,7 +3,7 @@ class IdentitiesController < ApplicationController
   before_action :authorise_admin, only: [:toggle_feature]
 
   def index # rubocop:disable Metrics/AbcSize
-    @identity = current_user.identities.first
+    @identity = current_user.identities.where(provider: "square").first
     if @identity
       if @identity.sites && @identity.sites.active.length == 1
         redirect_to identity_site_path(@identity.uid, @identity.sites.active.first.reference_id)

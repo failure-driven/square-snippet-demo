@@ -6,7 +6,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :trackable, :omniauthable,
-         omniauth_providers: %i[square]
+         omniauth_providers: %i[facebook square]
 
   has_many :identities, dependent: :destroy
 
