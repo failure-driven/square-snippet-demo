@@ -19,18 +19,14 @@
 
   <ul class="navbar-nav ml-auto" style="flex-direction: row;">
     <% if signed_in? %>
-      <span class="nav-item" data-testid="signin-name">
+      <li class="nav-item" data-testid="signin-name">
         <div class="mx-1">
-        <% if Flipper[:user_nav].enabled? %>
           <%= link_to edit_account_path(current_user), class: "nav-link" do %>
             <%= image_tag avatar_path(current_user), height: 30, width: 30, class: "rounded" %>
             <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
-        <% end %>
-          <% else %>
-            <%= current_user.identities.empty? ? current_user.email : current_user.identities.first.name %>
           <% end %>
         </div>
-      </span>
+      </li>
       <li class="nav-link">
         <%= link_to 'Sign out', destroy_user_session_path, method: :delete, class: "btn btn-primary" %>
       </li>

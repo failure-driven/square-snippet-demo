@@ -41,7 +41,6 @@ describe "User profile", js: true do
       end
 
       When "they look at their profile by clicking the email in the nav" do
-        pending "a profile link"
         find("nav.navbar a", text: "influencer@email.com").click
       end
 
