@@ -1,53 +1,45 @@
 class AccountsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorise_admin, only: %i[index show admin_generator]
+  before_action :authorise_admin, only: %i[index show promote_admin revoke_admin]
+  before_action :set_user, only: %i[show edit update promote_admin revoke_admin]
 
   def index
-    @users = User.all
+    @users = User.all.order(:email)
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
+  def show; end
 
-  def edit
-    @user = User.find(params[:id])
-  end
+  def edit; end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(account_params)
-      flash[:info] = "Account successfully updated"
-      redirect_to edit_account_path(params[:id])
+      redirect_to edit_account_path(params[:id]), notice: "Account successfully updated"
     else
-      flash[:error] = "error"
-      render "edit"
+      render :edit, status: :unprocessable_entity, alert: @user.errors.full_messages.inspect
     end
   end
 
-  def admin_generator
-    @user = User.find(params[:id])
+  def promote_admin
     if @user.update(user_actions: { "admin" => { "can_administer" => true } })
-      flash[:success] = "Account successfully updated"
-      redirect_to accounts_path
+      redirect_to accounts_path, notice: "Account successfully given admin priveledges"
     else
-      flash[:error] = "error"
-      redirect_to account_path(@user)
+      redirect_to account_path(@user), alert: @user.errors.full_messages.inspect
     end
   end
 
-  def admin_revoker
-    @user = User.find(params[:id])
+  def revoke_admin
     if @user.update(user_actions: nil)
-      flash[:success] = "Account successfully updated"
-      redirect_to accounts_path
+      redirect_to accounts_path, notice: "Account successfully revoked admin priveledges"
     else
-      flash[:error] = "error"
-      redirect_to account_path(@user)
+      redirect_to account_path(@user), alert: @user.errors.full_messages.inspect
     end
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def account_params
     params.fetch(:user, {}).permit(:avatar)

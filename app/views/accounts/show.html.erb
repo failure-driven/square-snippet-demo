@@ -8,10 +8,10 @@
 			<% if @user.user_actions&.dig("admin", "can_administer") %>
 				<hr>
 				<strong >User is ADMIN</strong>
-				<%= link_to "Revoke Admin", admin_revoker_path(id: @user.id), class: "btn btn-danger", method: :post  %>
+        <%= link_to "Revoke Admin", revoke_admin_account_path(@user), class: "btn btn-danger", method: :post unless current_user.id == @user.id %>
 			<% else %>
 				<hr>
-				<%= link_to "Make Admin", admin_generator_path(id: @user.id), class: "btn btn-warning", method: :post %>
+        <%= link_to "Promote to Admin", promote_admin_account_path(@user), class: "btn btn-warning", method: :post %>
 			<% end %>
 		<% end %>
 	</div>
