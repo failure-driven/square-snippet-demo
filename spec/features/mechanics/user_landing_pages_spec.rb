@@ -219,7 +219,7 @@ describe "User landing pages", js: true do
         end
 
         When "they go up the breadcrumbs to view their whole account" do
-          find("a", text: "square-name").click
+          find(".breadcrumb .breadcrumb-item", text: "square-name").click
           expect(
             page.document.synchronize do # NOTE: needed for following map reduce to work on active elements
               all(".breadcrumb .breadcrumb-item", count: 2).map(&:text) # NOTE: minimum 2 causes wait behaviour

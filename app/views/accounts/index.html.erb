@@ -1,22 +1,22 @@
-<div class="container">
-  <div class="col-lg-6 offset-lg-3">
-    <h1>User List</h1>
-    <table class="table table-striped">
-      <% @users.each do |user| %>
-        <tr>
-          <td>
-            <%= link_to user.email, account_path(user) %>
+<div class="container mt-3">
+  <h3>User List</h3>
+  <ul class="list-group" data-testid="user-list">
+    <% @users.each do |user| %>
+      <div class="list-group-item list-group-item-action">
+        <div class="row">
+          <%= link_to account_path(user), class: "col-lg-8" do %>
+            <%= user.identities.first&.name || user.email %>
+          <% end %>
+          <div class="col-lg-4">
             <strong><%= "CURRENT USER" if user.id == current_user.id %> </strong>
-          </td>
-          <td>
             <% if user.user_actions&.dig("admin", "can_administer") %>
               <%= link_to "Revoke Admin", revoke_admin_account_path(user), class: "btn btn-danger", method: :post unless current_user.id == user.id %>
             <% else %>
               <%= link_to "Promote to Admin", promote_admin_account_path(user), class: "btn btn-warning", method: :post %>
             <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </table>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
