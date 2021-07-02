@@ -8,7 +8,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
   end
 
   def generic_callback(provider) # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-    @identity = Identity.find_for_oauth request.env["omniauth.auth"]
+    @identity = Identity.unscoped.find_for_oauth request.env["omniauth.auth"]
 
     @user = @identity.user || current_user
     if @user.nil?
@@ -24,7 +24,7 @@ class OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user.update(email: @identity.email) if @user.email.blank? && @identity.email
 
     if @user.persisted?
-      @identity.update(user_id: @user.id)
+      @identity.update(user_id: @user.id, is_active: true)
       # This is because we've created the user manually, and Device expects a
       # FormUser class (with the validations)
       @user = FormUser.find @user.id

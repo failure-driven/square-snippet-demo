@@ -13,7 +13,18 @@
           <span class="align-self-center">connect Facebook</span>
         <% end %>
       <% else %>
-        connected to <i class="fa fa-facebook-official"></i> facebook as
+        <%= link_to(
+          disconnect_facebook_account_path(@user),
+          class: "btn btn-outline-danger",
+          data: {
+            method: :post,
+            confirm: "Are you sure?"
+          }
+        ) do %>
+          <i class="fa fa-facebook-official"></i>
+          <span class="align-self-center">dsiconnect Facebook</span>
+        <% end %>
+        currently connected as
         <%= current_user.identities.where(provider: :facebook).first.name %>
       <% end %>
     </div>

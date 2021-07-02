@@ -51,6 +51,7 @@ Rails.application.routes.draw do
       member do
         post :promote_admin
         post :revoke_admin
+        post :disconnect_facebook
       end
     end
   end

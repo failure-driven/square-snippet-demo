@@ -152,7 +152,8 @@ CREATE TABLE public.identities (
     phone character varying,
     urls character varying,
     created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
+    updated_at timestamp(6) without time zone NOT NULL,
+    is_active boolean DEFAULT true
 );
 
 
@@ -521,6 +522,7 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20210617082729'),
 ('20210617115237'),
 ('20210618024304'),
-('20210618232354');
+('20210618232354'),
+('20210702225653');
 
 
