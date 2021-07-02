@@ -26,6 +26,12 @@
       tag: "swif-frame",
       url: portalUrl({site, identity}),
       dimensions: {height: "100%", width: "100%"},
+      attributes: {
+        iframe: {
+          allow: "camera;microphone",
+          class: "content-iframe",
+        },
+      },
       props: {
         onNotification: {
           type: "function",

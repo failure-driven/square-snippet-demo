@@ -1,5 +1,7 @@
 # BUGS
 
+- [ ] no access to localstorage in incognito windows and our app crashes
+- [ ] zoid still does not allow the camera to be displayed
 - [ ] add retries for flaky api calls failing
 - [ ] swif is slow to load? investigate if onLoad module thing is slowing it down?
 - [ ] lint does not complain about console.log???
