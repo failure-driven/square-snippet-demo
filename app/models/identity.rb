@@ -4,6 +4,7 @@ class Identity < ApplicationRecord
 
   validates :uid, :provider, presence: true
   validates :uid, uniqueness: { scope: :provider }
+  SUPPORTED_LOGIN_PROVIDERS = %i[square].freeze
 
   def self.find_for_oauth(auth) # rubocop:disable Metrics/AbcSize
     identity = find_by(provider: auth.provider, uid: auth.uid)
