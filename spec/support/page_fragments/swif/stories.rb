@@ -2,7 +2,7 @@ module PageFragments
   module Swif
     module Stories
       def list
-        swif.find(".swif-stories-list").find_all("li").map(&:text)
+        swif.find(".swif-stories-list").find_all(".title").map(&:text)
       end
 
       def go_to_story(story_name)
