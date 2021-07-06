@@ -25,4 +25,8 @@
     overflow: visible;
     display: inline-block;
   }
+
+  .navIcon {
+    color: white !important;
+  }
 </style>

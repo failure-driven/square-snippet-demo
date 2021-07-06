@@ -69,7 +69,7 @@
 {:else if siteConfig && siteConfig.config && siteConfig.config.portal}
   <iframe
     frameBorder="0"
-    style="height: 350px; width: 100%"
+    style="height: 400px; width: 100%"
     title="chatbot"
     allow="camera;microphone"
     src={portalUrl({site, identity})}

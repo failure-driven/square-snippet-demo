@@ -19,7 +19,7 @@
 </script>
 
 <Widget>
-  <div slot="header">{header}</div>
+  <!-- <div slot="header">{header}</div> -->
   <div slot="content" class="main" style={cssVarStyles}>
     <Content on:siteConfig={processSiteConfig} />
   </div>

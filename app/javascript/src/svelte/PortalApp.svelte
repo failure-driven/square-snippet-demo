@@ -82,7 +82,7 @@
       class="swif-stories-link"
       class:active={component == Stories}
     >
-      <Icon class="myClass1 myClass2" icon={faHome} />
+      <Icon class="myClass1 myClass2 navIcon" icon={faHome} />
     </a>
     {#if config && config.in_dev}
       <a
@@ -90,7 +90,7 @@
         class:active={component == Chat}
         alt="Chat"
       >
-        <Icon class="myClass1 myClass2" icon={faCommentAlt} />
+        <Icon class="myClass1 myClass2 navIcon" icon={faCommentAlt} />
       </a>
     {:else}
       &nbsp;
@@ -100,7 +100,7 @@
       class:active={component == Stories}
       alt="New Story"
     >
-      <Icon class="myClass1 myClass2" icon={faPlusSquare} />
+      <Icon class="myClass1 myClass2 navIcon" icon={faPlusSquare} />
     </a>
     {#if config && config.in_dev}
       <a
@@ -108,7 +108,7 @@
         class:active={component == Money}
         alt="Negotiate payment"
       >
-        <Icon class="myClass1 myClass2" icon={faCommentsDollar} />
+        <Icon class="myClass1 myClass2 navIcon" icon={faCommentsDollar} />
       </a>
     {:else}
       &nbsp;
@@ -117,7 +117,7 @@
       href={`/identities/${identity}/sites/${site}/portal/account`}
       class:active={component == Account}
     >
-      <Icon class="myClass1 myClass2" icon={faUser} />
+      <Icon class="myClass1 myClass2 navIcon" icon={faUser} />
     </a>
   </nav>
 </div>
@@ -125,14 +125,17 @@
 <style>
   .swif {
     height: 100%;
-    display: flex;
-    flex-direction: column;
   }
 
   nav {
-    min-height: 25px;
+    height: 28px;
+    bottom: 10;
+    left: 0;
+    width: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
-    justify-content: space-between;
+    justify-content: space-evenly;
   }
 
   main {
@@ -141,7 +144,6 @@
   .icon-nav {
     /* background-color: #eeeeee; */
     padding-top: 5px;
-    padding-right: 40px;
   }
   div :global(.myClass1) {
     color: #212121;
