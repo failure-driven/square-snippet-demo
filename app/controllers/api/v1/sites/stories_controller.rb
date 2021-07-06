@@ -5,12 +5,11 @@ module Api
         before_action :authenticate_user, only: :create
 
         def index
-          stories = []
+          @stories = []
           Content.where(published: true).map do |content|
-            stories << content.story if content.story.site.reference_id == params[:site_id]
+            @stories << content.story if content.story.site.reference_id == params[:site_id]
           end
-
-          render json: { stories: stories.uniq }
+          render status: :ok
         end
 
         def show
