@@ -167,7 +167,7 @@ module Identities
     def allow_iframe
       site = Site.find_by(reference_id: params[:id])
       response.headers.except! "X-Frame-Options"
-      response.headers["Content-Security-Policy"] = "frame-ancestors 'self' #{site.domain}"
+      response.headers["Content-Security-Policy"] = "frame-ancestors 'self' #{site.domain} *.square.site *"
     end
 
     def widget_config_overrides_permitted_params
