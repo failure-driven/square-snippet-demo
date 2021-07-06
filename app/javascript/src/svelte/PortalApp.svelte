@@ -98,6 +98,7 @@
     <a
       href={`/identities/${identity}/sites/${site}/portal/new_story`}
       class:active={component == Stories}
+      class="new-story-link"
       alt="New Story"
     >
       <Icon class="myClass1 myClass2 navIcon" icon={faPlusSquare} />

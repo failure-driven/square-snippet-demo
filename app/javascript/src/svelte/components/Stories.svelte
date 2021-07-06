@@ -46,13 +46,6 @@
 
 <svelte:window on:scroll={autoplay} />
 
-<a
-  class="new-story-link"
-  href={`/identities/${identity}/sites/${site}/portal/new_story`}
->
-  create your own story!
-</a>
-
 <div class="swif-stories-list">
   {#if stories === undefined}
     loading
