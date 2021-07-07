@@ -40,7 +40,7 @@
 
   // new
   function messageSubmit(event) {
-    if (event.key.toLowerCase() !== "enter") return;
+    if (event.key && event.key.toLowerCase() !== "enter") return;
     if (cooldown) return;
     const message = (
       document.getElementById("message-input").value || ""
@@ -101,22 +101,26 @@
     <!-- Dummy element used to scroll chat -->
     <br id="scroll-to" />
   </div>
-  <input
-    on:keydown={messageSubmit}
-    autocomplete="off"
-    type="text"
-    style="margin: 0 auto; width: 60%; margin-top: -1px"
-    placeholder={cooldown
-      ? "3 second cooldown"
-      : "Enter message and press enter"}
-    class="w3-input w3-border w3-border-gray {cooldown && 'w3-pale-red'}"
-    id="message-input"
-  />
+  <div class="message-input">
+    <input
+      on:keydown={messageSubmit}
+      autocomplete="off"
+      type="text"
+      placeholder={cooldown
+        ? "3 second cooldown"
+        : "Enter message and press enter"}
+      class="w3-input w3-border w3-border-gray {cooldown && 'w3-pale-red'}"
+      id="message-input"
+    />
+    <button on:click={messageSubmit} class="btn btn-b btn-sm smooth">
+      Send
+    </button>
+  </div>
 </div>
 
 <style>
   .chat-room-wrapper {
-    height: 100%;
+    height: calc(100% - 50px);
     display: flex;
     flex-direction: column;
   }
@@ -133,5 +137,28 @@
   .btn {
     margin: 0px 10px;
     width: 50%;
+  }
+
+  .message-input {
+    width: 100%;
+    display: flex;
+    margin-top: 1rem;
+  }
+
+  .message-input .btn {
+    margin: 0px;
+    width: auto;
+  }
+
+  .message-input input {
+    width: 100%;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  .message-input button {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
 </style>

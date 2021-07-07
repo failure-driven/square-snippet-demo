@@ -63,6 +63,7 @@
         onNotification: function () {
           console.log("notification!");
         },
+        hostname: window.location.hostname,
       }).render(`#${swifFrameContainerId}`) &&
       ""}
   </div>

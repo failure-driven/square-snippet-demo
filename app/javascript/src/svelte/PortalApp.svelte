@@ -76,7 +76,7 @@
   <main>
     <svelte:component this={component} {...props} />
   </main>
-  <nav class="icon-nav">
+  <nav class="icon-nav {config.zoid_portal ? 'zoid' : ''}">
     <a
       href={`/identities/${identity}/sites/${site}/portal/`}
       class="swif-stories-link"
@@ -84,7 +84,7 @@
     >
       <Icon class="myClass1 myClass2 navIcon" icon={faHome} />
     </a>
-    {#if config && config.in_dev}
+    {#if config}
       <a
         href={`/identities/${identity}/sites/${site}/portal/chat`}
         class:active={component == Chat}
@@ -92,8 +92,6 @@
       >
         <Icon class="myClass1 myClass2 navIcon" icon={faCommentAlt} />
       </a>
-    {:else}
-      &nbsp;
     {/if}
     <a
       href={`/identities/${identity}/sites/${site}/portal/new_story`}
@@ -111,8 +109,6 @@
       >
         <Icon class="myClass1 myClass2 navIcon" icon={faCommentsDollar} />
       </a>
-    {:else}
-      &nbsp;
     {/if}
     <a
       href={`/identities/${identity}/sites/${site}/portal/account`}
@@ -137,6 +133,10 @@
     background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: space-evenly;
+  }
+
+  nav.zoid {
+    bottom: 0;
   }
 
   main {

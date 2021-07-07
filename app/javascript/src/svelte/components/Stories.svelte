@@ -20,11 +20,10 @@
   });
 
   function autoplay() {
-    document.querySelectorAll("[data-storyId]").forEach(ele => {
-      console.log(window.innerHeight);
-      console.log(ele.getBoundingClientRect().bottom);
-      console.log(ele.getBoundingClientRect().top);
-
+    let found = false;
+    let elements = document.querySelectorAll("[data-storyId]");
+    for (let i = 0; i < elements.length && !found; i++) {
+      let ele = elements[i];
       if (
         ele.getBoundingClientRect().bottom <= window.innerHeight &&
         ele.getBoundingClientRect().top >= 0
@@ -39,17 +38,17 @@
             .replace("autoplay=0", "autoplay=1");
           ele.dataset.playing = true;
         }
+        found = true;
       }
-    });
+    }
   }
 </script>
 
-<svelte:window on:scroll={autoplay} />
-
-<div class="swif-stories-list">
+<div class="swif-stories-list" on:scroll={autoplay}>
   {#if stories === undefined}
     loading
   {:else if stories.length > 0}
+    <h2>Story Spotlight</h2>
     <div class="story-wrapper">
       {#each stories as story}
         <div data-storyId={story.id} data-playing={false} class="story">
@@ -74,8 +73,26 @@
 </div>
 
 <style>
+  h2 {
+    font-family: sans-serif;
+    text-align: center;
+    padding-bottom: 1rem;
+    margin: 1rem;
+    border-bottom: 1px gray solid;
+  }
+
+  .swif-stories-list {
+    overflow-y: scroll;
+    height: 100%;
+  }
+
   .story-wrapper {
     padding-bottom: 2rem;
+    padding: 0 1rem;
+  }
+
+  .story:last-child {
+    margin-bottom: 200px;
   }
 
   .story {
