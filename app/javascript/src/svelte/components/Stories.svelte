@@ -79,6 +79,18 @@
     padding: 2rem 0;
   }
 
+  .swif-stories-list::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  .swif-stories-list::-webkit-scrollbar-track {
+    background-color: #dfe0d9;
+  }
+
+  .swif-stories-list::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  }
+
   .story-wrapper {
     padding-bottom: 2rem;
     padding: 0 1rem;
