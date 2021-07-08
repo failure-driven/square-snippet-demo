@@ -105,6 +105,11 @@ group :development do
   gem "rubocop-rails"
   gem "rubocop-rake"
   gem "rubocop-rspec"
+
+  # to run content rake task
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
