@@ -20,78 +20,33 @@
 
 <Widget>
   <!-- <div slot="header">{header}</div> -->
-  <div slot="content" class="main" style={cssVarStyles}>
+  <div slot="content" class="main swif-lightbg" style={cssVarStyles}>
     <Content on:siteConfig={processSiteConfig} />
   </div>
 </Widget>
 
 <style>
-  .main {
-    background-color: var(--swif-background-color, white);
-  }
   :global(div[slot="content"]) {
     height: 100%;
   }
 
-  :global(.animated-gradient) {
-    background: linear-gradient(
-      213deg,
-      #ba00ff,
-      #5c2686,
-      #ff1690,
-      #00f2ff,
-      #00ccff
-    );
-    background-size: 800% 800%;
-
-    -webkit-animation: gradient 25s ease infinite;
-    -moz-animation: gradient 25s ease infinite;
-    -o-animation: gradient 25s ease infinite;
-    animation: gradient 25s ease infinite;
+  :global(.swif-lpurple) {
+    background-color: #a683f2 !important;
   }
 
-  @-webkit-keyframes gradient {
-    0% {
-      background-position: 0% 58%;
-    }
-    50% {
-      background-position: 100% 43%;
-    }
-    100% {
-      background-position: 0% 58%;
-    }
+  :global(.swif-dpurple) {
+    background-color: #6706bc !important;
   }
-  @-moz-keyframes gradient {
-    0% {
-      background-position: 0% 58%;
-    }
-    50% {
-      background-position: 100% 43%;
-    }
-    100% {
-      background-position: 0% 58%;
-    }
+
+  :global(.swif-yellow) {
+    background-color: #fbae17 !important;
   }
-  @-o-keyframes gradient {
-    0% {
-      background-position: 0% 58%;
-    }
-    50% {
-      background-position: 100% 43%;
-    }
-    100% {
-      background-position: 0% 58%;
-    }
+
+  :global(.swif-lightbg) {
+    background-color: #dfe0d9 !important;
   }
-  @keyframes gradient {
-    0% {
-      background-position: 0% 58%;
-    }
-    50% {
-      background-position: 100% 43%;
-    }
-    100% {
-      background-position: 0% 58%;
-    }
+
+  :global(.swif-purple-gradient) {
+    background: linear-gradient(130deg, #6706bc, #a683f2) !important;
   }
 </style>

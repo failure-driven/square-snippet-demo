@@ -48,7 +48,6 @@
   {#if stories === undefined}
     loading
   {:else if stories.length > 0}
-    <h2>Story Spotlight</h2>
     <div class="story-wrapper">
       {#each stories as story}
         <div data-storyId={story.id} data-playing={false} class="story">
@@ -61,6 +60,7 @@
               <Youtube
                 videoId={story.video_url.replace(/^.*\//, "")}
                 showFullscreenControl={false}
+                muted={true}
               />
             </Player>
           {/if}
@@ -73,17 +73,10 @@
 </div>
 
 <style>
-  h2 {
-    font-family: sans-serif;
-    text-align: center;
-    padding-bottom: 1rem;
-    margin: 1rem;
-    border-bottom: 1px gray solid;
-  }
-
   .swif-stories-list {
     overflow-y: scroll;
     height: 100%;
+    padding: 2rem 0;
   }
 
   .story-wrapper {
@@ -98,25 +91,6 @@
   .story {
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 1rem;
-  }
-
-  .story .title {
-    background-color: rgb(224, 224, 224);
-    width: 100%;
-    padding: 10 15px;
-    font-family: sans-serif;
-    font-weight: 600;
-    transition: all 0.15s;
-  }
-
-  .story .title:hover {
-    background-color: rgb(41, 41, 41);
-    color: white;
-  }
-
-  .story a {
-    text-decoration: none;
-    color: rgb(41, 41, 41);
+    margin-bottom: 2rem;
   }
 </style>

@@ -59,7 +59,7 @@
 <div
   bind:this={main}
   id="swf-main-window"
-  class="swif main animated-gradient {windowClasses.join(' ') +
+  class="swif main swif-lightbg {windowClasses.join(' ') +
     ' ' +
     showMain +
     ' resizing-' +
@@ -67,7 +67,7 @@
   style="height: {windowHeight}px; width: {windowWidth}px"
 >
   <div class="resizer {windowClasses.join(' ')}" bind:this={resizer}>
-    <div class="animated-gradient" />
+    <div class="swif-yellow" />
   </div>
   <InnerWindow
     {showMain}
@@ -89,7 +89,6 @@
     display: flex;
     align-items: flex-end;
     justify-content: flex-end;
-    padding: 5px;
     background-color: white;
     transition: width 0.3s, height 0.3s, border-radius 0.5s;
   }
@@ -135,7 +134,7 @@
   }
 
   .main.true {
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 10px 10px 10px 10px;
   }
 
   .main.false {
@@ -152,8 +151,8 @@
     position: absolute;
     height: 15px;
     width: 15px;
-    top: -3px;
-    left: -3px;
+    top: -5px;
+    left: -5px;
     overflow: hidden;
     cursor: nw-resize;
     touch-action: none;
@@ -161,7 +160,7 @@
 
   .resizer.right {
     left: auto;
-    right: -3px;
+    right: -5px;
   }
 
   .resizer.right.top {
@@ -174,7 +173,7 @@
 
   .resizer.bottom {
     top: auto;
-    bottom: -3px;
+    bottom: -5px;
   }
 
   .resizer.right div {

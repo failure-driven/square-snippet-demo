@@ -73,78 +73,99 @@
 </svelte:head>
 
 <div class="swif">
+  <nav class="{config.zoid_portal ? 'zoid' : ''} swif-dpurple">
+    <div class="logo">SWIF LOGO</div>
+    <div class="navlinks">
+      <a
+        href={`/identities/${identity}/sites/${site}/portal/`}
+        class="swif-stories-link"
+        class:active={component == Stories}
+      >
+        <Icon class="myClass1 myClass2 navIcon" icon={faHome} />
+      </a>
+      {#if config}
+        <a
+          href={`/identities/${identity}/sites/${site}/portal/chat`}
+          class:active={component == Chat}
+          alt="Chat"
+        >
+          <Icon class="myClass1 myClass2 navIcon" icon={faCommentAlt} />
+        </a>
+      {/if}
+      <a
+        href={`/identities/${identity}/sites/${site}/portal/new_story`}
+        class:active={component == Stories}
+        class="new-story-link"
+        alt="New Story"
+      >
+        <Icon class="myClass1 myClass2 navIcon" icon={faPlusSquare} />
+      </a>
+      {#if config && config.in_dev}
+        <a
+          href={`/identities/${identity}/sites/${site}/portal/money`}
+          class:active={component == Money}
+          alt="Negotiate payment"
+        >
+          <Icon class="myClass1 myClass2 navIcon" icon={faCommentsDollar} />
+        </a>
+      {/if}
+      <a
+        href={`/identities/${identity}/sites/${site}/portal/account`}
+        class:active={component == Account}
+      >
+        <Icon class="myClass1 myClass2 navIcon" icon={faUser} />
+      </a>
+    </div>
+  </nav>
   <main>
     <svelte:component this={component} {...props} />
   </main>
-  <nav class="icon-nav {config.zoid_portal ? 'zoid' : ''}">
-    <a
-      href={`/identities/${identity}/sites/${site}/portal/`}
-      class="swif-stories-link"
-      class:active={component == Stories}
-    >
-      <Icon class="myClass1 myClass2 navIcon" icon={faHome} />
-    </a>
-    {#if config}
-      <a
-        href={`/identities/${identity}/sites/${site}/portal/chat`}
-        class:active={component == Chat}
-        alt="Chat"
-      >
-        <Icon class="myClass1 myClass2 navIcon" icon={faCommentAlt} />
-      </a>
-    {/if}
-    <a
-      href={`/identities/${identity}/sites/${site}/portal/new_story`}
-      class:active={component == Stories}
-      class="new-story-link"
-      alt="New Story"
-    >
-      <Icon class="myClass1 myClass2 navIcon" icon={faPlusSquare} />
-    </a>
-    {#if config && config.in_dev}
-      <a
-        href={`/identities/${identity}/sites/${site}/portal/money`}
-        class:active={component == Money}
-        alt="Negotiate payment"
-      >
-        <Icon class="myClass1 myClass2 navIcon" icon={faCommentsDollar} />
-      </a>
-    {/if}
-    <a
-      href={`/identities/${identity}/sites/${site}/portal/account`}
-      class:active={component == Account}
-    >
-      <Icon class="myClass1 myClass2 navIcon" icon={faUser} />
-    </a>
-  </nav>
 </div>
 
 <style>
   .swif {
     height: 100%;
+    background-color: #dfe0d9 !important;
+  }
+
+  :global(.swif-lpurple) {
+    background-color: #a683f2 !important;
+  }
+
+  :global(.swif-dpurple) {
+    background-color: #6706bc !important;
+  }
+
+  :global(.swif-yellow) {
+    background-color: #fbae17 !important;
+  }
+
+  :global(.swif-lighbg) {
+    background-color: #d2d3cc !important;
   }
 
   nav {
-    height: 28px;
-    bottom: 10;
-    left: 0;
-    width: 100%;
-    position: fixed;
-    background-color: rgba(0, 0, 0, 0.8);
+    align-items: center;
+    height: 40px;
     display: flex;
-    justify-content: space-evenly;
+    padding: 5px 15px;
   }
 
-  nav.zoid {
-    bottom: 0;
+  .logo {
+    margin-right: auto;
+  }
+
+  .navlinks {
+    display: flex;
+    justify-self: flex-end;
+  }
+
+  .navlinks a {
+    margin: 0 20px;
   }
 
   main {
-    height: 100%;
-  }
-  .icon-nav {
-    /* background-color: #eeeeee; */
-    padding-top: 5px;
+    height: 90%;
   }
   div :global(.myClass1) {
     color: #212121;

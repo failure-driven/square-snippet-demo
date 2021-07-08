@@ -1,5 +1,6 @@
 require "fileutils"
 
+# rubocop:disable Metrics/AbcSize
 def download_image(browser, user_id_tmp_dir, img_index_filename)
   # browser.save_screenshot
   image_fetcher_js = IO.read(Rails.root.join("spec/support/image_fetcher.js"))
@@ -77,3 +78,4 @@ namespace :content do
     end
   end
 end
+# rubocop:enable Metrics/AbcSize
