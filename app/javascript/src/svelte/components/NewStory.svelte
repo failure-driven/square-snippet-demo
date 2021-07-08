@@ -39,44 +39,40 @@
   }
 </script>
 
-<div>
+<div class="content-panel">
   {#if story === undefined}
     <h2 class="swif-story-title">New Story</h2>
 
     <form class="new-story-form" on:submit|preventDefault={submit}>
-      <label>
-        Title
-        <input
-          required
-          name="title"
-          minlength={2}
-          maxlength={40}
-          placeholder="Buying Shoes"
-          bind:value={title}
-        />
-      </label>
-      <label>
-        Description
-        <textarea
-          required
-          name="description"
-          minlength={2}
-          maxlength={160}
-          placeholder=" "
-          bind:value={description}
-        />
-      </label>
-      <label>
-        Video url
-        <input
-          required
-          name="videoUrl"
-          placeholder="http(s)://something"
-          type="url"
-          bind:value={videoUrl}
-        />
-      </label>
-      <button class="new-story-form-submit">Submit</button>
+      <label for="title"> Title </label>
+      <input
+        required
+        id="title"
+        minlength={2}
+        maxlength={40}
+        placeholder="Buying Shoes"
+        bind:value={title}
+      />
+      <label for="description"> Description </label>
+      <textarea
+        required
+        id="description"
+        minlength={2}
+        maxlength={160}
+        placeholder=" "
+        bind:value={description}
+      />
+      <label for="videoUrl"> Video url </label>
+      <input
+        required
+        id="videoUrl"
+        placeholder="http(s)://something"
+        type="url"
+        bind:value={videoUrl}
+      />
+      <button class="new-story-form-submit btn btn-sm swif-yellow"
+        >Submit</button
+      >
     </form>
   {:else}
     <Story id={story.id} />
@@ -84,6 +80,15 @@
 </div>
 
 <style>
+  button {
+    width: 100%;
+    margin-top: 1rem !important;
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
   input {
     border-color: lightgray;
     border-radius: 4px;

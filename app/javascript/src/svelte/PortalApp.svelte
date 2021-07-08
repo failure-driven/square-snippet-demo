@@ -144,6 +144,28 @@
     background-color: #d2d3cc !important;
   }
 
+  :global(.content-panel) {
+    padding: 1rem 2rem !important;
+    display: flex;
+    flex-direction: column;
+  }
+
+  :global(h1, h2, h3) {
+    text-align: center;
+    color: #6706bc !important;
+  }
+
+  :global(input, textarea) {
+    width: 100% !important;
+    background-color: white !important;
+    border-radius: 5px !important;
+    border: none !important;
+  }
+
+  :global(*) {
+    font-family: sans-serif;
+  }
+
   nav {
     align-items: center;
     height: 40px;
