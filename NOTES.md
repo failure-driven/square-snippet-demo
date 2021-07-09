@@ -15,3 +15,20 @@ s2.defer = true;
 document.head.appendChild(s2);
 swifApp.app()
 ```
+
+## create content
+
+```
+rails content:for_users SOURCE_URL="https://..." USER_IDS=...,... USER=... PASS=...
+find tmp/content
+
+# force sizing and reshaping
+mogrify -resize 800x600! *.png
+
+# or convert
+convert -resize 1024x1024 user_id_00.png user_id_00.png
+
+# make a movie
+ffmpeg -framerate 1 -i user_id_%02d.png -vcodec libx264 -crf 25 -r 60 -pix_fmt yuv420p user_id.mp4
+```
+

@@ -29,4 +29,8 @@
   .navIcon {
     color: white !important;
   }
+
+  .navIcon:hover {
+    color: #fbae17 !important;
+  }
 </style>

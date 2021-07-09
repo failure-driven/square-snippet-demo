@@ -11,7 +11,7 @@
 </script>
 
 <button
-  class="swif launcher animated-gradient {showMain} moving-{moving}"
+  class="swif launcher swif-purple-gradient {showMain} moving-{moving}"
   on:click={handleClick}
 >
   {moving ? "✢" : "SWiF"}
@@ -22,8 +22,8 @@
     padding: 0;
     z-index: 1090;
     position: absolute;
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 4rem;
+    height: 4rem;
     border: none;
     border-radius: 50%;
     transition: height 0.15s, width 0.15s;
@@ -35,12 +35,13 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.425);
   }
 
   @media (hover: hover) and (pointer: fine) {
     .launcher:hover {
-      width: 125%;
-      height: 125%;
+      width: 150%;
+      height: 150%;
     }
   }
 

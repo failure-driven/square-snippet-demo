@@ -20,11 +20,10 @@
   });
 
   function autoplay() {
-    document.querySelectorAll("[data-storyId]").forEach(ele => {
-      console.log(window.innerHeight);
-      console.log(ele.getBoundingClientRect().bottom);
-      console.log(ele.getBoundingClientRect().top);
-
+    let found = false;
+    let elements = document.querySelectorAll("[data-storyId]");
+    for (let i = 0; i < elements.length && !found; i++) {
+      let ele = elements[i];
       if (
         ele.getBoundingClientRect().bottom <= window.innerHeight &&
         ele.getBoundingClientRect().top >= 0
@@ -39,14 +38,13 @@
             .replace("autoplay=0", "autoplay=1");
           ele.dataset.playing = true;
         }
+        found = true;
       }
-    });
+    }
   }
 </script>
 
-<svelte:window on:scroll={autoplay} />
-
-<div class="swif-stories-list">
+<div class="swif-stories-list" on:scroll={autoplay}>
   {#if stories === undefined}
     loading
   {:else if stories.length > 0}
@@ -62,6 +60,7 @@
               <Youtube
                 videoId={story.video_url.replace(/^.*\//, "")}
                 showFullscreenControl={false}
+                muted={true}
               />
             </Player>
           {/if}
@@ -74,32 +73,36 @@
 </div>
 
 <style>
+  .swif-stories-list {
+    overflow-y: scroll;
+    height: 100%;
+    padding: 2rem 0;
+  }
+
+  .swif-stories-list::-webkit-scrollbar {
+    width: 0.5em;
+  }
+
+  .swif-stories-list::-webkit-scrollbar-track {
+    background-color: #dfe0d9;
+  }
+
+  .swif-stories-list::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+  }
+
   .story-wrapper {
     padding-bottom: 2rem;
+    padding: 0 1rem;
+  }
+
+  .story:last-child {
+    margin-bottom: 200px;
   }
 
   .story {
     border-radius: 10px;
     overflow: hidden;
-    margin-bottom: 1rem;
-  }
-
-  .story .title {
-    background-color: rgb(224, 224, 224);
-    width: 100%;
-    padding: 10 15px;
-    font-family: sans-serif;
-    font-weight: 600;
-    transition: all 0.15s;
-  }
-
-  .story .title:hover {
-    background-color: rgb(41, 41, 41);
-    color: white;
-  }
-
-  .story a {
-    text-decoration: none;
-    color: rgb(41, 41, 41);
+    margin-bottom: 2rem;
   }
 </style>

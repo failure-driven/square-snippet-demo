@@ -20,7 +20,7 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 10px;
     background-color: white;
     transition: width 0.3s, height 0.3s, border-radius 0.5s;
   }
@@ -30,7 +30,7 @@
     height: 0px;
   }
   .inner.true {
-    border-radius: 15px;
+    border-radius: 10px;
     width: 100%;
     height: 100%;
   }

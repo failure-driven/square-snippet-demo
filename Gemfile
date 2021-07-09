@@ -105,6 +105,13 @@ group :development do
   gem "rubocop-rails"
   gem "rubocop-rake"
   gem "rubocop-rspec"
+
+  # to run content rake task
+  # rubocop:disable Bundler/DuplicatedGem:Bundler/DuplicatedGem
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+  # rubocop:enable Bundler/DuplicatedGem:Bundler/DuplicatedGem
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
