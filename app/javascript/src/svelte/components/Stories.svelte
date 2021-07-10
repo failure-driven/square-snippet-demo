@@ -42,6 +42,73 @@
       }
     }
   }
+
+  const placeholderStories = [
+    {
+      title: "Stair put on",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stairs_put_on.gif",
+    },
+    {
+      title: "toe stand",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stand_toe.gif",
+    },
+    {
+      title: "lace up",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_lace_up.gif",
+    },
+    {
+      title: "lace bow",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_lace_up_bow.gif",
+    },
+    {
+      title: "look down",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_looking_down.gif",
+    },
+    {
+      title: "shake spin",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_shake_and_side_to_side.gif",
+    },
+    {
+      title: "side to side",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_side_to_side.gif",
+    },
+    {
+      title: "side",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_side_view.gif",
+    },
+    {
+      title: "side to side",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_up_and_down_side_to_side.gif",
+    },
+    {
+      title: "walk away",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away.gif",
+    },
+    {
+      title: "walk across",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_across.gif",
+    },
+    {
+      title: "away",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_again.gif",
+    },
+    {
+      title: "away fast",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_fast.gif",
+    },
+    {
+      title: "towards",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_close.gif",
+    },
+    {
+      title: "towards pause",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_pause.gif",
+    },
+    {
+      title: "towards stop",
+      url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_stop.gif",
+    },
+  ];
 </script>
 
 <div class="swif-stories-list" on:scroll={autoplay}>
@@ -69,6 +136,11 @@
     </div>
   {:else}
     <div class="swif-no-stories">you aint got no stories bruh</div>
+    {#each placeholderStories as story}
+      <div class="story">
+        <img alt={story.title} src={story.url} style="width:100%;" />
+      </div>
+    {/each}
   {/if}
 </div>
 
