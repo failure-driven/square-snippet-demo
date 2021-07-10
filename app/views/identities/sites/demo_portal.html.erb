@@ -1,0 +1,12 @@
+<div class="container mt-3">
+  <%= render partial: "identities/breadcrumbs" %>
+  <%= render partial: "site_tabs" %>
+  <iframe
+    frameBorder="0"
+    style="height: 600px; width: 400px"
+    title="portal"
+    allow="camera;microphone"
+    src="<%= portal_identity_site_url(@identity.uid, @site.reference_id) %>"
+    class="content-iframe"
+  />
+</div>
