@@ -1,0 +1,205 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<div class="container mt-3">
+  <%= render partial: "identities/breadcrumbs" %>
+  <%= render partial: "site_tabs" %>
+
+  <div class="row">
+  <% [
+    { title: "Stair put on", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stairs_put_on.gif" },
+    { title: "toe stand", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stand_toe.gif" },
+    { title: "lace up", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_lace_up.gif" },
+    { title: "lace bow", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_lace_up_bow.gif" },
+    { title: "look down", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_looking_down.gif" },
+    { title: "shake spin", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_shake_and_side_to_side.gif" },
+    { title: "side to side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_side_to_side.gif" },
+    { title: "side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_side_view.gif" },
+    { title: "side to side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_up_and_down_side_to_side.gif" },
+    { title: "walk away", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away.gif" },
+    { title: "walk across", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_across.gif" },
+    { title: "away", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_again.gif" },
+    { title: "away fast", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_fast.gif" },
+    { title: "towards", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_close.gif" },
+    { title: "towards pause", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_pause.gif" },
+    { title: "towards stop", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_stop.gif" },
+  ].each do |story| %>
+    <div class="col-6 mb-3">
+      <div class="card">
+        <div class="card-header">
+          <h4><%= story[:title] %></h4>
+        </div>
+          <div class="card-body">
+            <div style="display:flex;">
+            <img src="<%= story[:url] %>" width="180" height="320">
+            <div style="margin-left:1em;width:100%;">
+              <div
+                style="height:50px;"
+                data-sparkline="68, 52, 80, 96, 23, 34, 12, 11, 4, 7, 23, 33, 45, 23, 65, 78, 102, 110"
+                data-highcharts-chart="1"
+                role="region"
+                aria-label="Chart. Highcharts interactive chart."
+                aria-hidden="false"
+                style="overflow: hidden;">
+              </div>
+              <br/>
+              <div
+                style="height:50px;"
+                data-sparkline="68, 52, 7, -23, 33, -45, 23, 65, 78, 102, 110; column">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+  </div>
+</div>
+</div>
+
+<script defer="" type="text/javascript">
+/* borrowed from https://www.highcharts.com/demo/sparkline */
+var backgroundGrey = "#f1f1f1";
+var primaryOrange = "#faa417";
+var fadedOrange = "#f2d3cc";
+var primaryPurple = "#5c07b4";
+
+"use strict";
+
+/**
+ * Create a constructor for sparklines that takes some sensible defaults and merges in the individual
+ * chart options. This function is also available from the jQuery plugin as $(element).highcharts('SparkLine').
+ */
+Highcharts.SparkLine = function (a, b, c) {
+  var hasRenderToArg = typeof a === 'string' || a.nodeName;
+  var options = arguments[hasRenderToArg ? 1 : 0];
+  var defaultOptions = {
+    chart: {
+      renderTo: options.chart && options.chart.renderTo || hasRenderToArg && a,
+      backgroundColor: null,
+      borderWidth: 0,
+      type: 'area',
+      margin: [2, 0, 2, 0],
+      style: {
+        overflow: 'visible'
+      },
+      // small optimalization, saves 1-2 ms each sparkline
+      skipClone: true
+    },
+    title: {
+      text: ''
+    },
+    credits: {
+      enabled: false
+    },
+    xAxis: {
+      lineColor: fadedOrange,
+      labels: {
+        enabled: false,
+      },
+      title: {
+        text: null
+      },
+      startOnTick: false,
+      endOnTick: false,
+      tickPositions: []
+    },
+    yAxis: {
+      endOnTick: false,
+      startOnTick: false,
+      labels: {
+        enabled: false,
+      },
+      title: {
+        text: null
+      },
+      tickPositions: [0]
+    },
+    legend: {
+      enabled: false
+    },
+    tooltip: {
+      hideDelay: 0,
+      outside: true,
+      shared: true
+    },
+    plotOptions: {
+      series: {
+        animation: false,
+        lineWidth: 1,
+        shadow: false,
+        states: {
+          hover: {
+            lineWidth: 1
+          }
+        },
+        marker: {
+          radius: 1,
+          states: {
+            hover: {
+              radius: 2
+            }
+          }
+        },
+        fillOpacity: 0.25
+      },
+      column: {
+        negativeColor: '#910000',
+        borderColor: 'silver'
+      }
+    }
+  };
+  options = Highcharts.merge(defaultOptions, options);
+  return hasRenderToArg ? new Highcharts.Chart(a, options, c) : new Highcharts.Chart(options, b);
+};
+
+var start = +new Date(),
+    tds = Array.from(document.querySelectorAll('div[data-sparkline]')),
+    fullLen = tds.length;
+var n = 0; // Creating 153 sparkline charts is quite fast in modern browsers, but IE8 and mobile
+// can take some seconds, so we split the input into chunks and apply them in timeouts
+// in order avoid locking up the browser process and allow interaction.
+
+function doChunk() {
+  var time = +new Date(),
+      len = tds.length;
+
+  for (var i = 0; i < len; i += 1) {
+    var td = tds[i];
+    var stringdata = td.dataset.sparkline;
+    var arr = stringdata.split('; ');
+    var data = arr[0].split(', ').map(parseFloat);
+    var chart = {
+      backgroundColor: backgroundGrey
+    };
+
+    if (arr[1]) {
+      chart.type = arr[1];
+    }
+
+    Highcharts.SparkLine(td, {
+      series: [{
+        data: data,
+        pointStart: 1,
+        color: primaryOrange,
+        negativeColor: primaryPurple
+      }],
+      tooltip: {
+        headerFormat: '<span style="font-size: 10px">' + "title" + ', Q{point.x}:</span><br/>',
+        pointFormat: '<b>{point.y}.000</b> USD'
+      },
+      chart: chart
+    });
+    n += 1; // If the process takes too much time, run a timeout to allow interaction with the browser
+
+    if (new Date() - time > 500) {
+      tds.splice(0, i + 1);
+      setTimeout(doChunk, 0);
+      break;
+    } // Print a feedback on the performance
+
+
+  }
+}
+
+doChunk();
+</script>

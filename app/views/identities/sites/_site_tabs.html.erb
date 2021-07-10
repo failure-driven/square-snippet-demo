@@ -23,6 +23,14 @@
         class: "nav-link #{action_name.to_sym == :stats ? "active" : ""}"
     ) %>
   </li>
+  <li class="nav-item">
+    <%= link_to(
+        "Stories",
+        stories_identity_site_path(identity_id: @identity.uid, id: @site.reference_id),
+        aria: { current: :page },
+        class: "nav-link #{action_name.to_sym == :stories ? "active" : ""}"
+    ) %>
+  </li>
   <% if Flipper[:portal].enabled?(FormUser.find(@identity.user_id))%>
     <li class="nav-item">
       <%= link_to(

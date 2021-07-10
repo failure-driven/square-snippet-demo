@@ -118,7 +118,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     When "they check their configuration" do
       page.find("a", text: "Config").click
       page.document.synchronize do
-        expect(page.all("ul.nav-tabs li").map(&:text)).to eq(%w[Status Config Stats])
+        expect(page.all("ul.nav-tabs li").map(&:text)).to eq(%w[Status Config Stats Stories])
       end
     end
 
@@ -272,7 +272,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
     end
 
     Then "user sees Portal nav item" do
-      expect(page.all("ul.nav-tabs li").map(&:text)).to eq(%w[Status Config Stats Portal])
+      expect(page.all("ul.nav-tabs li").map(&:text)).to eq(%w[Status Config Stats Stories Portal])
     end
   end
 

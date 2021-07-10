@@ -35,3 +35,6 @@ document.addEventListener('turbolinks:load', () => {
 
 import '../controllers/index.js';
 import "../controllers/multi_upload_controller.js";
+
+// import Highcharts from "highcharts"
+// import Highcharts from "highcharts/modules/exporting"
