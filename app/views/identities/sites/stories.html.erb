@@ -4,6 +4,12 @@
   <%= render partial: "identities/breadcrumbs" %>
   <%= render partial: "site_tabs" %>
 
+  <%= link_to(
+      "Review Stories",
+      site_stories_path(@site.reference_id),
+      aria: { current: :page },
+      class: "btn btn-primary mb-3"
+  ) %>
   <div class="row">
   <% [
     { id: 1, title: "Stair put on", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stairs_put_on.gif" },
