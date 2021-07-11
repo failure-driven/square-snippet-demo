@@ -157,11 +157,11 @@
         </div>
       {/each}
     </div>
-  {:else}
-    {#each placeholderStories as story}
-      <div
-        class="story"
-        style="
+  {/if}
+  {#each placeholderStories as story}
+    <div
+      class="story"
+      style="
         background:linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url({story.url});
         background-size: cover;
         aspect-ratio: 9/16;
@@ -169,38 +169,38 @@
         justify-content: flex-end;
         flex-direction: column;
         padding: 1rem;
+        margin: 0 0 1rem 1rem;
         max-height: {height - 80}"
-      >
-        <div class="story-functions {story.title.replace(/\s+/g, '')}">
-          <div class="story-controls">
-            <Icon class="myClass1 myClass2 navIcon" icon={faHeart} />
-            <Icon class="myClass1 myClass2 navIcon" icon={faCommentAlt} />
-            <Icon class="myClass1 myClass2 navIcon" icon={faShareSquare} />
-          </div>
-          <div
-            class="review"
-            on:click={() => {
-              showReview(story.title.replace(/\s+/g, ""));
-            }}
-          >
-            ★★★★☆
-          </div>
+    >
+      <div class="story-functions {story.title.replace(/\s+/g, '')}">
+        <div class="story-controls">
+          <Icon class="myClass1 myClass2 navIcon" icon={faHeart} />
+          <Icon class="myClass1 myClass2 navIcon" icon={faCommentAlt} />
+          <Icon class="myClass1 myClass2 navIcon" icon={faShareSquare} />
         </div>
         <div
-          class="review-text {story.title.replace(/\s+/g, '')}"
+          class="review"
           on:click={() => {
             showReview(story.title.replace(/\s+/g, ""));
           }}
         >
-          <em>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
-            et neque in risus dictum tincidunt. Vivamus nisl nibh, maximus id
-            gravida non, bibendum et velit.
-          </em>
+          ★★★★☆
         </div>
       </div>
-    {/each}
-  {/if}
+      <div
+        class="review-text {story.title.replace(/\s+/g, '')}"
+        on:click={() => {
+          showReview(story.title.replace(/\s+/g, ""));
+        }}
+      >
+        <em>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur et
+          neque in risus dictum tincidunt. Vivamus nisl nibh, maximus id gravida
+          non, bibendum et velit.
+        </em>
+      </div>
+    </div>
+  {/each}
 </div>
 
 <style>
@@ -225,10 +225,6 @@
   .story-wrapper {
     padding-bottom: 2rem;
     padding: 0 1rem;
-  }
-
-  .story:last-child {
-    margin-bottom: 200px;
   }
 
   .story {

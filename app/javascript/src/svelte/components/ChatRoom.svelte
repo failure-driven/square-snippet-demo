@@ -49,13 +49,16 @@
     document.getElementById("message-input").value = "";
     cooldown = true;
     setTimeout(() => (cooldown = false), 3000);
-    db.collection("chats").doc(roomId).collection("messages").add({
-      message,
-      email: currentUser.email,
-      photoURL: currentUser.photoURL,
-      uid: currentUser.uid,
-      createdAt: Date.now(),
-    });
+    db.collection("chats")
+      .doc(roomId)
+      .collection("messages")
+      .add({
+        message,
+        email: currentUser.email || "anonymous@firebase.com",
+        photoURL: currentUser.photoURL,
+        uid: currentUser.uid,
+        createdAt: Date.now(),
+      });
   }
 
   let copyBtn;

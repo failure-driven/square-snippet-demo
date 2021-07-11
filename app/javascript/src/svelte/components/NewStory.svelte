@@ -2,38 +2,45 @@
   import axios from "axios";
   import Story from "./Story.svelte";
 
-  export let site;
+  export let site, identity;
   let title = "";
   let videoUrl = "";
 
   let story = undefined;
 
   function submit() {
-    const authToken = JSON.parse(localStorage.getItem("swifAuth")).user
-      .authToken;
+    let authToken = false;
+    let cookie = JSON.parse(localStorage.getItem("swifAuth"));
+    if (cookie) {
+      authToken = cookie.user.authToken;
+    }
 
-    const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
-    axios
-      .post(
-        `${apiHostUrl}/api/v1/sites/stories`,
-        {
-          domain: window.location.hostname,
-          story: {
-            title: this.elements["title"].value,
-            url: this.elements["videoUrl"].value,
-            site_id: site,
+    if (!authToken) {
+      window.location.href = `/identities/${identity}/sites/${site}/portal/account`;
+    } else {
+      const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
+      axios
+        .post(
+          `${apiHostUrl}/api/v1/sites/stories`,
+          {
+            domain: window.location.hostname,
+            story: {
+              title: this.elements["title"].value,
+              url: this.elements["videoUrl"].value,
+              site_id: site,
+            },
           },
-        },
-        {
-          headers: {
-            "CONTENT-TYPE": "application/json",
-            AUTHORIZATION: `Token ${authToken}`,
-          },
-        }
-      )
-      .then(response => {
-        story = response.data.story;
-      });
+          {
+            headers: {
+              "CONTENT-TYPE": "application/json",
+              AUTHORIZATION: `Token ${authToken}`,
+            },
+          }
+        )
+        .then(response => {
+          story = response.data.story;
+        });
+    }
   }
 </script>
 

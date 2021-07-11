@@ -17,10 +17,12 @@
     : 'endChain'}"
 >
   <span class="msg-body">{message}</span>
-  <img
-    src={`https://www.gravatar.com/avatar/${md5(email)}?d=mp&s=32&r=g`}
-    alt="avatar"
-  />
+  {#if email}
+    <img
+      src={`https://www.gravatar.com/avatar/${md5(email)}?d=mp&s=32&r=g`}
+      alt="avatar"
+    />
+  {/if}
 </div>
 
 <style>

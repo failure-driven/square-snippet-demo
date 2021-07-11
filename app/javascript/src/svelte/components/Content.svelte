@@ -28,7 +28,7 @@
       dimensions: {height: "100%", width: "100%"},
       attributes: {
         iframe: {
-          allow: "camera;microphone",
+          allow: "camera *;microphone *",
           class: "content-iframe",
         },
       },
