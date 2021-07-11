@@ -12,7 +12,7 @@ class Site < ApplicationRecord
     "background-color" => "#ffffff",
     "counter" => false,
     "portal" => true,
-    "zoid_portal" => false,
+    "zoid_portal" => true,
   }.freeze
 
   SITE_TIMESTAMP_FIELDS = %i[created_at updated_at].freeze
