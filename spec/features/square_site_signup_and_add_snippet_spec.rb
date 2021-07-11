@@ -136,7 +136,7 @@ describe "Square site signs up and adds a snippet to thier site", js: true do
                 "counter" => { value: "false" },
                 "in_dev" => { value: "false" },
                 "portal" => { value: "true" },
-                "zoid_portal" => { value: "false" },
+                "zoid_portal" => { value: "true" },
               })
     end
 

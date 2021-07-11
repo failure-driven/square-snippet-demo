@@ -16,7 +16,7 @@ module Api
           @story = Story.find(params[:id])
         end
 
-        def create # rubocop:disable Metrics/AbcSize
+        def create
           site = Site.find_by(reference_id: create_params[:site_id])
           ActiveRecord::Base.transaction do
             @story = Story.create!(

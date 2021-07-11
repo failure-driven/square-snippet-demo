@@ -9,7 +9,7 @@ describe "User landing pages", js: true do
     Then "they see all the relevant marketing material" do
       expect(
         page,
-      ).to have_content "Swif"
+      ).to have_content "SWIF\nShopping with Friends"
     end
 
     And "a call to action to login with square" do
@@ -17,7 +17,6 @@ describe "User landing pages", js: true do
     end
 
     And "marketing information on why they should add swif to their powered by square site" do
-      pending "marketing material"
       expect(page).to have_content "SWiF will accelerate your powered by Square store, get it now!"
     end
   end

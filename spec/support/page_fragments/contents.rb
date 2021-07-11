@@ -5,7 +5,7 @@ module PageFragments
     end
 
     def start_new_content
-      contents_panel.find("a", text: "New Content").click
+      contents_panel.find("a", text: "NEW CONTENT").click
     end
 
     def form
