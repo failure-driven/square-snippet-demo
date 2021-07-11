@@ -30,55 +30,56 @@
         </div>
           <div class="card-body">
             <div style="display:flex;">
-            <img src="<%= story[:url] %>" width="180" height="320">
-            <div style="margin-left:1em;width:100%;">
-              <div
-                style="height:50px;"
-                data-sparkline="68, 52, 80, 96, 23, 34, 12, 11, 4, 7, 23, 33, 45, 23, 65, 78, 102, 110"
-                data-highcharts-chart="1"
-                role="region"
-                aria-label="Chart. Highcharts interactive chart."
-                aria-hidden="false"
-                style="overflow: hidden;">
-              </div>
-              <br/>
-              <div
-                style="height:50px;"
-                data-sparkline="68, 52, 7, -23, 33, -45, 23, 65, 78, 102, 110; column">
-              </div>
-              <div class="d-grid mt-3">
-                <button class="btn btn-primary btn-block" onclick="demoConversation(<%= story[:id] %>)">
-                  Recruit Ambassador
-                </button>
-                <div class="chatRoom svelte-1tgbuo3">
-                  <div
-                    title="selenawiththetattoo@gmail.com"
-                    class="message visually-hidden"
-                    id="message-<%= story[:id] %>-1">
-                    <span class="msg-body">
-                      Love your work would you like to be a brand ambassador for us?
-                    </span>
-                    <img src="https://www.gravatar.com/avatar/a9819055f15ebff8702b823bea9fd598?d=mp&amp;s=32&amp;r=g" alt="avatar" class="svelte-ofa8yc">
-                  </div>
-                  <div
-                    title="saramic@gmail.com"
-                    class="message visually-hidden"
-                    id="message-<%= story[:id] %>-2">
-                    <span class="msg-body svelte-ofa8yc">
-                      OMG that sounds amazing!
-                    </span>
-                    <img src="https://www.gravatar.com/avatar/7d1849ae4886b43d9a4f6b08e53d1e20?d=mp&amp;s=32&amp;r=g" alt="avatar" class="svelte-ofa8yc">
-                  </div>
-                  <div
-                    title="selenawiththetattoo@gmail.com"
-                    class="message visually-hidden"
-                    id="message-<%= story[:id] %>-3">
-                    <span class="msg-body">
-                      Use coupon XYZ-ABC on the pink sneakers!!!
-                    </span>
-                    <img src="https://www.gravatar.com/avatar/a9819055f15ebff8702b823bea9fd598?d=mp&amp;s=32&amp;r=g" alt="avatar" class="svelte-ofa8yc">
-                  </div>
+              <img src="<%= story[:url] %>" width="180" height="320" style="border-radius: 20px">
+              <div style="margin-left:1em;width:100%;" class="d-flex flex-column">
+                <div
+                  style="height:100px;"
+                  data-sparkline="68, 52, 80, 96, 23, 34, 12, 11, 4, 7, 23, 33, 45, 23, 65, 78, 102, 110"
+                  data-highcharts-chart="1"
+                  role="region"
+                  aria-label="Chart. Highcharts interactive chart."
+                  aria-hidden="false"
+                  style="overflow: hidden;">
                 </div>
+                <br/>
+
+                <div class="mb-3">
+                  <span class="badge badge-info float-end"><i class="fas fa-eye"></i> 12</span>
+                  <span class="badge badge-success float-end mr-1">Published</span>
+                </div>
+                <div class="d-grid mt-3">
+                  <button class="btn btn-primary btn-block font-weight-bold" onclick="demoConversation(<%= story[:id] %>)">
+                    Recruit Ambassador
+                  </button>
+                  <div class="chat d-flex flex-column mx-2">
+                    <div
+                      title="selenawiththetattoo@gmail.com"
+                      class="message visually-hidden text-end mt-2"
+                      id="message-<%= story[:id] %>-1">
+                      <div class="msg-body p-2 text-light rounded bg-success">
+                        Love your work would you like to be a brand ambassador for us?
+                      </div>
+                      <img src="https://www.gravatar.com/avatar/a9819055f15ebff8702b823bea9fd598?d=mp&amp;s=32&amp;r=g" alt="avatar" class="rounded-circle position-relative" style="top:-10px;right:-10px;">
+                    </div>
+                    <div
+                      title="saramic@gmail.com"
+                      class="message visually-hidden"
+                      id="message-<%= story[:id] %>-2">
+                      <div class="msg-body p-2 text-light rounded bg-secondary">
+                        OMG that sounds amazing!
+                      </div>
+                      <img src="https://www.gravatar.com/avatar/7d1849ae4886b43d9a4f6b08e53d1e20?d=mp&amp;s=32&amp;r=g" alt="avatar" class="rounded-circle position-relative" style="top:-10px;left:-10px;">
+                    </div>
+                    <div
+                      title="selenawiththetattoo@gmail.com"
+                      class="message visually-hidden text-end"
+                      id="message-<%= story[:id] %>-3">
+                      <div class="msg-body p-2 text-light rounded bg-success">
+                        Use coupon XYZ-ABC on the pink sneakers!!!
+                      </div>
+                      <img src="https://www.gravatar.com/avatar/a9819055f15ebff8702b823bea9fd598?d=mp&amp;s=32&amp;r=g" alt="avatar" class="rounded-circle position-relative" style="top:-10px;right:-10px;">
+                    </div>
+                  </div>
               </div>
             </div>
           </div>
