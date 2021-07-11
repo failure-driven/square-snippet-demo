@@ -60,7 +60,9 @@
         >Log out</button
       >
     {:else}
-      <button on:click={authenticate} class="btn btn-a btn-sm">log in</button>
+      <button on:click={authenticate} class="btn btn-a btn-sm swif-dpurple"
+        >Log in</button
+      >
     {/if}
   </div>
   <span id="chat-account">Chat (beta)</span>

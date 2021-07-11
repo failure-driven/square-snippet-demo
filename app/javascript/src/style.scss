@@ -17,6 +17,10 @@ body {
   }
 }
 
+.alert {
+  margin-bottom: 0 !important;
+}
+
 .divider-text {
   position: relative;
   text-align: center;
@@ -51,7 +55,6 @@ body {
   display: block;
 }
 .messages {
-  height: 60px !important;
 }
 
 .fb {
