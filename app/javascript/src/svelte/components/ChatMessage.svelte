@@ -54,14 +54,14 @@
   .msg-body {
     margin: 0px 10px;
     padding: 10px 15px;
-    background-color: #e7e7e7;
+    background-color: #a683f2;
+    color: white;
     border-radius: 20px;
     font-family: sans-serif;
     overflow-wrap: anywhere;
   }
 
   .true > .msg-body {
-    background-color: #019fc7;
-    color: white;
+    background-color: #6706bc;
   }
 </style>

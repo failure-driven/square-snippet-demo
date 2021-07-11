@@ -33,4 +33,12 @@
   .navIcon:hover {
     color: #fbae17 !important;
   }
+
+  .dpurple {
+    color: #6706bc !important;
+  }
+
+  .yellow {
+    color: #fbae17 !important;
+  }
 </style>

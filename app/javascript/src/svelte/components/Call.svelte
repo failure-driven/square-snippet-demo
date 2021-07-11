@@ -142,50 +142,55 @@
   };
 </script>
 
-<ChatNav {site} {identity} />
-
-Call a friend ...
-<div class="videos">
-  <div class="video">
-    <h3>You</h3>
-    <video bind:this={webcamVideo} autoplay playsinline
-      ><track kind="captions" /></video
+<div class="call">
+  <ChatNav {site} {identity} />
+  Call a friend ...
+  <div class="videos">
+    <div class="video">
+      <h3>You</h3>
+      <video bind:this={webcamVideo} autoplay playsinline
+        ><track kind="captions" /></video
+      >
+    </div>
+    <div class="video">
+      <h3>Friend</h3>
+      <video bind:this={remoteVideo} autoplay playsinline
+        ><track kind="captions" /></video
+      >
+    </div>
+  </div>
+  <div class="controls">
+    <button
+      on:click={webcamButtonOnclick}
+      disabled={webcamButtonDisabled}
+      class="btn btn-a btn-sm">Start webcam</button
+    >
+    <button
+      on:click={callButtonOnclick}
+      disabled={callButtonDisabled}
+      class="btn btn-sm">Create Call (offer)</button
     >
   </div>
-  <div class="video">
-    <h3>Friend</h3>
-    <video bind:this={remoteVideo} autoplay playsinline
-      ><track kind="captions" /></video
+  <div class="controls">
+    <input id="callInput" bind:this={callInput} />
+    <button
+      on:click={answerButtonOnclick}
+      class="btn btn-sm"
+      disabled={answerButtonDisabled}>Answer</button
     >
   </div>
-</div>
-<div class="controls">
-  <button
-    on:click={webcamButtonOnclick}
-    disabled={webcamButtonDisabled}
-    class="btn btn-a btn-sm">Start webcam</button
-  >
-  <button
-    on:click={callButtonOnclick}
-    disabled={callButtonDisabled}
-    class="btn btn-sm">Create Call (offer)</button
-  >
-</div>
-<div class="controls">
-  <input id="callInput" bind:this={callInput} />
-  <button
-    on:click={answerButtonOnclick}
-    class="btn btn-sm"
-    disabled={answerButtonDisabled}>Answer</button
-  >
-</div>
-<div class="controls">
-  <button id="hangupButton" class="btn btn-sm" disabled={hangupButtonDisabled}
-    >Hangup</button
-  >
+  <div class="controls">
+    <button id="hangupButton" class="btn btn-sm" disabled={hangupButtonDisabled}
+      >Hangup</button
+    >
+  </div>
 </div>
 
 <style>
+  .call {
+    margin: 1rem;
+  }
+
   .videos {
     display: flex;
   }

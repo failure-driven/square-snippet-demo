@@ -77,12 +77,12 @@
 <div class="chat-room-wrapper">
   <div class="controls">
     <button class="btn btn-c btn-sm smooth w-50" on:click={leaveRoom}
-      >Leave Chat</button
+      >Leave</button
     >
     <button
       bind:this={copyBtn}
       class="btn btn-b btn-sm smooth w-50"
-      on:click={copyID}>Copy Room ID</button
+      on:click={copyID}>Copy ID</button
     >
   </div>
   <div class="chatRoom">
@@ -113,20 +113,21 @@
       id="message-input"
     />
     <button on:click={messageSubmit} class="btn btn-b btn-sm smooth">
-      Send
+      >
     </button>
   </div>
 </div>
 
 <style>
   .chat-room-wrapper {
-    height: calc(100% - 50px);
+    height: calc(100% - 80px);
     display: flex;
     flex-direction: column;
   }
 
   .chatRoom {
     overflow-y: auto;
+    flex-grow: 1;
   }
 
   .controls {
@@ -140,7 +141,7 @@
   }
 
   .message-input {
-    width: 100%;
+    margin: 0 35px;
     display: flex;
     margin-top: 1rem;
   }

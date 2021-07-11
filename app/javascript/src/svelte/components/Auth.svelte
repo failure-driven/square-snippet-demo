@@ -12,14 +12,14 @@
 </script>
 
 {#if !currentUser}
-  <button on:click={facebookSignUp} class="btn btn-a btn-sm smooth">
+  <button on:click={facebookSignUp} class="btn btn-a btn-sm smooth swif-yellow">
     Sign in with Facebook
   </button>
 {:else}
   <div style="display: inline">
-    {currentUser.displayName}
-    <button on:click={facebookLogOut} class="btn btn-c btn-sm smooth"
-      >Log out</button
+    <button
+      on:click={facebookLogOut}
+      class="btn btn-c btn-sm smooth swif-yellow">Log out</button
     >
   </div>
 {/if}
@@ -27,5 +27,6 @@
 <style>
   .btn {
     padding: 7px !important;
+    width: 100%;
   }
 </style>

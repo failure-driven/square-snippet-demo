@@ -2,9 +2,14 @@
   import axios from "axios";
   import {Player, Youtube} from "@vime/svelte";
   import {onMount} from "svelte";
+  import Icon from "./Icon.svelte";
+  import {faHeart} from "@fortawesome/free-solid-svg-icons/faHeart";
+  import {faCommentAlt} from "@fortawesome/free-solid-svg-icons/faCommentAlt";
+  import {faShareSquare} from "@fortawesome/free-solid-svg-icons";
 
   export let site, identity;
   let stories;
+  let height = window.innerHeight;
 
   onMount(async () => {
     const apiHostUrl = process.env.API_HOST_URL || "http://localhost:3000";
@@ -40,6 +45,17 @@
         }
         found = true;
       }
+    }
+  }
+
+  function showReview(title) {
+    let ele = document.querySelector(`.story-functions.${title}`);
+    if (ele.style.display === "none") {
+      ele.style.display = "flex";
+      document.querySelector(`.review-text.${title}`).style.display = "none";
+    } else {
+      ele.style.display = "none";
+      document.querySelector(`.review-text.${title}`).style.display = "inherit";
     }
   }
 
@@ -111,6 +127,7 @@
   ];
 </script>
 
+<svelte:window bind:innerHeight={height} />
 <div class="swif-stories-list" on:scroll={autoplay}>
   {#if stories === undefined}
     loading
@@ -135,10 +152,46 @@
       {/each}
     </div>
   {:else}
-    <div class="swif-no-stories">you aint got no stories bruh</div>
     {#each placeholderStories as story}
-      <div class="story">
-        <img alt={story.title} src={story.url} style="width:100%;" />
+      <div
+        class="story"
+        style="
+        background:linear-gradient(rgba(0, 0, 0, 0.3),rgba(0, 0, 0, 0.3)), url({story.url});
+        background-size: cover;
+        aspect-ratio: 9/16;
+        display: flex;
+        justify-content: flex-end;
+        flex-direction: column;
+        padding: 1rem;
+        max-height: {height - 80}"
+      >
+        <div class="story-functions {story.title.replace(/\s+/g, '')}">
+          <div class="story-controls">
+            <Icon class="myClass1 myClass2 navIcon" icon={faHeart} />
+            <Icon class="myClass1 myClass2 navIcon" icon={faCommentAlt} />
+            <Icon class="myClass1 myClass2 navIcon" icon={faShareSquare} />
+          </div>
+          <div
+            class="review"
+            on:click={() => {
+              showReview(story.title.replace(/\s+/g, ""));
+            }}
+          >
+            ★★★★☆
+          </div>
+        </div>
+        <div
+          class="review-text {story.title.replace(/\s+/g, '')}"
+          on:click={() => {
+            showReview(story.title.replace(/\s+/g, ""));
+          }}
+        >
+          <em>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur
+            et neque in risus dictum tincidunt. Vivamus nisl nibh, maximus id
+            gravida non, bibendum et velit.
+          </em>
+        </div>
       </div>
     {/each}
   {/if}
@@ -175,6 +228,31 @@
   .story {
     border-radius: 10px;
     overflow: hidden;
+    margin: 0 2rem;
     margin-bottom: 2rem;
+  }
+
+  .story-functions {
+    display: flex;
+    color: white;
+  }
+
+  .story-controls {
+    width: 50%;
+    justify-content: space-evenly;
+    display: flex;
+  }
+
+  .review {
+    cursor: pointer;
+  }
+
+  .review-text {
+    border-radius: 10px;
+    display: none;
+    color: white;
+    padding: 1rem;
+    background-color: rgba(0, 0, 0, 0.4);
+    transform: translateY(-200);
   }
 </style>
