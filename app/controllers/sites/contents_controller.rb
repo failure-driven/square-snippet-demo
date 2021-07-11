@@ -43,7 +43,7 @@ module Sites
     private
 
     def content_params
-      params.require(:content).permit(:story_id, :content_title, :description, :url, :published, :video_url, :video,
+      params.require(:content).permit(:story_id, :content_title, :url, :published, :video_url, :video,
                                       attachments: [],)
     end
 

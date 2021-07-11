@@ -135,10 +135,6 @@
     <div class="story-wrapper">
       {#each stories as story}
         <div data-storyId={story.id} data-playing={false} class="story">
-          <a
-            href={`/identities/${identity}/sites/${site}/portal/stories/${story.id}`}
-            ><div class="title">{story.story_title}</div></a
-          >
           {#if story.video_url}
             <Player controls>
               <Youtube
@@ -148,6 +144,16 @@
               />
             </Player>
           {/if}
+          <div>
+            <div class="story-functions swif-lpurple py-2">
+              <div class="story-controls">
+                <Icon class="myClass1 myClass2 navIcon" icon={faHeart} />
+                <Icon class="myClass1 myClass2 navIcon" icon={faCommentAlt} />
+                <Icon class="myClass1 myClass2 navIcon" icon={faShareSquare} />
+              </div>
+              <div class="review">★★★★☆</div>
+            </div>
+          </div>
         </div>
       {/each}
     </div>
@@ -228,13 +234,17 @@
   .story {
     border-radius: 10px;
     overflow: hidden;
-    margin: 0 2rem;
     margin-bottom: 2rem;
   }
 
   .story-functions {
     display: flex;
     color: white;
+  }
+
+  .py-2 {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
   }
 
   .story-controls {

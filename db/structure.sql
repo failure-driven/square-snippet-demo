@@ -99,7 +99,6 @@ CREATE TABLE public.contents (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     story_id uuid NOT NULL,
     content_title character varying NOT NULL,
-    description character varying NOT NULL,
     url character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL,

@@ -27,7 +27,6 @@ module Api
             Content.create!(
               story: @story,
               content_title: create_params[:title],
-              description: create_params[:description],
               url: create_params[:url],
               published: true,
               video_url: create_params[:url],
@@ -40,7 +39,7 @@ module Api
         private
 
         def create_params
-          params.require(:story).permit(:site_id, :title, :description, :url)
+          params.require(:story).permit(:site_id, :title, :url)
         end
       end
     end

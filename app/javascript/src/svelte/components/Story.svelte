@@ -23,29 +23,20 @@
 
 <div>
   <h2 class="swif-story-title">{storyTitle}</h2>
-
   {#if contents === undefined}
     loading
   {:else if contents === []}
     you aint got no contents bruh
   {:else}
-    <ul class="swif-contents-list">
-      {#each contents as content}
-        <li>
-          <a href={`${content.url}`}>
-            {content.content_title}
-          </a>
-          <p>{content.description}</p>
-          {#if content.video_url}
-            <Player>
-              <vm-youtube video-id={content.video_url.replace(/^.*\//, "")} />
-              <Ui>
-                <!-- UI components are placed here. -->
-              </Ui>
-            </Player>
-          {/if}
-        </li>
-      {/each}
-    </ul>
+    {#each contents as content}
+      {#if content.video_url}
+        <Player>
+          <vm-youtube video-id={content.video_url.replace(/^.*\//, "")} />
+          <Ui>
+            <!-- UI components are placed here. -->
+          </Ui>
+        </Player>
+      {/if}
+    {/each}
   {/if}
 </div>

@@ -4,7 +4,6 @@
 
   export let site;
   let title = "";
-  let description = "";
   let videoUrl = "";
 
   let story = undefined;
@@ -21,7 +20,6 @@
           domain: window.location.hostname,
           story: {
             title: this.elements["title"].value,
-            description: this.elements["description"].value,
             url: this.elements["videoUrl"].value,
             site_id: site,
           },
@@ -53,15 +51,6 @@
         placeholder="Buying Shoes"
         bind:value={title}
       />
-      <label for="description"> Description </label>
-      <textarea
-        required
-        id="description"
-        minlength={2}
-        maxlength={160}
-        placeholder=" "
-        bind:value={description}
-      />
       <label for="videoUrl"> Video url </label>
       <input
         required
@@ -92,7 +81,7 @@
   input {
     border-color: lightgray;
     border-radius: 4px;
-    padding: 4px;
+    padding: 8px;
   }
   input:not(:placeholder-shown) {
     border-color: red;
