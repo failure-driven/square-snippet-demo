@@ -9,8 +9,16 @@
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <link href="https://demo.dashboardpack.com/architectui-html-free/main.css" rel="stylesheet"></head>
-    <%= yield :head %>
+  
+    <link rel="stylesheet" href="https://unpkg.com/tailwindcss/dist/tailwind.min.css" />
+    <!--Replace with your tailwind.css once created-->
+    <%# <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet" /> %>
+    <!-- Define your gradient here - use online tools to find a gradient matching your branding-->
+    <style>
+      .gradient {
+        background: linear-gradient(90deg, #6807bc 0%, #fbae19 100%);
+      }
+    </style>
   </head>
 
   <body>
@@ -19,7 +27,7 @@
       <%= flash_messages %>
       <%= yield :messages %>
     </div>
-    <main class="container-fluid">
+    <main>
       <%= content_for?(:content) ? yield(:content) : yield %>
     </main>
     <%= render partial: 'layouts/footer' %>

@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :set_company_details
+  layout "landing", only: [:index]
 
   def index
     redirect_to identities_path if current_user

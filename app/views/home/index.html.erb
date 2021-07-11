@@ -1,39 +1,28 @@
+        
 
-  <div class="leading-normal tracking-normal text-white gradient" style="font-family: 'Source Sans Pro', sans-serif;">
+  <div class="leading-normal tracking-normal text-white gradient" >
+  
     <!--Hero-->
     <div class="pt-24">
       <div class="container px-3 mx-auto flex flex-wrap flex-col md:flex-row items-center">
         <!--Left Col-->
         <div class="flex flex-col w-full md:w-2/5 justify-center items-start text-center md:text-left">
-          <p class="uppercase tracking-loose w-full">SWIF</p>
+          <p class="uppercase tracking-loose w-full">SWiF</p>
           <h1 class="my-4 text-5xl font-bold leading-tight">
-            Shop with friends, have fun and unlock awesome deals!
+            Shopping with Friends
           </h1>
           <p class="leading-normal text-2xl mb-8">
-            become an influencer, promote products and earn rewards!
+            The social commerce plugin connecting a brand’s communities to help business owners convert sales.
           </p>
           <!-- ===SWIF LOGIN BTN===== -->
-            <div class="mx-auto lg:mx-0 hover:underline text-gray-800 font-bold rounded-full shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out>
-              <div class="card devise-form">
-                <div class="card-body devise-form">
-                  <div class="d-flex justify-content-center">
-                    <%= link_to(
-                        omniauth_authorize_path(FormUser, "square"),
-                        class: "d-flex",
-                        method: :post
-                      ) do %>
-                      <i class="fb fb-square"></i>
-                      <span class="align-self-center">Login via Square</span>
-                    <% end %>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <!-- ===SWIF LOGIN BTN END===== -->
+            <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
+              <%= link_to "Login with Square", omniauth_authorize_path(FormUser, "square"), method: :post %>
+            </button>
         </div>
         <!--Right Col-->
         <div class="w-full md:w-3/5 py-6 text-center">
           <!--Right CONTENT HERE - CURRENTLY BLANK Col-->
+          <%= image_tag('influencing', class: "w-full md:w-3/5 z-50" ) %>
         </div>
       </div>
     </div>
@@ -67,16 +56,13 @@
         <div class="flex flex-wrap">
           <div class="w-5/6 sm:w-1/2 p-6">
             <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-              Lorem ipsum dolor sit amet
+              Power of social ecommerce
             </h3>
             <p class="text-gray-600 mb-8">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
+              SWiF provides a social-bussiness platform to help promote brand awareness and lead generation with FREE advertising from new and emerging brand ambassadors.
               <br />
               <br />
 
-              Images from:
-
-              <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
             </p>
           </div>
           <div class="w-full sm:w-1/2 p-6">
@@ -360,15 +346,10 @@
           <div class="w-full sm:w-1/2 p-6 mt-6">
             <div class="align-middle">
               <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
-                Lorem ipsum dolor sit amet
+                Power of influence 
               </h3>
               <p class="text-gray-600 mb-8">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
-                <br />
-                <br />
-                Images from:
-
-                <a class="text-pink-500 underline" href="https://undraw.co/">undraw.co</a>
+              Consumers are now watching more videos than ever before with 2021 showing a 19% increase of daily viewing minutes compared to 2019.
               </p>
             </div>
           </div>
@@ -378,7 +359,7 @@
     <section class="bg-white border-b py-8">
       <div class="container mx-auto flex flex-wrap pt-4 pb-12">
         <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-800">
-          Title
+          SWiF
         </h1>
         <div class="w-full mb-4">
           <div class="h-1 mx-auto gradient w-64 opacity-25 my-0 py-0 rounded-t"></div>
@@ -387,20 +368,27 @@
           <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
             <a href="#" class="flex flex-wrap no-underline hover:no-underline">
               <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                xGETTING STARTED
+                SWiF
               </p>
               <div class="w-full font-bold text-xl text-gray-800 px-6">
-                Lorem ipsum dolor sit amet.
+                Real Content
               </div>
               <p class="text-gray-800 text-base px-6 mb-5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
+                With SWiF, Shoppers watch real content posted by real users for the store they’re already interested in buying from. They can find awesome content with instant reviews, feedback, ideas and inspiration without leaving the store and be more confident in the purchases they’re planning to make.
               </p>
             </a>
           </div>
           <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
             <div class="flex items-center justify-start">
               <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                Action
+                <%= link_to(
+                    omniauth_authorize_path(FormUser, "square"),
+                    class: "d-flex",
+                    method: :post
+                  ) do %>
+                  <i class="fb fb-square"></i>
+                  <div class="align-self-center"> Login</div>
+                <% end %>
               </button>
             </div>
           </div>
@@ -409,20 +397,27 @@
           <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
             <a href="#" class="flex flex-wrap no-underline hover:no-underline">
               <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                xGETTING STARTED
+                SWiF
               </p>
               <div class="w-full font-bold text-xl text-gray-800 px-6">
-                Lorem ipsum dolor sit amet.
+                Influence
               </div>
               <p class="text-gray-800 text-base px-6 mb-5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
+ Once shoppers purchase their own goods, they too can register a free account and share their insights. SWiF then becomes a gateway for everyday consumers to become brand ambassadors for the products they love!
               </p>
             </a>
           </div>
           <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
             <div class="flex items-center justify-center">
               <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                Action
+                <%= link_to(
+                    omniauth_authorize_path(FormUser, "square"),
+                    class: "d-flex",
+                    method: :post
+                  ) do %>
+                  <i class="fb fb-square"></i>
+                  <div class="align-self-center"> Connect</div>
+                <% end %>
               </button>
             </div>
           </div>
@@ -431,20 +426,29 @@
           <div class="flex-1 bg-white rounded-t rounded-b-none overflow-hidden shadow">
             <a href="#" class="flex flex-wrap no-underline hover:no-underline">
               <p class="w-full text-gray-600 text-xs md:text-sm px-6">
-                xGETTING STARTED
+                SWiF
               </p>
               <div class="w-full font-bold text-xl text-gray-800 px-6">
-                Lorem ipsum dolor sit amet.
+                Ecommerce power
               </div>
               <p class="text-gray-800 text-base px-6 mb-5">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at ipsum eu nunc commodo posuere et sit amet ligula.
+                Ecommerce rates doubled in the last 2 year. 
+                <br>Online shopping is predicted to hit almost $5 trillion in 2021. <br>1000’s merchants sign up for square site, everyday.
+
               </p>
             </a>
           </div>
           <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
             <div class="flex items-center justify-end">
               <button class="mx-auto lg:mx-0 hover:underline gradient text-white font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-                Action
+                <%= link_to(
+                    omniauth_authorize_path(FormUser, "square"),
+                    class: "d-flex",
+                    method: :post
+                  ) do %>
+                  <i class="fb fb-square"></i>
+                  <div class="align-self-center">Square</div>
+                <% end %>
               </button>
             </div>
           </div>
@@ -466,14 +470,14 @@
                 Free
               </div>
               <ul class="w-full text-center text-sm">
-                <li class="border-b py-4">Thing</li>
-                <li class="border-b py-4">Thing</li>
-                <li class="border-b py-4">Thing</li>
+                <li class="border-b py-4">Stats</li>
+                <li class="border-b py-4">Chat</li>
+                <li class="border-b py-4">Widget</li>
               </ul>
             </div>
             <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
               <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">
-                £0
+                $0
                 <span class="text-base">for one user</span>
               </div>
               <div class="flex items-center justify-center">
@@ -488,15 +492,15 @@
               <div class="w-full p-8 text-3xl font-bold text-center">Basic</div>
               <div class="h-1 w-full gradient my-0 py-0 rounded-t"></div>
               <ul class="w-full text-center text-base font-bold">
-                <li class="border-b py-4">Thing</li>
-                <li class="border-b py-4">Thing</li>
-                <li class="border-b py-4">Thing</li>
-                <li class="border-b py-4">Thing</li>
+                <li class="border-b py-4">Stats</li>
+                <li class="border-b py-4">Advanced Chat</li>
+                <li class="border-b py-4">Widget</li>
+                <li class="border-b py-4">Videos</li>
               </ul>
             </div>
             <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
               <div class="w-full pt-6 text-4xl font-bold text-center">
-                £x.99
+                $4.99
                 <span class="text-base">/ per user</span>
               </div>
               <div class="flex items-center justify-center">
@@ -512,14 +516,14 @@
                 Pro
               </div>
               <ul class="w-full text-center text-sm">
-                <li class="border-b py-4">Thing</li>
-                <li class="border-b py-4">Thing</li>
-                <li class="border-b py-4">Thing</li>
+                <li class="border-b py-4">All basic features</li>
+                <li class="border-b py-4">Coupons</li>
+                <li class="border-b py-4">Streaming</li>
               </ul>
             </div>
             <div class="flex-none mt-auto bg-white rounded-b rounded-t-none overflow-hidden shadow p-6">
               <div class="w-full pt-6 text-3xl text-gray-600 font-bold text-center">
-                £x.99
+                $8.99
                 <span class="text-base">/ per user</span>
               </div>
               <div class="flex items-center justify-center">
@@ -556,100 +560,26 @@
     </svg>
     <section class="container mx-auto text-center py-6 mb-12">
       <h1 class="w-full my-2 text-5xl font-bold leading-tight text-center text-white">
-        Call to Action
+        Start SWiFing now!
       </h1>
       <div class="w-full mb-4">
         <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
       </div>
       <h3 class="my-4 text-3xl leading-tight">
-        Main Hero Message to sell yourself!
+        SWiF will accelerate your powered by Square store, get it now!
       </h3>
-      <button class="mx-auto lg:mx-0 hover:underline bg-white text-gray-800 font-bold rounded-full my-6 py-4 px-8 shadow-lg focus:outline-none focus:shadow-outline transform transition hover:scale-105 duration-300 ease-in-out">
-        <%= link_to "Login with Square", omniauth_authorize_path(FormUser, "square"), method: :post %>
-      </button>
+        <div class="devise-form">
+          <div class="d-flex justify-content-center">
+            <%= link_to(
+                omniauth_authorize_path(FormUser, "square"),
+                class: "d-flex btn btn-block btn-lg btn-square",
+                method: :post
+              ) do %>
+              <i class="fb fb-square"></i>
+              <span class="align-self-center">Square</span>
+            <% end %>
+          </div>
+      </div>
     </section>
-    <!-- jQuery if you need it
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  -->
-    <script>
-      var scrollpos = window.scrollY;
-      var header = document.getElementById("header");
-      var navcontent = document.getElementById("nav-content");
-      var navaction = document.getElementById("navAction");
-      var brandname = document.getElementById("brandname");
-      var toToggle = document.querySelectorAll(".toggleColour");
-
-      document.addEventListener("scroll", function () {
-        /*Apply classes for slide in bar*/
-        scrollpos = window.scrollY;
-
-        if (scrollpos > 10) {
-          header.classList.add("bg-white");
-          navaction.classList.remove("bg-white");
-          navaction.classList.add("gradient");
-          navaction.classList.remove("text-gray-800");
-          navaction.classList.add("text-white");
-          //Use to switch toggleColour colours
-          for (var i = 0; i < toToggle.length; i++) {
-            toToggle[i].classList.add("text-gray-800");
-            toToggle[i].classList.remove("text-white");
-          }
-          header.classList.add("shadow");
-          navcontent.classList.remove("bg-gray-100");
-          navcontent.classList.add("bg-white");
-        } else {
-          header.classList.remove("bg-white");
-          navaction.classList.remove("gradient");
-          navaction.classList.add("bg-white");
-          navaction.classList.remove("text-white");
-          navaction.classList.add("text-gray-800");
-          //Use to switch toggleColour colours
-          for (var i = 0; i < toToggle.length; i++) {
-            toToggle[i].classList.add("text-white");
-            toToggle[i].classList.remove("text-gray-800");
-          }
-
-          header.classList.remove("shadow");
-          navcontent.classList.remove("bg-white");
-          navcontent.classList.add("bg-gray-100");
-        }
-      });
-    </script>
-    <script>
-      /*Toggle dropdown list*/
-      /*https://gist.github.com/slavapas/593e8e50cf4cc16ac972afcbad4f70c8*/
-
-      var navMenuDiv = document.getElementById("nav-content");
-      var navMenu = document.getElementById("nav-toggle");
-
-      document.onclick = check;
-      function check(e) {
-        var target = (e && e.target) || (event && event.srcElement);
-
-        //Nav Menu
-        if (!checkParent(target, navMenuDiv)) {
-          // click NOT on the menu
-          if (checkParent(target, navMenu)) {
-            // click on the link
-            if (navMenuDiv.classList.contains("hidden")) {
-              navMenuDiv.classList.remove("hidden");
-            } else {
-              navMenuDiv.classList.add("hidden");
-            }
-          } else {
-            // click both outside link and outside menu, hide menu
-            navMenuDiv.classList.add("hidden");
-          }
-        }
-      }
-      function checkParent(t, elm) {
-        while (t.parentNode) {
-          if (t == elm) {
-            return true;
-          }
-          t = t.parentNode;
-        }
-        return false;
-      }
-    </script>
 </div>
+
