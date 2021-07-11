@@ -9,7 +9,7 @@
   let resizing = false;
   let windowClasses = ["top", "left"];
 
-  let windowHeight = 400;
+  let windowHeight = window.innerHeight - 80;
   let windowWidth = window.matchMedia("(min-device-width: 476px)").matches
     ? 400
     : Math.min(window.screen.width, window.innerWidth) * 0.82;
