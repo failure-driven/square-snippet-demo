@@ -6,22 +6,22 @@
 
   <div class="row">
   <% [
-    { title: "Stair put on", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stairs_put_on.gif" },
-    { title: "toe stand", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stand_toe.gif" },
-    { title: "lace up", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_lace_up.gif" },
-    { title: "lace bow", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_lace_up_bow.gif" },
-    { title: "look down", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_looking_down.gif" },
-    { title: "shake spin", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_shake_and_side_to_side.gif" },
-    { title: "side to side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_side_to_side.gif" },
-    { title: "side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_side_view.gif" },
-    { title: "side to side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_up_and_down_side_to_side.gif" },
-    { title: "walk away", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away.gif" },
-    { title: "walk across", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_across.gif" },
-    { title: "away", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_again.gif" },
-    { title: "away fast", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_fast.gif" },
-    { title: "towards", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_close.gif" },
-    { title: "towards pause", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_pause.gif" },
-    { title: "towards stop", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_stop.gif" },
+    { id: 1, title: "Stair put on", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stairs_put_on.gif" },
+    { id: 2, title: "toe stand", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_stand_toe.gif" },
+    { id: 3, title: "lace up", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_lace_up.gif" },
+    { id: 4, title: "lace bow", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_lace_up_bow.gif" },
+    { id: 5, title: "look down", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_looking_down.gif" },
+    { id: 6, title: "shake spin", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_shake_and_side_to_side.gif" },
+    { id: 7, title: "side to side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_side_to_side.gif" },
+    { id: 8, title: "side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_side_view.gif" },
+    { id: 9, title: "side to side", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_up_and_down_side_to_side.gif" },
+    { id: 10, title: "walk away", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away.gif" },
+    { id: 11, title: "walk across", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_across.gif" },
+    { id: 12, title: "away", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_again.gif" },
+    { id: 13, title: "away fast", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_away_fast.gif" },
+    { id: 14, title: "towards", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_close.gif" },
+    { id: 15, title: "towards pause", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_pause.gif" },
+    { id: 16, title: "towards stop", url: "https://s3.amazonaws.com/swif.club/demo_assets/pink_sneaker_walk_towards_stop.gif" },
   ].each do |story| %>
     <div class="col-6 mb-3">
       <div class="card">
@@ -45,6 +45,40 @@
               <div
                 style="height:50px;"
                 data-sparkline="68, 52, 7, -23, 33, -45, 23, 65, 78, 102, 110; column">
+              </div>
+              <div class="d-grid mt-3">
+                <button class="btn btn-primary btn-block" onclick="demoConversation(<%= story[:id] %>)">
+                  Recruit Ambassador
+                </button>
+                <div class="chatRoom svelte-1tgbuo3">
+                  <div
+                    title="selenawiththetattoo@gmail.com"
+                    class="message visually-hidden"
+                    id="message-<%= story[:id] %>-1">
+                    <span class="msg-body">
+                      Love your work would you like to be a brand ambassador for us?
+                    </span>
+                    <img src="https://www.gravatar.com/avatar/a9819055f15ebff8702b823bea9fd598?d=mp&amp;s=32&amp;r=g" alt="avatar" class="svelte-ofa8yc">
+                  </div>
+                  <div
+                    title="saramic@gmail.com"
+                    class="message visually-hidden"
+                    id="message-<%= story[:id] %>-2">
+                    <span class="msg-body svelte-ofa8yc">
+                      OMG that sounds amazing!
+                    </span>
+                    <img src="https://www.gravatar.com/avatar/7d1849ae4886b43d9a4f6b08e53d1e20?d=mp&amp;s=32&amp;r=g" alt="avatar" class="svelte-ofa8yc">
+                  </div>
+                  <div
+                    title="selenawiththetattoo@gmail.com"
+                    class="message visually-hidden"
+                    id="message-<%= story[:id] %>-3">
+                    <span class="msg-body">
+                      Use coupon XYZ-ABC on the pink sneakers!!!
+                    </span>
+                    <img src="https://www.gravatar.com/avatar/a9819055f15ebff8702b823bea9fd598?d=mp&amp;s=32&amp;r=g" alt="avatar" class="svelte-ofa8yc">
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -202,4 +236,10 @@ function doChunk() {
 }
 
 doChunk();
+
+const demoConversation = (messageId) => {
+  setTimeout(() => document.querySelector(`#message-${messageId}-1`).classList.remove("visually-hidden"), 0200)
+  setTimeout(() => document.querySelector(`#message-${messageId}-2`).classList.remove("visually-hidden"), 1200)
+  setTimeout(() => document.querySelector(`#message-${messageId}-3`).classList.remove("visually-hidden"), 2200)
+}
 </script>
