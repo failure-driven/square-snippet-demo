@@ -12,6 +12,9 @@ prettier:
 build:
 	bin/makefile/full-build
 
+dev-env:
+	git config core.hooksPath .githooks
+
 d.PHONY: production_deploy
 production_deploy:
 	RAILS_MASTER_KEY=`cat config/master.key` \

@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+changes = `git --no-pager diff --name-only --diff-filter=MRA origin/main`
+changes
+  .split("\n")
+  .filter { |f| f != "db/schema.rb" }
+  .filter { |f| f.end_with?(".rb", ".rake", ".jbuilder") }
+  .then{ _1.empty? ? (puts "no changes" && exit(0)) : _1 }
+  .then{ _1.join(" ") }
+  .tap{ puts "fixing: #{_1}" }
+  .then{ system("bundle exec rubocop #{_1}") }
+  .then{ _1 || abort("\nrubocop failed ❌\n\n") }
+
